@@ -5,12 +5,12 @@ from datetime import date, datetime
 
 
 class Booking(models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False)
+    name = models.CharField(max_length=50, null=False, blank=False, default= "test_class")
     date = models.DateField(default=date.today())
     time = models.TimeField(default=datetime.now())
-    spaces = models.IntegerField()
-    location = models.CharField(max_length=50, null=False, blank=False)
-    user = models.CharField(max_length=50, null=False, blank=False)
+    spaces = models.IntegerField(default=25)
+    location = models.CharField(max_length=50, default='Studio A')
+    user = models.CharField(max_length=50, null=False, blank=False,default="test_user")
     running = models.BooleanField(default=True)
 
     def __str__(self):
