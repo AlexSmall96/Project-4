@@ -30,3 +30,6 @@ def make_booking(request):
                     )
         return redirect('get_bookings')
     return render(request, 'classbooking_app/make_booking.html')
+
+def edit_booking(request, booking_id):
+    return render(request, 'classbooking_app/edit_booking.html')

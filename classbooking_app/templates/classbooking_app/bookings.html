@@ -14,6 +14,11 @@
         <td>{{ booking.location }}</td>
         <td>{{ booking.user }}</td>
         <td>{{ booking.running }}</td>
+        <td>
+            <a href="/edit/{{ booking.id}}">
+                <button>Edit</button>
+            </a>
+        </td>
     </tr>
     {% endfor %}
 </table>
