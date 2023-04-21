@@ -8,5 +8,11 @@
 </head>
 <body>
     <h1>This is the page to make a booking</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="booking_id">Enter name of Class:</label>
+        <input type="text" id="booking_id" name="booking_name">
+        <button type="submit">Book!</button>
+    </form>
 </body>
 </html>
