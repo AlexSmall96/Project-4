@@ -3,4 +3,3 @@ from .models import Booking
 
 
 admin.site.register(Booking)
-
