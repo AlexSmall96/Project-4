@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Booking
 
 
@@ -33,3 +33,9 @@ def make_booking(request):
 
 def edit_booking(request, booking_id):
     return render(request, 'classbooking_app/edit_booking.html')
+
+def toggle_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+    booking.running = not booking.running
+    booking.save()
+    return redirect('get_bookings')
