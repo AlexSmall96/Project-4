@@ -10,4 +10,18 @@
     <h1>This is the bookings page</h1>
 </body>
 <a href="/make_booking.html">Make a Booking</a>
+<h1>List of bookings:</h1>
+<table>
+    {% for booking in bookings %}
+    <tr>
+        <td>{{ booking.name }}</td>
+        <td>{{ booking.date }}</td>
+        <td>{{ booking.time }}</td>
+        <td>{{ booking.spaces }}</td>
+        <td>{{ booking.location }}</td>
+        <td>{{ booking.user }}</td>
+        <td>{{ booking.running }}</td>
+    </tr>
+    {% endfor %}
+</table>
 </html>
