@@ -1,11 +1,17 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block content %}
-    <h1>This is the page to make a booking</h1>
+    <h1>Showing Classes on day selected</h1>
     <form method="POST">
         {% csrf_token %}
-        <label for="booking_id">Enter name of Class:</label>
-        <input type="text" id="booking_id" name="booking_name">
-        <button type="submit">Book!</button>
+        <label for="select-date">Select Date:</label>
+        <input type="date" id="select-date" name="date_name">
+        <label for="boxfit_id">Boxfit</label>
+        <input type="checkbox" id="boxfit_id" name="boxfit">
+        <label for="kettlebells_id">Kettlebells</label>
+        <input type="checkbox" id="kettlebells_id" name="kettlebells">
+        <label for="yoga_id">Yoga</label>
+        <input type="checkbox" id="yoga_id" name="yoga">
+        <button type="submit">Complete</button>
     </form>
 {% endblock %}
