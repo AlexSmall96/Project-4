@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>classbooking</title>
-</head>
-<body>
+{% extends 'classbooking_app/base.html' %}
+
+{% block content %}
     <h1>This is the page to make a booking</h1>
     <form method="POST">
         {% csrf_token %}
@@ -14,5 +8,4 @@
         <input type="text" id="booking_id" name="booking_name">
         <button type="submit">Book!</button>
     </form>
-</body>
-</html>
+{% endblock %}
