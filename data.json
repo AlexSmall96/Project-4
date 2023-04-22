@@ -1,0 +1,28 @@
+[
+    {
+      "model":"classbooking_app.session",
+      "pk":1,
+      "fields":{
+        "name": "Boxfit",
+        "date": "2023-04-23",
+        "time": "10:00",
+        "spaces": 25,
+        "location": "Studio A",
+        "running": true
+      }
+
+    },
+    {
+      "model":"classbooking_app.session",
+      "pk":2,
+      "fields":{
+        "name": "Kettlebells",
+        "date": "2023-04-23",
+        "time": "11:00",
+        "spaces": 20,
+        "location": "Studio B",
+        "running": true
+      }
+    }
+]
+    
