@@ -11,28 +11,33 @@ def get_bookings(request):
     return render(request, 'classbooking_app/bookings.html', context)
 
 
-activities = {'boxfit':'10:00', 'kettlebells':'11:00', 'yoga':'12:00'}
+activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
+
 
 # Load make_bookings.html
 # Create instance of booking from form data
 def make_booking(request):
     if request.method == "POST":
+        date = request.POST.get('date_name')
+        user = request.POST.get('user_name')
         for act in activities:
             if request.POST.get(act) == 'on':
                 Booking.objects.create(
                     name=act,
-                    date='2023-05-01',
+                    date=date,
                     time=activities[act],
                     spaces=25,
                     location='Studio A',
-                    user='test_user_3',
+                    user=user,
                     running=True
                     )
         return redirect('get_bookings')
     return render(request, 'classbooking_app/make_booking.html')
 
+
 def edit_booking(request, booking_id):
     return render(request, 'classbooking_app/edit_booking.html')
+
 
 def toggle_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
@@ -40,7 +45,8 @@ def toggle_booking(request, booking_id):
     booking.save()
     return redirect('get_bookings')
 
+
 def delete_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
     booking.delete()
-    return redirect('get_bookings')   
+    return redirect('get_bookings')

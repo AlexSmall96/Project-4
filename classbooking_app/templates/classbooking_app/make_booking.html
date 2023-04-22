@@ -6,14 +6,9 @@
         {% csrf_token %}
         <label for="select-date">Select Date:</label>
         <input type="date" id="select-date" name="date_name">
-        <label for="boxfit_id">Boxfit</label>
-        <input type="checkbox" id="boxfit_id" name="boxfit">
-        <label for="kettlebells_id">Kettlebells</label>
-        <input type="checkbox" id="kettlebells_id" name="kettlebells">
-        <label for="yoga_id">Yoga</label>
-        <input type="checkbox" id="yoga_id" name="yoga">
-        <button type="submit">Complete</button>
-    </form>
+        <label for="username">Enter Username:</label>
+        <input type="text" id="username" name="user_name">
+    
 
     <div class="container">
         <div class="excercise row vertical-margin">
@@ -62,4 +57,6 @@
           </div>
         </div>
       </div>
+      <button type="submit">Complete</button>
+    </form>
 {% endblock %}
