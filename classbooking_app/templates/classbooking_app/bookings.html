@@ -1,12 +1,24 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block content %}
-<h1>This is the bookings page</h1>
 </body>
-<h1>List of bookings:</h1>
-<table>
     {% for booking in bookings %}
-    <tr>
+    <p>Thank you, {{ booking.user }}, you are booked in for {{ booking.name }} at {{ booking.time }}
+         on {{ booking.date }}. The class will be held in {{ booking.location }}. 
+    </p>
+    {% endfor %}
+
+    
+    <table>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Spaces</th>
+        <th>Location</th>
+        <th>User</th>
+        <th>Running</th>
+        {% for booking in bookings %}
+        <tr>
         <td>{{ booking.name }}</td>
         <td>{{ booking.date }}</td>
         <td>{{ booking.time }}</td>
@@ -14,18 +26,13 @@
         <td>{{ booking.location }}</td>
         <td>{{ booking.user }}</td>
         <td>{{ booking.running }}</td>
-        <td>
-            <a href="/edit/{{ booking.id}}">
-                <button>Edit</button>
-            </a>
-            <a href="/toggle/{{ booking.id}}">
-                <button>Toggle</button>
-            </a>
-            <a href="/delete/{{ booking.id}}">
-                <button>Delete</button>
-            </a>
-        </td>
-    </tr>
+        <td><a href="/edit/{{ booking.id}}"><button>Edit</button></a></td>
+        <td><a href="/toggle/{{ booking.id}}"><button>Toggle</button></a></td>
+        <td><a href="/delete/{{ booking.id}}"><button>Delete</button></a></td>
+        </tr>
+    </table>
+
+
+
     {% endfor %}
-</table>
 {% endblock %}
