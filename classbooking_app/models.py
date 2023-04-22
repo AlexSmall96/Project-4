@@ -5,12 +5,12 @@ from datetime import date, datetime
 
 
 class Booking(models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False, default= "test_class")
+    name = models.CharField(max_length=50, null=False, blank=False, default="test_class")
     date = models.DateField(default=date.today())
     time = models.TimeField(default=datetime.now())
     spaces = models.IntegerField(default=25)
     location = models.CharField(max_length=50, default='Studio A')
-    user = models.CharField(max_length=50, null=False, blank=False,default="test_user")
+    user = models.CharField(max_length=50, null=False, blank=False, default="test_user")
     running = models.BooleanField(default=True)
 
     def __str__(self):
@@ -24,6 +24,7 @@ class Session(models.Model):
     spaces = models.IntegerField(default=25)
     location = models.CharField(max_length=50, default='Studio A')
     running = models.BooleanField(default=True)
+    attendees = models.CharField(max_length=500, null=False, blank=False, default="")
 
     def __str__(self):
         return self.name
