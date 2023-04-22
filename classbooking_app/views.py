@@ -14,6 +14,9 @@ def get_bookings(request):
 activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
 
 
+
+
+
 # Load make_bookings.html
 # Create instance of booking from form data
 def make_booking(request):
