@@ -1,7 +1,13 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block content %}
-    <h1>Showing Classes on {{ date }}</h1>
+{% for booking in bookings %}
+    {{ booking.id }}
+    {{ booking.fk }}
+    {{ booking.user }}
+    {{ booking.confirmed }}
+{% endfor %}
+<h1>Showing Classes on {{ date }}</h1>
     <form method="POST" id="date-form">
         {% csrf_token %}
         <label for="select-date">Select Date:</label>
