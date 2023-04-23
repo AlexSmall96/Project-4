@@ -3,6 +3,7 @@
 {% block content %}
 
 <h1>Checkout</h1>
+<h1>{{ cart }}</h1>
 <form method="POST">
 {% csrf_token %}
 <label for="bookings_id">Selected Classes:</label>

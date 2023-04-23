@@ -9,7 +9,7 @@
     <table>
         <th>Name</th>
         <th>Date</th>
-        <th>User</th>
+        <th>Attendees</th>
         <th>Edit</th>
         <th>Toggle</th>
         <th>Delete</th>
@@ -17,7 +17,7 @@
         <tr>
         <td>{{ booking.name }}</td>
         <td>{{ booking.date }}</td>
-        <td>{{ booking.user }}</td>
+        <td>{{ booking.attendees }}</td>
         <td><a href="/edit/{{ booking.id}}"><button>Edit</button></a></td>
         <td><a href="/toggle/{{ booking.id}}"><button>Toggle</button></a></td>
         <td><a href="/delete/{{ booking.id}}"><button>Delete</button></a></td>

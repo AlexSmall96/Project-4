@@ -37,12 +37,15 @@ def show_sessions(request):
 def checkout(request):
     if request.method == "POST":
         user = request.POST.get('bookings-string')
+        cart = request.POST.get('cart')
         session = get_object_or_404(Session, id=145040)
         session.attendees = user
         session.save()
-        return redirect('get_bookings')
+        context={
+            'cart':cart
+        }
+        return render(request, 'classbooking_app/checkout.html',context)
     return render(request, 'classbooking_app/checkout.html')
-
 
 def edit_booking(request, booking_id):
     return render(request, 'classbooking_app/edit_booking.html')

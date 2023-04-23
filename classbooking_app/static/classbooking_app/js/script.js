@@ -16,15 +16,18 @@ document.addEventListener("DOMContentLoaded", function(){
     })
     // Add event listener to each checkbox
     let addBoxes = document.getElementsByClassName("add-to-cart")
-    const cart = document.getElementById("cart")
+    let cart = document.getElementById("cart")
     for (let box of addBoxes){
         box.addEventListener("change", function(){
             oldCart = cart.value
             if (this.checked){
                 // Display session id in cart
-                cart.value = oldCart.concat(box.id).concat(":").concat(box.name).concat(", ")
+                cart.value = oldCart.concat(box.id).concat(" ")
             }
         })
     }
+    }
+    if(window.location.href === baseURL.concat('/checkout.html')){
+        console.log("checkout loaded")
     }
 })
