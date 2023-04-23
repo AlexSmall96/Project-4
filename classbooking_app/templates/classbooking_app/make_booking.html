@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Showing Classes on day selected</h1>
-    <form method="POST">
+    <form method="POST" id="date-form">
         {% csrf_token %}
         <label for="select-date">Select Date:</label>
         <input type="date" id="select-date" name="date_name">

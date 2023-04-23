@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     // Get date chosen from form
     let currentDate = document.getElementById("select-date")
+    let form = document.getElementById("date-form")
     // Add event listener on date form to convert date into serial number
     currentDate.addEventListener("change", function(){
         let date = new Date(this.value);
@@ -8,12 +9,9 @@ document.addEventListener("DOMContentLoaded", function(){
         // Convert serial number into string and add class number (1 for boxfit)
         let serialStr = serialDate.toString();
         let session_id = Number("1".concat(serialStr));
-        console.log(session_id)
-        
-        
-    
-     
-
-
+    })
+    currentDate.on("dp.change", function(){
+        console.log('date changed')
+        form.submit();
     })
 })
