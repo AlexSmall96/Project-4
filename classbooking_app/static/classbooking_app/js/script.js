@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function(){
+    baseURL = 'https://8000-alexsmall96-project4-z4wrtww3ucz.ws-eu95.gitpod.io'
+    if(window.location.href === baseURL.concat('/make_booking.html')){
     // Get date chosen from form
     let currentDate = document.getElementById("select-date")
-    let form = document.getElementById("date-form")
     let formCompleted = document.getElementById("form-complete")
+    let form = document.getElementById("date-form")
     // Add event listener on date form to convert date into serial number
     currentDate.addEventListener("change", function(){
         let date = new Date(this.value);
@@ -10,12 +12,11 @@ document.addEventListener("DOMContentLoaded", function(){
         // Convert serial number into string and add class number (1 for boxfit)
         let serialStr = serialDate.toString();
         let session_id = Number("1".concat(serialStr));
-        formCompleted.value = "off"
         form.submit()
     })
     // Add event listener to each checkbox
     let addBoxes = document.getElementsByClassName("add-to-cart")
-    let cart = document.getElementById("cart")
+    const cart = document.getElementById("cart")
     for (let box of addBoxes){
         box.addEventListener("change", function(){
             oldCart = cart.value
@@ -25,13 +26,5 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         })
     }
-
-    let checkoutButton = document.getElementById("checkout")
-    checkoutButton.addEventListener("click", function(){
-        formCompleted.value = "on"
-        form.submit()
-    })
-
-    
-
+    }
 })

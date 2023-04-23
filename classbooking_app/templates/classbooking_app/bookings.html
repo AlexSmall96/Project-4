@@ -9,27 +9,23 @@
     <table>
         <th>Name</th>
         <th>Date</th>
-        <th>Time</th>
-        <th>Spaces</th>
-        <th>Location</th>
         <th>User</th>
-        <th>Running</th>
+        <th>Edit</th>
+        <th>Toggle</th>
+        <th>Delete</th>
         {% for booking in bookings %}
         <tr>
         <td>{{ booking.name }}</td>
         <td>{{ booking.date }}</td>
-        <td>{{ booking.time }}</td>
-        <td>{{ booking.spaces }}</td>
-        <td>{{ booking.location }}</td>
         <td>{{ booking.user }}</td>
-        <td>{{ booking.running }}</td>
         <td><a href="/edit/{{ booking.id}}"><button>Edit</button></a></td>
         <td><a href="/toggle/{{ booking.id}}"><button>Toggle</button></a></td>
         <td><a href="/delete/{{ booking.id}}"><button>Delete</button></a></td>
         </tr>
+        {% endfor %}
     </table>
 
 
 
-    {% endfor %}
+  
 {% endblock %}

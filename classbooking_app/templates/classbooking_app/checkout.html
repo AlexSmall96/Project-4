@@ -1,0 +1,12 @@
+{% extends 'classbooking_app/base.html' %}
+
+{% block content %}
+
+<h1>Checkout</h1>
+<form method="POST">
+{% csrf_token %}
+<label for="bookings_id">Selected Classes:</label>
+<input type="text" name="bookings-string" id="bookings_id">
+<button type="submit">Complete</button>
+</form>
+{% endblock %}

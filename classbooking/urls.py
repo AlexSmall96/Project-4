@@ -23,5 +23,6 @@ urlpatterns = [
     path('make_booking.html', views.show_sessions, name='show_sessions'),
     path('edit/<booking_id>', views.edit_booking, name='edit'),
     path('toggle/<booking_id>', views.toggle_booking, name='toggle'),
-    path('delete/<booking_id>', views.delete_booking, name='delete')
+    path('delete/<booking_id>', views.delete_booking, name='delete'),
+    path('checkout.html', views.checkout, name='checkout')
 ]

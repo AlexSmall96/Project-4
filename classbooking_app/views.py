@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Booking, Session
-
+from datetime import date as dt
 
 # Load basic html template
 def get_bookings(request):
-    bookings = Booking.objects.all()
+    bookings = Session.objects.all()
     context = {
         'bookings': bookings
     }
@@ -17,6 +17,7 @@ activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
 # Load make_bookings.html
 # Create instance of booking from form data
 def show_sessions(request):
+    date = "2023-04-23"
     if request.method == "POST":
         date = request.POST.get('date_name')
         cart = request.POST.get('cart')
@@ -29,13 +30,18 @@ def show_sessions(request):
             'cart':cart,
             'user':user,
             }
-        if form_complete == "on":
-            session = get_object_or_404(Session, id=145040)
-            session.attendees = user
-            session.save()
         return render(request, 'classbooking_app/make_booking.html', context)
-    return render(request, 'classbooking_app/make_booking.html')
-    
+    return render(request, 'classbooking_app/make_booking.html',{'date':date})
+
+
+def checkout(request):
+    if request.method == "POST":
+        user = request.POST.get('bookings-string')
+        session = get_object_or_404(Session, id=145040)
+        session.attendees = user
+        session.save()
+        return redirect('get_bookings')
+    return render(request, 'classbooking_app/checkout.html')
 
 
 def edit_booking(request, booking_id):
