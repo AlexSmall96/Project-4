@@ -8,8 +8,12 @@
         <input type="date" id="select-date" name="date_name">
       <label for="username">Enter Username:</label>
       <input type="text" id="username" name="user_name">
+      <button type="submit">Complete</button>
+    </form>
+    {% for session in todays_sessions %}
+    <p>{{ session.name }}, {{ session.date }}, {{ session.time }}, {{ session.id }}</p>
 
-    
+    {% endfor %}
 
     <div class="container">
         <div class="excercise row vertical-margin">
@@ -58,6 +62,4 @@
           </div>
         </div>
       </div>
-      <button type="submit">Complete</button>
-    </form>
 {% endblock %}

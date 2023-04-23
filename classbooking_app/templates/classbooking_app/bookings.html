@@ -2,10 +2,9 @@
 
 {% block content %}
 </body>
-    {% for booking in bookings %}
-    <p>Thank you, {{ booking.user }}, you are booked in for {{ booking.name }} at {{ booking.time }}
-         on {{ booking.date }}. The class will be held in {{ booking.location }}. 
-    </p>
+    {% for session in todays_sessions %}
+    <p>{{ session.name }}, {{ session.date }}, {{ session.time }}, {{ session.id }}</p>
+
     {% endfor %}
 
     {{ date }}

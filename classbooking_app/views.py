@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Booking
+from .models import Booking, Session
 
 
 # Load basic html template
@@ -14,27 +14,16 @@ def get_bookings(request):
 activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
 
 
-
-
-
 # Load make_bookings.html
 # Create instance of booking from form data
 def make_booking(request):
     if request.method == "POST":
         date = request.POST.get('date_name')
-        user = request.POST.get('user_name')
-        for act in activities:
-            if request.POST.get(act) == 'on':
-                Booking.objects.create(
-                    name=act,
-                    date=date,
-                    time=activities[act],
-                    spaces=25,
-                    location='Studio A',
-                    user=user,
-                    running=True
-                    )
-        return redirect('get_bookings')
+        todays_sessions = Session.objects.filter(date=date)
+        context = {
+            'todays_sessions': todays_sessions
+        }
+        return render(request, 'classbooking_app/make_booking.html', context)
     return render(request, 'classbooking_app/make_booking.html')
 
 
