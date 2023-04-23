@@ -1,7 +1,6 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block content %}
-{{ cart }}
     <h1>Showing Classes on {{ date }}</h1>
     <form method="POST" id="date-form">
         {% csrf_token %}

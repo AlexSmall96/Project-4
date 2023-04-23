@@ -21,13 +21,14 @@ def show_sessions(request):
     if request.method == "POST":
         date = request.POST.get('date_name')
         cart = request.POST.get('cart')
+        ids = cart.split()
         user = request.POST.get('user_name')
         form_complete = request.POST.get('form-complete')
         todays_sessions = Session.objects.filter(date=date)
         context = {
             'todays_sessions': todays_sessions,
             'date' : date,
-            'cart':cart,
+            'ids':ids,
             'user':user,
             }
         return render(request, 'classbooking_app/make_booking.html', context)
