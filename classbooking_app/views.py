@@ -42,7 +42,8 @@ def checkout(request):
         session.attendees = user
         session.save()
         context={
-            'cart':cart
+            'cart':cart,
+            'user':user
         }
         return render(request, 'classbooking_app/checkout.html',context)
     return render(request, 'classbooking_app/checkout.html')

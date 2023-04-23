@@ -26,8 +26,10 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         })
     }
-    }
-    if(window.location.href === baseURL.concat('/checkout.html')){
-        console.log("checkout loaded")
+    let checkoutButton = document.getElementById("checkout-button")
+    checkoutButton.addEventListener("click", function(){
+        form.submit()
+        console.log("submitted")
+    })
     }
 })
