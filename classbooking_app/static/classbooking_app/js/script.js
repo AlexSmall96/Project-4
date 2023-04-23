@@ -11,5 +11,16 @@ document.addEventListener("DOMContentLoaded", function(){
         let session_id = Number("1".concat(serialStr));
         form.submit()
     })
-   
+    // Add event listener to each checkbox
+    let addBoxes = document.getElementsByClassName("add-to-cart")
+    let cart = document.getElementById("cart")
+    for (let box of addBoxes){
+        box.addEventListener("change", function(){
+            oldCart = cart.value
+            if (this.checked){
+                // Display session id in cart
+                cart.value = oldCart.concat(box.id).concat(", ")
+            }
+        })
+    }
 })

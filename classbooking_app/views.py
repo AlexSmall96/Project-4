@@ -16,7 +16,7 @@ activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
 
 # Load make_bookings.html
 # Create instance of booking from form data
-def make_booking(request):
+def show_sessions(request):
     if request.method == "POST":
         date = request.POST.get('date_name')
         todays_sessions = Session.objects.filter(date=date)
@@ -26,6 +26,7 @@ def make_booking(request):
         }
         return render(request, 'classbooking_app/make_booking.html', context)
     return render(request, 'classbooking_app/make_booking.html')
+    
 
 
 def edit_booking(request, booking_id):

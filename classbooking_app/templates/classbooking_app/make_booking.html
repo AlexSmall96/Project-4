@@ -6,11 +6,17 @@
     <form method="POST" id="date-form">
         {% csrf_token %}
         <label for="select-date">Select Date:</label>
-        <input type="date" id="select-date" name="date_name" value={{ date }}>
+        <input type="date" id="select-date" name="date_name" value="{{ date }}">
       <label for="username">Enter Username:</label>
       <input type="text" id="username" name="user_name">
-      <button type="submit">Complete</button>
     </form>
+    <h1>{{ boxfit_on }}</h1>
+    <form method="POST">
+      <label for="cart"><h1>Cart:</h1></label>
+      <input type="text" id="cart" name="cart">
+
+ 
+      {% csrf_token %}
     <div class="container">
       {% for session in todays_sessions %}
         <div class="excercise row vertical-margin">
@@ -24,10 +30,12 @@
           <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-location-dot"></i> {{ session.spaces }} spaces</div>
           <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-users"></i> {{ session.location }}</div>
           <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
-            <label for="boxfit_id">Add to Bookings</label>
-            <input type="checkbox" id="boxfit_id" name="boxfit">
+            <label for="boxfit_id">Add to Cart</label>
+            <input class="add-to-cart" type="checkbox" id="{{ session.id }}" name="{{ session.name }}">
           </div>
         </div>
         {% endfor %}
       </div>
+      <button type="submit">Complete</button>
+    </form>
 {% endblock %}

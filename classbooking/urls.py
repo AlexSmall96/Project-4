@@ -20,7 +20,7 @@ from classbooking_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.get_bookings, name='get_bookings'),
-    path('make_booking.html', views.make_booking, name='make_booking'),
+    path('make_booking.html', views.show_sessions, name='show_sessions'),
     path('edit/<booking_id>', views.edit_booking, name='edit'),
     path('toggle/<booking_id>', views.toggle_booking, name='toggle'),
     path('delete/<booking_id>', views.delete_booking, name='delete')
