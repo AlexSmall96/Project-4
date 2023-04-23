@@ -9,9 +9,7 @@ document.addEventListener("DOMContentLoaded", function(){
         // Convert serial number into string and add class number (1 for boxfit)
         let serialStr = serialDate.toString();
         let session_id = Number("1".concat(serialStr));
+        form.submit()
     })
-    currentDate.on("dp.change", function(){
-        console.log('date changed')
-        form.submit();
-    })
+   
 })

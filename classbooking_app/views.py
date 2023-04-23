@@ -21,7 +21,8 @@ def make_booking(request):
         date = request.POST.get('date_name')
         todays_sessions = Session.objects.filter(date=date)
         context = {
-            'todays_sessions': todays_sessions
+            'todays_sessions': todays_sessions,
+            'date' : date
         }
         return render(request, 'classbooking_app/make_booking.html', context)
     return render(request, 'classbooking_app/make_booking.html')
