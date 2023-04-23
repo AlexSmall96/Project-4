@@ -19,10 +19,12 @@ activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
 def show_sessions(request):
     if request.method == "POST":
         date = request.POST.get('date_name')
+        cart = request.POST.get('cart')
         todays_sessions = Session.objects.filter(date=date)
         context = {
             'todays_sessions': todays_sessions,
-            'date' : date
+            'date' : date,
+            'cart':cart
         }
         return render(request, 'classbooking_app/make_booking.html', context)
     return render(request, 'classbooking_app/make_booking.html')

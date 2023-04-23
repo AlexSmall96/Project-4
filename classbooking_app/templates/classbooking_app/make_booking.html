@@ -9,11 +9,11 @@
         <input type="date" id="select-date" name="date_name" value="{{ date }}">
       <label for="username">Enter Username:</label>
       <input type="text" id="username" name="user_name">
-    </form>
+
     <h1>{{ boxfit_on }}</h1>
-    <form method="POST">
+
       <label for="cart"><h1>Cart:</h1></label>
-      <input type="text" id="cart" name="cart">
+      <input type="text" id="cart" name="cart" value="{{ cart }}">
 
  
       {% csrf_token %}

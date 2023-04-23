@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(){
             oldCart = cart.value
             if (this.checked){
                 // Display session id in cart
-                cart.value = oldCart.concat(box.id).concat(", ")
+                cart.value = oldCart.concat(box.id).concat(":").concat(box.name).concat(", ")
             }
         })
     }
