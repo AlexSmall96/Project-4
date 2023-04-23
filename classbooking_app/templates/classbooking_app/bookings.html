@@ -2,12 +2,8 @@
 
 {% block content %}
 </body>
-    {% for session in todays_sessions %}
-    <p>{{ session.name }}, {{ session.date }}, {{ session.time }}, {{ session.id }}</p>
 
-    {% endfor %}
-
-    {{ date }}
+    {{ attendees }}
 
     
     <table>

@@ -8,10 +8,9 @@
         <label for="select-date">Select Date:</label>
         <input type="date" id="select-date" name="date_name" value="{{ date }}">
       <label for="username">Enter Username:</label>
-      <input type="text" id="username" name="user_name">
+      <input type="text" id="username" name="user_name" value="{{ user }}">
 
-    <h1>{{ boxfit_on }}</h1>
-
+    <h1>{{ completed }}</h1>
       <label for="cart"><h1>Cart:</h1></label>
       <input type="text" id="cart" name="cart" value="{{ cart }}">
 
@@ -36,6 +35,7 @@
         </div>
         {% endfor %}
       </div>
-      <button type="submit">Complete</button>
+      <button id="checkout">Checkout</button>
+      <input type="checkbox" id="form-complete" name="form-complete" value="on">
     </form>
 {% endblock %}
