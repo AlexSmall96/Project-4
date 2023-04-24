@@ -72,6 +72,7 @@ def checkout(request):
             booking.save()
             session_id = booking.session.id
             session_booked = get_object_or_404(Session, id=session_id)
+            session_booked.spaces -= 1
             session_booked.attendees += ", " + user
             session_booked.save()
         return render(request, 'classbooking_app/checkout.html')
