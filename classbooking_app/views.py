@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from .models import Booking, Session
 from datetime import date as dt
 
@@ -12,7 +13,16 @@ def load_home_page(request):
     return render(request, 'classbooking_app/home.html', context)
 
 
-def login(request):
+def login_page(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('show_sessions')
+        else:
+            return redirect('load_home_page')
     return render(request, 'classbooking_app/login.html')
 
 
@@ -53,24 +63,14 @@ def show_sessions(request):
     return render(request, 'classbooking_app/make_booking.html',{'date':date})
 
 
-
-
-
-
-
-
 def checkout(request):
+    user = request.user.username
     if request.method == "POST":
-        user = request.POST.get('bookings-string')
-        cart = request.POST.get('cart')
-        session = get_object_or_404(Session, id=145040)
-        session.attendees = user
-        session.save()
-        context={
-            'cart':cart,
-            'user':user
-        }
-        return render(request, 'classbooking_app/checkout.html',context)
+        users_bookings = Booking.objects.filter(user=user)
+        for booking in users_bookings:
+            booking.confirmed = True
+            booking.save()
+        return render(request, 'classbooking_app/checkout.html')
     return render(request, 'classbooking_app/checkout.html')
 
 def edit_booking(request, booking_id):
@@ -81,12 +81,12 @@ def toggle_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
     booking.running = not booking.running
     booking.save()
-    return redirect('get_bookings')
+    return redirect('home')
 
 
 def delete_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
     booking.delete()
-    return redirect('get_bookings')
+    return redirect('home')
 
 
