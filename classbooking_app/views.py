@@ -14,12 +14,15 @@ def get_bookings(request):
 activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
 
 def create_booking(user, id):
-    Booking.objects.create(
-        session_id=get_object_or_404(Session, id=id),
+    session=get_object_or_404(Session, id=id)
+    booking=Booking(
+        session=session,
         user=user,
         confirmed=False
     )
-    
+    booking.save()
+    booking.id = session.id
+    return booking
 
 
 # Load make_bookings.html
@@ -32,15 +35,15 @@ def show_sessions(request):
         user = request.POST.get('user_name')
         todays_sessions = Session.objects.filter(date=date)
         cart_ids = cart.split()
+        booking=create_booking('alex', 145040)
         for id in cart_ids:
-            create_booking(user, id)
-        bookings = Booking.objects.all()
+            booking = create_booking(user, id)
         context = {
             'todays_sessions': todays_sessions,
             'date' : date,
             'user':user,
             'cart':cart,
-            'bookings':bookings,
+            'booking':booking,
             'cart_ids':cart_ids
             }
         return render(request, 'classbooking_app/make_booking.html', context)

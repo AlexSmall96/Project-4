@@ -16,7 +16,7 @@ class Session(models.Model):
 
 
 class Booking(models.Model):
-    session_id = models.ForeignKey(Session, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
     user = models.CharField(max_length=50, null=False, blank=False, default="test_user")
     confirmed = models.BooleanField(default=False)
 
