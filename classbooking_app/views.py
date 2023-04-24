@@ -1,14 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import User
 from .models import Booking, Session
 from datetime import date as dt
 
 # Load basic html template
-def get_bookings(request):
+def load_home_page(request):
     bookings = Session.objects.all()
     context = {
         'bookings': bookings
     }
-    return render(request, 'classbooking_app/bookings.html', context)
+    return render(request, 'classbooking_app/home.html', context)
+
+
+def login(request):
+    return render(request, 'classbooking_app/login.html')
+
 
 
 activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
@@ -21,7 +27,6 @@ def create_booking(user, id):
         confirmed=False
     )
     booking.save()
-    booking.id = session.id
     return booking
 
 
@@ -35,15 +40,13 @@ def show_sessions(request):
         user = request.POST.get('user_name')
         todays_sessions = Session.objects.filter(date=date)
         cart_ids = cart.split()
-        booking=create_booking('alex', 145040)
         for id in cart_ids:
-            booking = create_booking(user, id)
+            create_booking(user, id)
         context = {
             'todays_sessions': todays_sessions,
             'date' : date,
             'user':user,
             'cart':cart,
-            'booking':booking,
             'cart_ids':cart_ids
             }
         return render(request, 'classbooking_app/make_booking.html', context)
