@@ -13,6 +13,14 @@ def get_bookings(request):
 
 activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
 
+def create_booking(user, id):
+    Booking.objects.create(
+        session_id=get_object_or_404(Session, id=id),
+        user=user,
+        confirmed=False
+    )
+    
+
 
 # Load make_bookings.html
 # Create instance of booking from form data
@@ -22,25 +30,27 @@ def show_sessions(request):
         date = request.POST.get('date_name')
         cart = request.POST.get('cart')
         user = request.POST.get('user_name')
-        ids = cart.split()
-        for session_id in ids:
-            session_id = int(session_id)
-            session = get_object_or_404(Session, id=session_id)
-            booking = Booking(id=None, fk=session,user=user,confirmed=False)
-            booking.save()
-            booking.id=booking.fk.id
-            booking.save()
         todays_sessions = Session.objects.filter(date=date)
+        cart_ids = cart.split()
+        for id in cart_ids:
+            create_booking(user, id)
         bookings = Booking.objects.all()
         context = {
             'todays_sessions': todays_sessions,
             'date' : date,
-            'ids':ids,
             'user':user,
-            'bookings':bookings
+            'cart':cart,
+            'bookings':bookings,
+            'cart_ids':cart_ids
             }
         return render(request, 'classbooking_app/make_booking.html', context)
     return render(request, 'classbooking_app/make_booking.html',{'date':date})
+
+
+
+
+
+
 
 
 def checkout(request):

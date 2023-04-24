@@ -1,12 +1,9 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block content %}
-{% for booking in bookings %}
-    {{ booking.id }}
-    {{ booking.fk }}
-    {{ booking.user }}
-    {{ booking.confirmed }}
-{% endfor %}
+
+{{ cart_ids }}
+
 <h1>Showing Classes on {{ date }}</h1>
     <form method="POST" id="date-form">
         {% csrf_token %}
@@ -34,13 +31,12 @@
           <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-location-dot"></i> {{ session.spaces }} spaces</div>
           <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-users"></i> {{ session.location }}</div>
           <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
-            <label for="boxfit_id">Add to Cart</label>
-            <input class="add-to-cart" type="checkbox" id="{{ session.id }}" name="{{ session.name }}">
+            <label for="{{ session.id }}">Add to Cart</label>
+            <input class="add-to-cart" type="checkbox" id="{{ session.id }}" name="{{ session.id }}">
           </div>
         </div>
         {% endfor %}
       </div>
     </form>
     <a href="/checkout.html"><button id="checkout-button">Checkout</button></a>
-    
 {% endblock %}
