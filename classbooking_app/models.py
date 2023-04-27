@@ -2,17 +2,25 @@ from django.db import models
 from datetime import date, datetime
 
 
-class Session(models.Model):
+class Activity(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False, default="test_class")
+    description = models.CharField(max_length=50, null=False, blank=False, default="test_description")
+    image = models.CharField(max_length=10, null=False, blank=False, default="test_image")
+    
+    def __str__(self):
+        return self.name
+
+
+class Session(models.Model):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     date = models.DateField(default=date.today())
     time = models.TimeField(default=datetime.now())
     spaces = models.IntegerField(default=25)
     location = models.CharField(max_length=50, default='Studio A')
     running = models.BooleanField(default=True)
-    attendees = models.CharField(max_length=500, null=False, blank=False, default="")
 
     def __str__(self):
-        return self.name
+        return self.activity.name
 
 
 class Booking(models.Model):

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let currentDate = document.getElementById("select-date")
     let formCompleted = document.getElementById("form-complete")
     let form = document.getElementById("date-form")
-    // Add event listener on date form to convert date into serial number
+    // Add event listener on date input to convert date into serial number
     currentDate.addEventListener("change", function(){
         let date = new Date(this.value);
         let serialDate = Math.floor(date.getTime()/(1000*60*60*24))+25569;
@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function(){
     let checkoutButton = document.getElementById("checkout-button")
     checkoutButton.addEventListener("click", function(){
         form.submit()
-        console.log("submitted")
     })
     }
 })

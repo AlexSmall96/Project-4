@@ -78,6 +78,7 @@ def checkout(request):
         return render(request, 'classbooking_app/checkout.html')
     return render(request, 'classbooking_app/checkout.html')
 
+
 def edit_booking(request, booking_id):
     return render(request, 'classbooking_app/edit_booking.html')
 
