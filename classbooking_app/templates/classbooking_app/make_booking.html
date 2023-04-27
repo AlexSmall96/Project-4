@@ -22,10 +22,10 @@
         <div class="excercise row vertical-margin">
           <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time }}</div>
           <div class="col-5 col-sm-5 col-lg-3 has-bg-img">
-            <img class="bg-img my-image" src="../../static/classbooking_app/images/box.jpeg">
+            <img class="bg-img my-image" src="../../static/classbooking_app/images/{{ session.activity.image }}">
           </div>
-          <div class="col-6 col-sm-3 col-lg-3 align-self-center"><strong>{{ session.name }}</strong>
-            <p>Class Description.</p>
+          <div class="col-6 col-sm-3 col-lg-3 align-self-center"><strong>{{ session.activity.name }}</strong>
+            <p>{{ session.activity.description }}</p>
           </div>
           <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-location-dot"></i> {{ session.spaces }} spaces</div>
           <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-users"></i> {{ session.location }}</div>

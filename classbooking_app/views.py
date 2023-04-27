@@ -44,6 +44,11 @@ def create_booking(user, id):
 # Create instance of booking from form data
 def show_sessions(request):
     date = "2023-04-23"
+    todays_sessions = Session.objects.filter(date=date)
+    initial_context = {
+        'date':date,
+        'todays_session':todays_sessions
+    }
     if request.method == "POST":
         date = request.POST.get('date_name')
         cart = request.POST.get('cart')
@@ -60,7 +65,7 @@ def show_sessions(request):
             'cart_ids':cart_ids
             }
         return render(request, 'classbooking_app/make_booking.html', context)
-    return render(request, 'classbooking_app/make_booking.html',{'date':date})
+    return render(request, 'classbooking_app/make_booking.html', initial_context)
 
 
 def checkout(request):
