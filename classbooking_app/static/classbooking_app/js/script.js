@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function(){
     // Add event listener to each checkbox
     let addBoxes = document.getElementsByClassName("add-to-cart")
     let cart = document.getElementById("cart")
-    let finalCart = document.getElementById("final-cart")
     for (let box of addBoxes){
         box.addEventListener("change", function(){
             oldCart = cart.value
@@ -35,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function(){
     checkoutButton.addEventListener("click", () => {
         timetable.style.display="none"
         confirmBookings.style.display = "block"
-        cartList.innerHTML = `<p>${cart.value}</p>`
     })
     }
 })
