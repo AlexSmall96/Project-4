@@ -15,9 +15,7 @@
       <label for="cart"><h1>Cart:</h1></label>
       <input type="text" id="cart" name="cart" value="{{ cart }}">
 
- 
-      {% csrf_token %}
-    <div class="container">
+    <div class="container" id="timetable">
       {% for session in todays_sessions %}
         <div class="excercise row vertical-margin">
           <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time }}</div>
@@ -36,7 +34,20 @@
         </div>
         {% endfor %}
       </div>
-    </form>
+
+      
     <!--<a href="/checkout.html"></a>-->
-    <a href="/checkout.html"></a><button id="checkout-button">Checkout</button></a>
+
+  <button type="button" id="checkout-button">Checkout</button>
+  <div id="confirm-bookings">
+  <div class="container">
+    <div class="row">
+      <h1>In Cart:</h1>
+      <p id="cart-list">{{ cart }}</p>
+    </div>
+  </div>
+ <input id="confirm" type="submit" value="Confirm Bookings">
+</div>
+</form>
+
 {% endblock %}

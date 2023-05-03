@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
-    baseURL = 'https://8000-alexsmall96-project4-z4wrtww3ucz.ws-eu95.gitpod.io'
+    // Change for deployment
+    baseURL = 'https://8000-alexsmall96-project4-z4wrtww3ucz.ws-eu96b.gitpod.io'
     if(window.location.href === baseURL.concat('/make_booking.html')){
     // Get date chosen from form
     let currentDate = document.getElementById("select-date")
@@ -17,18 +18,22 @@ document.addEventListener("DOMContentLoaded", function(){
     // Add event listener to each checkbox
     let addBoxes = document.getElementsByClassName("add-to-cart")
     let cart = document.getElementById("cart")
+    let cartList = document.getElementById("cart-list")
     for (let box of addBoxes){
         box.addEventListener("change", function(){
             oldCart = cart.value
             if (this.checked){
                 // Display session id in cart
                 cart.value = oldCart.concat(box.id).concat(" ")
+                cartList.innerHTML = `<p>${cart.value}</p>`
             }
         })
     }
     let checkoutButton = document.getElementById("checkout-button")
-    checkoutButton.addEventListener("click", function(){
-        form.submit()
+    let timetable = document.getElementById("timetable")
+   
+    checkoutButton.addEventListener("click", () => {
+        timetable.style.display="none"
     })
     }
 })

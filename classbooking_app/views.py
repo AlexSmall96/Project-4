@@ -47,7 +47,7 @@ def show_sessions(request):
     todays_sessions = Session.objects.filter(date=date)
     initial_context = {
         'date':date,
-        'todays_session':todays_sessions
+        'todays_sessions':todays_sessions
     }
     if request.method == "POST":
         date = request.POST.get('date_name')
@@ -99,5 +99,4 @@ def delete_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
     booking.delete()
     return redirect('home')
-
 
