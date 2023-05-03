@@ -50,13 +50,15 @@ def show_sessions(request):
         'todays_sessions':todays_sessions
     }
     if request.method == "POST":
+        form_ready = request.POST.get('finalised') == "y"
         date = request.POST.get('date_name')
         cart = request.POST.get('cart')
         user = request.POST.get('user_name')
         todays_sessions = Session.objects.filter(date=date)
         cart_ids = cart.split()
-        for id in cart_ids:
-            create_booking(user, id)
+        if form_ready:
+            for id in cart_ids:
+                create_booking(user, id)
         context = {
             'todays_sessions': todays_sessions,
             'date' : date,

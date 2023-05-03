@@ -19,21 +19,32 @@ document.addEventListener("DOMContentLoaded", function(){
     let addBoxes = document.getElementsByClassName("add-to-cart")
     let cart = document.getElementById("cart")
     for (let box of addBoxes){
+        let locationNode = box.parentNode.previousSibling.previousSibling
+        let location = locationNode.innerHTML
+
+        let nameNode = locationNode.previousSibling.previousSibling
+        let name = nameNode.innerHTML
+        
+        let timeNode = nameNode.previousSibling.previousSibling
+        let time = timeNode.innerHTML
         box.addEventListener("change", function(){
             oldCart = cart.value
             if (this.checked){
                 // Display session id in cart
                 cart.value = oldCart.concat(box.id).concat(" ")
+                console.log(location, name, time)
             }
         })
     }
     let checkoutButton = document.getElementById("checkout-button")
     let timetable = document.getElementById("timetable")
     let confirmBookings = document.getElementById("confirm-bookings")
+    let finalisedBox = document.getElementById("finalised")
 
     checkoutButton.addEventListener("click", () => {
         timetable.style.display="none"
         confirmBookings.style.display = "block"
+        finalisedBox.value = "y"
     })
     }
 })
