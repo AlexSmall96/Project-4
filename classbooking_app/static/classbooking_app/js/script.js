@@ -18,22 +18,24 @@ document.addEventListener("DOMContentLoaded", function(){
     // Add event listener to each checkbox
     let addBoxes = document.getElementsByClassName("add-to-cart")
     let cart = document.getElementById("cart")
-    let cartList = document.getElementById("cart-list")
+    let finalCart = document.getElementById("final-cart")
     for (let box of addBoxes){
         box.addEventListener("change", function(){
             oldCart = cart.value
             if (this.checked){
                 // Display session id in cart
                 cart.value = oldCart.concat(box.id).concat(" ")
-                cartList.innerHTML = `<p>${cart.value}</p>`
             }
         })
     }
     let checkoutButton = document.getElementById("checkout-button")
     let timetable = document.getElementById("timetable")
-   
+    let confirmBookings = document.getElementById("confirm-bookings")
+
     checkoutButton.addEventListener("click", () => {
         timetable.style.display="none"
+        confirmBookings.style.display = "block"
+        cartList.innerHTML = `<p>${cart.value}</p>`
     })
     }
 })

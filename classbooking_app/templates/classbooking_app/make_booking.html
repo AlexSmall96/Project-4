@@ -3,6 +3,7 @@
 {% block content %}
 
 {{ booking.session.id }}
+<div id="timetable">
 <h1>Showing Classes on {{ date }}</h1>
     <form method="POST" id="date-form">
         {% csrf_token %}
@@ -12,10 +13,9 @@
       <input type="text" id="username" name="user_name" value="{{ user }}">
 
     <h1>{{ completed }}</h1>
-      <label for="cart"><h1>Cart:</h1></label>
-      <input type="text" id="cart" name="cart" value="{{ cart }}">
 
-    <div class="container" id="timetable">
+
+    <div class="container">
       {% for session in todays_sessions %}
         <div class="excercise row vertical-margin">
           <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time }}</div>
@@ -39,12 +39,10 @@
     <!--<a href="/checkout.html"></a>-->
 
   <button type="button" id="checkout-button">Checkout</button>
+</div>
   <div id="confirm-bookings">
-  <div class="container">
-    <div class="row">
-      <h1>In Cart:</h1>
-      <p id="cart-list">{{ cart }}</p>
-    </div>
+    <label for="cart"><h1>Cart:</h1></label>
+    <input type="text" id="cart" name="cart" value="{{ cart }}">
   </div>
  <input id="confirm" type="submit" value="Confirm Bookings">
 </div>
