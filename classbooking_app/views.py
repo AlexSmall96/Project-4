@@ -36,6 +36,8 @@ def create_booking(user, id):
         user=user,
         confirmed=False
     )
+    session.spaces -= 1
+    session.save()
     booking.save()
     return booking
 

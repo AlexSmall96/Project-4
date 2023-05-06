@@ -18,21 +18,27 @@ document.addEventListener("DOMContentLoaded", function(){
     // Add event listener to each checkbox
     let addBoxes = document.getElementsByClassName("add-to-cart")
     let cart = document.getElementById("cart")
+    let checkoutList = document.getElementById("checkout-list")
     for (let box of addBoxes){
-        let locationNode = box.parentNode.previousSibling.previousSibling
-        let location = locationNode.innerHTML
-
-        let nameNode = locationNode.previousSibling.previousSibling
-        let name = nameNode.innerHTML
-        
-        let timeNode = nameNode.previousSibling.previousSibling
-        let time = timeNode.innerHTML
         box.addEventListener("change", function(){
             oldCart = cart.value
             if (this.checked){
                 // Display session id in cart
+                currentDate = document.getElementById("select-date")
                 cart.value = oldCart.concat(box.id).concat(" ")
-                console.log(location, name, time)
+                let newRow = document.createElement("div")
+                let location = box.parentNode.previousSibling.previousSibling
+                let activity = location.previousSibling.previousSibling.previousSibling.previousSibling
+                let time = location.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling
+                newRow.classList.add("row")
+                newRow.innerHTML = `
+                <div class="col">${activity.innerHTML}</div>
+                <div class="col">${currentDate.value}</div>
+                <div class="col">${time.innerHTML}</div>
+                <div class="col">${location.innerHTML}</div>                
+                `
+                checkoutList.appendChild(newRow)
+                console.log(box.parentNode.previousSibling.previousSibling.innerHTML)
             }
         })
     }
