@@ -4,15 +4,12 @@ from django.contrib.auth import authenticate, login
 from .models import Booking, Session
 from datetime import date as dt
 
-# Load basic html template
+
+# Load home page
 def load_home_page(request):
-    bookings = Session.objects.all()
-    context = {
-        'bookings': bookings
-    }
-    return render(request, 'classbooking_app/home.html', context)
+    return render(request, 'classbooking_app/home.html')
 
-
+# 
 def login_page(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -26,86 +23,48 @@ def login_page(request):
     return render(request, 'classbooking_app/login.html')
 
 
-
-activities = {'boxfit': '10:00', 'kettlebells': '11:00', 'yoga': '12:00'}
-
-def create_booking(user, id):
-    session=get_object_or_404(Session, id=id)
-    booking=Booking(
-        session=session,
-        user=user,
-        confirmed=False
-    )
-    session.spaces -= 1
-    session.save()
-    booking.save()
-    return booking
-
-
 # Load make_bookings.html
 # Create instance of booking from form data
 def show_sessions(request):
-    date = "2023-04-23"
+    # Set current date as default
+    date = dt.today().strftime("%Y-%m-%d")
+    # Load current days sessions
     todays_sessions = Session.objects.filter(date=date)
+    # Pass through an initial context to timetable page
     initial_context = {
         'date':date,
         'todays_sessions':todays_sessions
     }
+    # Handle form submitted
     if request.method == "POST":
-        form_ready = request.POST.get('finalised') == "y"
+        # Get data currently entered into form
         date = request.POST.get('date_name')
         cart = request.POST.get('cart')
         user = request.POST.get('user_name')
+        # Update todays_sessions with new date
         todays_sessions = Session.objects.filter(date=date)
+        # Split cart data into individual session ids
         cart_ids = cart.split()
+        # Create a list to store data for sessions in cart
         cart_sessions = []
         for cart_id in cart_ids:
             session = get_object_or_404(Session, id=cart_id)
             cart_sessions.append(session)
+        # form_ready is only filled in when user goes to checkout
+        # should be invisible in the browser
+        form_ready = request.POST.get('finalised') == "y"
+        # If user has gone to checkout, book the user into sessions in cart
         if form_ready:
             for id in cart_ids:
                 create_booking(user, id)
+        # Update context to pass back through to the browser
         context = {
             'todays_sessions': todays_sessions,
             'cart_sessions':cart_sessions,
             'date' : date,
             'user':user,
             'cart':cart,
-            'cart_ids':cart_ids
             }
         return render(request, 'classbooking_app/make_booking.html', context)
     return render(request, 'classbooking_app/make_booking.html', initial_context)
-
-
-def checkout(request):
-    user = request.user.username
-    if request.method == "POST":
-        users_bookings = Booking.objects.filter(user=user)
-        for booking in users_bookings:
-            booking.confirmed = True
-            booking.save()
-            session_id = booking.session.id
-            session_booked = get_object_or_404(Session, id=session_id)
-            session_booked.spaces -= 1
-            session_booked.attendees += ", " + user
-            session_booked.save()
-        return render(request, 'classbooking_app/checkout.html')
-    return render(request, 'classbooking_app/checkout.html')
-
-
-def edit_booking(request, booking_id):
-    return render(request, 'classbooking_app/edit_booking.html')
-
-
-def toggle_booking(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id)
-    booking.running = not booking.running
-    booking.save()
-    return redirect('home')
-
-
-def delete_booking(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id)
-    booking.delete()
-    return redirect('home')
 
