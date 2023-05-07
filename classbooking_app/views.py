@@ -58,11 +58,16 @@ def show_sessions(request):
         user = request.POST.get('user_name')
         todays_sessions = Session.objects.filter(date=date)
         cart_ids = cart.split()
+        cart_sessions = []
+        for cart_id in cart_ids:
+            session = get_object_or_404(Session, id=cart_id)
+            cart_sessions.append(session)
         if form_ready:
             for id in cart_ids:
                 create_booking(user, id)
         context = {
             'todays_sessions': todays_sessions,
+            'cart_sessions':cart_sessions,
             'date' : date,
             'user':user,
             'cart':cart,

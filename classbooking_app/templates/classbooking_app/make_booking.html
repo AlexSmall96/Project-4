@@ -47,6 +47,11 @@
     <input type="text" id="finalised" name="finalised">
  <input id="confirm" type="submit" value="Confirm Bookings">
  <h1>Your Chosen Classes</h1>
+
+ 
+
+
+
  <div id="checkout-list" class="container">
   <div class="row">
     <div class="col">Activity</div>
@@ -54,12 +59,14 @@
     <div class="col">Time</div>
     <div class="col">Location</div>
   </div>
+  {% for cart_session in cart_sessions %}
   <div class="row">
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="col"></div>
+    <div class="col">{{ cart_session.activity.name }}</div>
+    <div class="col">{{ cart_session.date }}</div>
+    <div class="col">{{ cart_session.time }}</div>
+    <div class="col">{{ cart_session.date }}</div>
   </div>
+  {% endfor %}
  </div>
 </div>
 </form>
