@@ -5,26 +5,44 @@ from .models import Booking, Session
 from datetime import date as dt
 
 
-# Load home page
 def load_home_page(request):
     return render(request, 'classbooking_app/home.html')
 
-# 
+
+def create_booking(user, id):
+    # Get session associated with booking
+    session=get_object_or_404(Session, id=id)
+    # Create booking
+    booking=Booking(
+        session=session,
+        user=user,
+        confirmed=False
+    )
+    # Reduce the number of spaces in the session
+    session.spaces -= 1
+    session.save()
+    booking.save()
+    return booking
+
+
 def login_page(request):
+    # Handle login form
     if request.method == "POST":
+        # Get data from form
         username = request.POST.get("username")
         password = request.POST.get("password")
+        # Check if user is authenticated
         user = authenticate(request, username=username, password=password)
+        # If user is authenticaed redirect to timetable page
         if user is not None:
             login(request, user)
             return redirect('show_sessions')
         else:
+            # Return user to home page
             return redirect('load_home_page')
     return render(request, 'classbooking_app/login.html')
 
 
-# Load make_bookings.html
-# Create instance of booking from form data
 def show_sessions(request):
     # Set current date as default
     date = dt.today().strftime("%Y-%m-%d")
@@ -67,4 +85,3 @@ def show_sessions(request):
             }
         return render(request, 'classbooking_app/make_booking.html', context)
     return render(request, 'classbooking_app/make_booking.html', initial_context)
-
