@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Add event listener on date input to convert date into serial number
     currentDate.addEventListener("change", function(){
-        let date = new Date(this.value);
+        
         //let serialDate = Math.floor(date.getTime()/(1000*60*60*24))+25569;
         // Convert serial number into string and add class number (1 for boxfit)
         //let serialStr = serialDate.toString();
@@ -36,12 +36,13 @@ document.addEventListener("DOMContentLoaded", function(){
                 let activity = location.previousSibling.previousSibling.previousSibling.previousSibling
                 let time = location.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling
                 let newRow = document.createElement("div")
+                let date = new Date(currentDate.value);
                 newRow.classList.add("row")
                 newRow.innerHTML = `
-                <div class="col">${activity.innerHTML}</div>
-                <div class="col">${currentDate.value}</div>
+                <div class="col">${activity.firstChild.innerHTML}</div>
+                <div class="col">${date.toLocaleDateString("en-US", {month:"long", day:"numeric",year:"numeric"})}</div>
                 <div class="col">${time.innerHTML}</div>
-                <div class="col">${location.innerHTML}</div>
+                <div class="col">${location.children[1].innerHTML}</div>
                 `
                 checkoutList.appendChild(newRow)
             }
