@@ -30,9 +30,11 @@ document.addEventListener("DOMContentLoaded", function(){
     for (let box of addBoxes){
         if (selectedBookings.includes(box.id)){
             box.value = "Remove from Cart"
+        } else {
+            box.value = "Add to Cart"
         }
         box.addEventListener("click", () => {
-            if (this.value === "Add to Cart"){
+            if (this.value == "Add to Cart"){
                 cart.value = box.id
             } else {
                 remove.value = box.id

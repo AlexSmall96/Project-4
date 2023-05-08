@@ -36,9 +36,16 @@ def create_booking(user, id):
         user=user,
         confirmed=False
     )
-    # Reduce the number of spaces in the session
     booking.save()
     return booking
+
+
+def remove_booking(user, id):
+    session = get_object_or_404(Session, id=id)
+    bookings = Booking.objects.filter(user=user, session=session)
+    for booking in bookings:
+        booking.delete()
+        booking.save()
 
 
 def confirm_bookings(user):
@@ -83,10 +90,13 @@ def show_sessions(request):
         if last_selected != "":
             # Check if booking already exists for user
             session = get_object_or_404(Session, id=last_selected)
-            session_bookings = Booking.objects.filter(user=user, confirmed=False, session=session)
+            session_bookings = Booking.objects.filter(user=user, session=session)
             if len(session_bookings) == 0:
                 # Create unconfirmed booking
                 create_booking(user, last_selected)
+        # Check if remove field is non empty
+        if remove != "":
+            remove_booking(user, remove)
         existing_bookings = Booking.objects.filter(user=user, confirmed=False)
         # form_ready is only filled in when user goes to checkout
         # should be invisible in the browser
