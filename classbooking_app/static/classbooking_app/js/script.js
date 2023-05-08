@@ -8,35 +8,43 @@ document.addEventListener("DOMContentLoaded", function(){
     const formCompleted = document.getElementById("form-complete")
     const form = document.getElementById("date-form")
     const cart = document.getElementById("cart")
+    const remove = document.getElementById("remove")
     const addBoxes = document.getElementsByClassName("add-to-cart")
     const checkoutButton = document.getElementById("checkout-button")
     const timetable = document.getElementById("timetable")
     const confirmBookings = document.getElementById("confirm-bookings")
     const finalisedBox = document.getElementById("finalised")
 
+    let checkoutList = document.getElementById("checkout-list").children
+    let selectedBookings = []
+        for (let row of checkoutList){
+            selectedBookings.push(row.id.substring(0,6))
+        }
+    
     // Add event listener on date input to convert date into serial number
     currentDate.addEventListener("change", () => {
-        
-        //let serialDate = Math.floor(date.getTime()/(1000*60*60*24))+25569;
-        // Convert serial number into string and add class number (1 for boxfit)
-        //let serialStr = serialDate.toString();
-        //let session_id = Number("1".concat(serialStr));
         form.submit()
     })
 
-    // Add event listener to each checkbox
-    const checkoutList = document.getElementById("checkout-list")
+    // Add event listener to each add to cart button
     for (let box of addBoxes){
+        if (selectedBookings.includes(box.id)){
+            box.value = "Remove from Cart"
+        }
         box.addEventListener("click", () => {
-            oldCart = cart.value
-                // Display session id in cart
-                cart.value = oldCart.concat(box.id).concat(" ")
-                form.submit()
+            if (this.value === "Add to Cart"){
+                cart.value = box.id
+            } else {
+                remove.value = box.id
+            }
+            // Submit form
+            form.submit()
         })
     }
 
     // Add event listener to checkout button
     checkoutButton.addEventListener("click", () => {
+        // Hide timetable
         timetable.style.display="none"
         confirmBookings.style.display = "block"
         finalisedBox.value = "y"

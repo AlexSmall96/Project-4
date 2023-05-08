@@ -14,7 +14,10 @@
 
     <h1>{{ completed }}</h1>
 
-
+    <label for="cart"><h1>Cart:</h1></label>
+    <input type="text" id="cart" name="cart" value="{{ last_selected }}">
+    <label for="remove"><h1>Remove:</h1></label>
+    <input type="text" id="remove" name="remove" value="{{ remove }}">
     <div class="container">
       {% for session in todays_sessions %}
         <div class="excercise row vertical-margin">
@@ -28,8 +31,7 @@
           <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-users"></i>{{ session.spaces }} spaces</div>
           <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-location-dot"></i><span>{{ session.location }}</span></div>
           <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
-            <label for="{{ session.id }}">Add to Cart</label>
-            <input class="add-to-cart" type="button" id="{{ session.id }}" name="{{ session.id }}">
+            <input class="add-to-cart" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
           </div>
         </div>
         {% endfor %}
@@ -41,10 +43,6 @@
   <button type="button" id="checkout-button">Checkout</button>
 </div>
   <div id="confirm-bookings">
-    <label for="cart"><h1>Cart:</h1></label>
-    <input type="text" id="cart" name="cart" value="{{ cart }}">
-    <label for="remove"><h1>Remove:</h1></label>
-    <input type="text" id="remove" name="remove" value="{{ remove }}">
     <label for="finalised"><h1>Bookings Finalised:</h1></label>
     <input type="text" id="finalised" name="finalised">
  <input id="confirm" type="submit" value="Confirm Bookings">
@@ -62,8 +60,8 @@
     <div class="col">Location</div>
   </div>
   {% for booking in existing_bookings %}
-  <div class="row">
-    <div class="col">{{ booking.session.activity.name }}</div>
+  <div id="{{ booking.session.id}}_selected" class="row">
+    <div  class="col">{{ booking.session.activity.name }}</div>
     <div class="col">{{ booking.session.date }}</div>
     <div class="col">{{ booking.session.time }}</div>
     <div class="col">{{ booking.session.location }}</div>

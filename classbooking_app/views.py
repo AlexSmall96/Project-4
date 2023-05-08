@@ -73,22 +73,20 @@ def show_sessions(request):
     if request.method == "POST":
         # Get data currently entered into form
         date = request.POST.get('date_name')
-        cart = request.POST.get('cart')
+        last_selected = request.POST.get('cart')
         remove = request.POST.get('remove')
         user = request.POST.get('user_name')
         # Update todays_sessions with new date
         todays_sessions = Session.objects.filter(date=date)
         # Split cart data into individual session ids
-        cart_ids = cart.split()
         # Take last cart_id and make unconfirmed booking
-        if len(cart_ids) != 0:
-            last_added_id = cart_ids[-1]
+        if last_selected != "":
             # Check if booking already exists for user
-            session = get_object_or_404(Session, id=last_added_id)
+            session = get_object_or_404(Session, id=last_selected)
             session_bookings = Booking.objects.filter(user=user, confirmed=False, session=session)
             if len(session_bookings) == 0:
                 # Create unconfirmed booking
-                create_booking(user, last_added_id)
+                create_booking(user, last_selected)
         existing_bookings = Booking.objects.filter(user=user, confirmed=False)
         # form_ready is only filled in when user goes to checkout
         # should be invisible in the browser
@@ -100,11 +98,9 @@ def show_sessions(request):
         # Update context to pass back through to the browser
         context = {
             'todays_sessions': todays_sessions,
-            'cart_sessions':cart_sessions,
             'existing_bookings':existing_bookings,
             'date' : date,
             'user':user,
-            'cart':cart,
             'remove':remove,
             }
         return render(request, 'classbooking_app/make_booking.html', context)
