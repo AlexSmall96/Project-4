@@ -9,20 +9,6 @@ def load_home_page(request):
     return render(request, 'classbooking_app/home.html')
 
 
-def create_booking(user, id):
-    # Get session associated with booking
-    session=get_object_or_404(Session, id=id)
-    # Create booking
-    booking=Booking(
-        session=session,
-        user=user,
-        confirmed = False
-    )
-    # Reduce the number of spaces in the session
-    booking.save()
-    return booking
-
-
 def login_page(request):
     # Handle login form
     if request.method == "POST":
@@ -39,6 +25,33 @@ def login_page(request):
             # Return user to home page
             return redirect('load_home_page')
     return render(request, 'classbooking_app/login.html')
+
+
+def create_booking(user, id):
+    # Get session associated with booking
+    session = get_object_or_404(Session, id=id)
+    # Create booking
+    booking = Booking(
+        session=session,
+        user=user,
+        confirmed=False
+    )
+    # Reduce the number of spaces in the session
+    booking.save()
+    return booking
+
+
+def confirm_bookings(user):
+    # Select users unconfirmed bookings
+    bookings = Booking.objects.filter(user=user, confirmed=False)
+    for booking in bookings:
+        # Set booking to confirmed
+        booking.confirmed = True
+        booking.save()
+        # Add user to count of attendees in session
+        session = booking.session
+        session.spaces -= 1
+        session.save()
 
 
 def show_sessions(request):
@@ -77,24 +90,13 @@ def show_sessions(request):
                 # Create unconfirmed booking
                 create_booking(user, last_added_id)
         existing_bookings = Booking.objects.filter(user=user, confirmed=False)
-        # Create a list to store data for sessions in cart
-        cart_sessions = []
-        for cart_id in cart_ids:
-            session = get_object_or_404(Session, id=cart_id)
-            cart_sessions.append(session)
         # form_ready is only filled in when user goes to checkout
         # should be invisible in the browser
         form_ready = request.POST.get('finalised') == "y"
         # Check if user has gone to checkout
         if form_ready:
-            # Confirm all users unconfirmed bookings
-            bookings = Booking.objects.filter(user=user, confirmed=False)
-            for booking in bookings:
-                booking.confirmed = True
-                booking.save()
-                session = booking.session
-                session.spaces -= 1
-                session.save()
+            #Confirm users bookings
+            confirm_bookings(user)
         # Update context to pass back through to the browser
         context = {
             'todays_sessions': todays_sessions,
