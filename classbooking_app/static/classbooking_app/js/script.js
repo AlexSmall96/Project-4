@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const finalisedBox = document.getElementById("finalised")
 
     // Add event listener on date input to convert date into serial number
-    currentDate.addEventListener("change", function(){
+    currentDate.addEventListener("change", () => {
         
         //let serialDate = Math.floor(date.getTime()/(1000*60*60*24))+25569;
         // Convert serial number into string and add class number (1 for boxfit)
@@ -27,25 +27,11 @@ document.addEventListener("DOMContentLoaded", function(){
     // Add event listener to each checkbox
     const checkoutList = document.getElementById("checkout-list")
     for (let box of addBoxes){
-        box.addEventListener("change", function(){
+        box.addEventListener("click", () => {
             oldCart = cart.value
-            if (this.checked){
                 // Display session id in cart
                 cart.value = oldCart.concat(box.id).concat(" ")
-                let location = box.parentNode.previousSibling.previousSibling
-                let activity = location.previousSibling.previousSibling.previousSibling.previousSibling
-                let time = location.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling
-                let newRow = document.createElement("div")
-                let date = new Date(currentDate.value);
-                newRow.classList.add("row")
-                newRow.innerHTML = `
-                <div class="col">${activity.firstChild.innerHTML}</div>
-                <div class="col">${date.toLocaleDateString("en-US", {month:"long", day:"numeric",year:"numeric"})}</div>
-                <div class="col">${time.innerHTML}</div>
-                <div class="col">${location.children[1].innerHTML}</div>
-                `
-                checkoutList.appendChild(newRow)
-            }
+                form.submit()
         })
     }
 

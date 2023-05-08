@@ -29,7 +29,7 @@
           <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-location-dot"></i><span>{{ session.location }}</span></div>
           <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
             <label for="{{ session.id }}">Add to Cart</label>
-            <input class="add-to-cart" type="checkbox" id="{{ session.id }}" name="{{ session.id }}">
+            <input class="add-to-cart" type="button" id="{{ session.id }}" name="{{ session.id }}">
           </div>
         </div>
         {% endfor %}
@@ -43,6 +43,8 @@
   <div id="confirm-bookings">
     <label for="cart"><h1>Cart:</h1></label>
     <input type="text" id="cart" name="cart" value="{{ cart }}">
+    <label for="remove"><h1>Remove:</h1></label>
+    <input type="text" id="remove" name="remove" value="{{ remove }}">
     <label for="finalised"><h1>Bookings Finalised:</h1></label>
     <input type="text" id="finalised" name="finalised">
  <input id="confirm" type="submit" value="Confirm Bookings">

@@ -15,8 +15,7 @@ def create_booking(user, id):
     # Create booking
     booking=Booking(
         session=session,
-        user=user,
-        confirmed=False
+        user=user
     )
     # Reduce the number of spaces in the session
     session.spaces -= 1
@@ -58,11 +57,13 @@ def show_sessions(request):
         # Get data currently entered into form
         date = request.POST.get('date_name')
         cart = request.POST.get('cart')
+        remove = request.POST.get('remove')
         user = request.POST.get('user_name')
         # Update todays_sessions with new date
         todays_sessions = Session.objects.filter(date=date)
         # Split cart data into individual session ids
         cart_ids = cart.split()
+        # Take last cart_id and make unconfirmed booking
         # Create a list to store data for sessions in cart
         cart_sessions = []
         for cart_id in cart_ids:
@@ -71,8 +72,9 @@ def show_sessions(request):
         # form_ready is only filled in when user goes to checkout
         # should be invisible in the browser
         form_ready = request.POST.get('finalised') == "y"
-        # If user has gone to checkout, book the user into sessions in cart
+        # Check if user has gone to checkout, 
         if form_ready:
+            # Book the user into sessions in cart
             for id in cart_ids:
                 create_booking(user, id)
         # Update context to pass back through to the browser
@@ -82,6 +84,7 @@ def show_sessions(request):
             'date' : date,
             'user':user,
             'cart':cart,
+            'remove':remove,
             }
         return render(request, 'classbooking_app/make_booking.html', context)
     return render(request, 'classbooking_app/make_booking.html', initial_context)
