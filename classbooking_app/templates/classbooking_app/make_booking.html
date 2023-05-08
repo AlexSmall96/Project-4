@@ -61,12 +61,12 @@
     <div class="col">Time</div>
     <div class="col">Location</div>
   </div>
-  {% for cart_session in cart_sessions %}
+  {% for booking in existing_bookings %}
   <div class="row">
-    <div class="col">{{ cart_session.activity.name }}</div>
-    <div class="col">{{ cart_session.date }}</div>
-    <div class="col">{{ cart_session.time }}</div>
-    <div class="col">{{ cart_session.location }}</div>
+    <div class="col">{{ booking.session.activity.name }}</div>
+    <div class="col">{{ booking.session.date }}</div>
+    <div class="col">{{ booking.session.time }}</div>
+    <div class="col">{{ booking.session.location }}</div>
   </div>
   {% endfor %}
  </div>

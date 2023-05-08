@@ -15,11 +15,10 @@ def create_booking(user, id):
     # Create booking
     booking=Booking(
         session=session,
-        user=user
+        user=user,
+        confirmed = False
     )
     # Reduce the number of spaces in the session
-    session.spaces -= 1
-    session.save()
     booking.save()
     return booking
 
@@ -43,14 +42,19 @@ def login_page(request):
 
 
 def show_sessions(request):
+    #Get current user 
+    user = request.user
     # Set current date as default
     date = dt.today().strftime("%Y-%m-%d")
     # Load current days sessions
     todays_sessions = Session.objects.filter(date=date)
+    # Get users unconfirmed bookings
+    existing_bookings = Booking.objects.filter(user=user, confirmed=False)
     # Pass through an initial context to timetable page
     initial_context = {
         'date':date,
-        'todays_sessions':todays_sessions
+        'todays_sessions':todays_sessions,
+        'existing_bookings':existing_bookings
     }
     # Handle form submitted
     if request.method == "POST":
@@ -64,6 +68,15 @@ def show_sessions(request):
         # Split cart data into individual session ids
         cart_ids = cart.split()
         # Take last cart_id and make unconfirmed booking
+        if len(cart_ids) != 0:
+            last_added_id = cart_ids[-1]
+            # Check if booking already exists for user
+            session = get_object_or_404(Session, id=last_added_id)
+            session_bookings = Booking.objects.filter(user=user, confirmed=False, session=session)
+            if len(session_bookings) == 0:
+                # Create unconfirmed booking
+                create_booking(user, last_added_id)
+        existing_bookings = Booking.objects.filter(user=user, confirmed=False)
         # Create a list to store data for sessions in cart
         cart_sessions = []
         for cart_id in cart_ids:
@@ -72,15 +85,21 @@ def show_sessions(request):
         # form_ready is only filled in when user goes to checkout
         # should be invisible in the browser
         form_ready = request.POST.get('finalised') == "y"
-        # Check if user has gone to checkout, 
+        # Check if user has gone to checkout
         if form_ready:
-            # Book the user into sessions in cart
-            for id in cart_ids:
-                create_booking(user, id)
+            # Confirm all users unconfirmed bookings
+            bookings = Booking.objects.filter(user=user, confirmed=False)
+            for booking in bookings:
+                booking.confirmed = True
+                booking.save()
+                session = booking.session
+                session.spaces -= 1
+                session.save()
         # Update context to pass back through to the browser
         context = {
             'todays_sessions': todays_sessions,
             'cart_sessions':cart_sessions,
+            'existing_bookings':existing_bookings,
             'date' : date,
             'user':user,
             'cart':cart,
