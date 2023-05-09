@@ -100,7 +100,7 @@ def show_sessions(request):
         # Check if remove field is non empty
         if remove != "":
             delete_booking(user, remove)
-        existing_bookings = Booking.objects.filter(user=user, confirmed=False)
+        existing_bookings = Booking.objects.filter(user=user)
         # form_ready is only filled in when user goes to checkout
         # should be invisible in the browser
         form_ready = request.POST.get('finalised') == "y"
@@ -110,12 +110,14 @@ def show_sessions(request):
             # Confirm users bookings
             confirm_bookings(user)
         # Update context to pass back through to the browser
+        form_ready = checkout_loaded
         context = {
             'todays_sessions': todays_sessions,
             'existing_bookings': existing_bookings,
             'date': date,
             'user': user,
-            'checkout_loaded': checkout_loaded
+            'checkout_loaded': checkout_loaded,
+            'form_ready': form_ready
             }
         return render(request, 'classbooking_app/make_booking.html', context)
     return render(

@@ -17,6 +17,13 @@ document.addEventListener("DOMContentLoaded", function(){
     const finalisedBox = document.getElementById("finalised")
     const checkoutLoaded = document.getElementById("checkout-loaded")
 
+    let userBookings = document.getElementById("users-bookings").children
+    let userBookingsArr = []
+
+    for (let booking of userBookings){
+        userBookingsArr.push(booking.innerHTML)
+    }
+
     if (checkoutLoaded.value === "y"){
         timetable.style.display="none"
         confirmBookings.style.display = "block"       
@@ -37,11 +44,13 @@ document.addEventListener("DOMContentLoaded", function(){
     for (let box of addBoxes){
         if (selectedBookings.includes(box.id)){
             box.value = "Remove from Cart"
+        } else if (userBookingsArr.includes(box.id)){ 
+            box.value = "Booked in. Cancel?"
         } else {
             box.value = "Add to Cart"
         }
         box.addEventListener("click", () => {
-            if (selectedBookings.includes(box.id)){
+            if (selectedBookings.includes(box.id) || userBookingsArr.includes(box.id)){
                 remove.value = box.id
             } else {
                 cart.value = box.id
