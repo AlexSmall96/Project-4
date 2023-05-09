@@ -123,3 +123,12 @@ def show_sessions(request):
     return render(
         request, 'classbooking_app/make_booking.html', initial_context
         )
+
+
+def view_bookings(request):
+    user = request.user
+    bookings = Booking.objects.filter(user=user, confirmed=True)
+    context = {
+        'bookings': bookings
+    }
+    return render(request, 'classbooking_app/view_bookings.html', context)

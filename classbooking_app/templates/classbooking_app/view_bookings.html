@@ -1,0 +1,31 @@
+{% extends 'classbooking_app/base.html' %}
+
+{% block content %}
+<h1>Your Bookings</h1>
+
+{% if bookings|length > 0 %}
+<div class="container">
+ <div class="row">
+   <div class="col">Activity</div>
+   <div class="col">Date</div>
+   <div class="col">Time</div>
+   <div class="col">Location</div>
+   <div class="col"></div>
+ </div>
+ {% for booking in bookings %}
+ <div class="row">
+   <div class="col">{{ booking.session.activity.name}}</div>
+   <div class="col">{{ booking.session.date}}</div>
+   <div class="col">{{ booking.session.time}}</div>
+   <div class="col">{{ booking.session.location}}</div>
+   <div class="col">
+     <input type="button" value="Cancel Booking">
+   </div>
+ </div>
+</div>
+{% endfor %}
+{% endif %}
+
+
+  
+{% endblock %}
