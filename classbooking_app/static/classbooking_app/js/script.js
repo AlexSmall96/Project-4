@@ -78,4 +78,17 @@ document.addEventListener("DOMContentLoaded", function(){
         checkoutLoaded.value = "y"
     })
     }
+
+    if(window.location.href === baseURL.concat('/view_bookings.html')){
+        const cancelButtons = document.getElementsByClassName("cancel-button")
+        const cancelForm = document.getElementById("cancel-form")
+        let cancelField = document.getElementById("cancel")
+        for (let button of cancelButtons){
+            button.addEventListener("click", () => {
+                cancelField.value = button.id.substring(0,6)
+                cancelForm.submit()
+            })
+        }
+
+    }
 })

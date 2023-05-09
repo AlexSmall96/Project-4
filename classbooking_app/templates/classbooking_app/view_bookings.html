@@ -2,7 +2,10 @@
 
 {% block content %}
 <h1>Your Bookings</h1>
-
+<form method="POST" id="cancel-form">
+    {% csrf_token %}
+    <label class="invisible" for="cancel">Cancel Booking:</label>
+    <input class="invisible" type="text" id="cancel" name="cancel">
 {% if bookings|length > 0 %}
 <div class="container">
  <div class="row">
@@ -14,12 +17,12 @@
  </div>
  {% for booking in bookings %}
  <div class="row">
-   <div class="col">{{ booking.session.activity.name}}</div>
-   <div class="col">{{ booking.session.date}}</div>
-   <div class="col">{{ booking.session.time}}</div>
-   <div class="col">{{ booking.session.location}}</div>
+   <div class="col">{{ booking.session.activity.name }}</div>
+   <div class="col">{{ booking.session.date }}</div>
+   <div class="col">{{ booking.session.time }}</div>
+   <div class="col">{{ booking.session.location }}</div>
    <div class="col">
-     <input type="button" value="Cancel Booking">
+     <input class="cancel-button" type="button" value="Cancel Booking" id="{{ booking.session.id }}_view">
    </div>
  </div>
 </div>
@@ -27,5 +30,5 @@
 {% endif %}
 
 
-  
+</form>  
 {% endblock %}

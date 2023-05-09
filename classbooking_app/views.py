@@ -126,7 +126,13 @@ def show_sessions(request):
 
 
 def view_bookings(request):
+    # Save current user
     user = request.user
+    # If form is submitted delete the relevant booking
+    if request.method == "POST":
+        booking_id = request.POST.get('cancel')
+        delete_booking(user, booking_id)
+    # Pass through the remaining users bookings
     bookings = Booking.objects.filter(user=user, confirmed=True)
     context = {
         'bookings': bookings
