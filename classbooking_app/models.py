@@ -3,10 +3,24 @@ from datetime import date, datetime
 
 
 class Activity(models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False, default="test_class")
-    description = models.CharField(max_length=50, null=False, blank=False, default="test_description")
-    image = models.CharField(max_length=20, null=False, blank=False, default="test_image")
-    
+    name = models.CharField(
+        max_length=50,
+        null=False,
+        blank=False,
+        default="test_class"
+        )
+    description = models.CharField(
+        max_length=50,
+        null=False,
+        blank=False,
+        default="test_description"
+        )
+    image = models.CharField(
+        max_length=20,
+        null=False,
+        blank=False,
+        default="test_image")
+
     def __str__(self):
         return self.name
 
@@ -25,7 +39,12 @@ class Session(models.Model):
 
 class Booking(models.Model):
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
-    user = models.CharField(max_length=50, null=False, blank=False, default="test_user")
+    user = models.CharField(
+        max_length=50,
+        null=False,
+        blank=False,
+        default="test_user"
+        )
     confirmed = models.BooleanField(default=False)
 
     def __str__(self):
