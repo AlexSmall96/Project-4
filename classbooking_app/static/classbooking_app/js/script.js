@@ -16,6 +16,12 @@ document.addEventListener("DOMContentLoaded", function(){
     const confirmBookings = document.getElementById("confirm-bookings")
     const finalisedBox = document.getElementById("finalised")
     const checkoutLoaded = document.getElementById("checkout-loaded")
+    const cancelledSessBtns = document.getElementsByClassName("run-False-btn")
+
+    for (let button of cancelledSessBtns){
+        console.log(button)
+        button.value = "Class Cancelled"
+    }
 
     let userBookings = document.getElementById("users-bookings").children
     let userBookingsArr = []
