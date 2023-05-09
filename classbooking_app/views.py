@@ -45,8 +45,6 @@ def delete_booking(user, id):
     bookings = Booking.objects.filter(user=user, session=session).delete()
 
 
-
-
 def confirm_bookings(user):
     # Select users unconfirmed bookings
     bookings = Booking.objects.filter(user=user, confirmed=False)
@@ -61,7 +59,7 @@ def confirm_bookings(user):
 
 
 def show_sessions(request):
-    #Get current user 
+    # Get current user
     user = request.user
     # Set current date as default
     date = dt.today().strftime("%Y-%m-%d")
@@ -71,9 +69,9 @@ def show_sessions(request):
     existing_bookings = Booking.objects.filter(user=user, confirmed=False)
     # Pass through an initial context to timetable page
     initial_context = {
-        'date':date,
-        'todays_sessions':todays_sessions,
-        'existing_bookings':existing_bookings
+        'date': date,
+        'todays_sessions': todays_sessions,
+        'existing_bookings': existing_bookings
     }
     # Handle form submitted
     if request.method == "POST":
@@ -89,7 +87,10 @@ def show_sessions(request):
         if last_selected != "":
             # Check if booking already exists for user
             session = get_object_or_404(Session, id=last_selected)
-            session_bookings = Booking.objects.filter(user=user, session=session)
+            session_bookings = Booking.objects.filter(
+                user=user,
+                session=session
+                )
             if len(session_bookings) == 0:
                 # Create unconfirmed booking
                 create_booking(user, last_selected)
@@ -102,15 +103,17 @@ def show_sessions(request):
         form_ready = request.POST.get('finalised') == "y"
         # Check if user has gone to checkout
         if form_ready:
-            #Confirm users bookings
+            # Confirm users bookings
             confirm_bookings(user)
         # Update context to pass back through to the browser
         context = {
             'todays_sessions': todays_sessions,
-            'existing_bookings':existing_bookings,
-            'date' : date,
-            'user':user,
-            'remove':remove,
+            'existing_bookings': existing_bookings,
+            'date': date,
+            'user': user,
+            'remove': remove,
             }
         return render(request, 'classbooking_app/make_booking.html', context)
-    return render(request, 'classbooking_app/make_booking.html', initial_context)
+    return render(
+        request, 'classbooking_app/make_booking.html', initial_context
+        )
