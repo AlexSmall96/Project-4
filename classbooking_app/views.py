@@ -67,11 +67,14 @@ def show_sessions(request):
     todays_sessions = Session.objects.filter(date=date)
     # Get users unconfirmed bookings
     existing_bookings = Booking.objects.filter(user=user, confirmed=False)
+    # Default checkout page to not show
+    checkout_loaded = ""
     # Pass through an initial context to timetable page
     initial_context = {
         'date': date,
         'todays_sessions': todays_sessions,
-        'existing_bookings': existing_bookings
+        'existing_bookings': existing_bookings,
+        'checkout_loaded': checkout_loaded
     }
     # Handle form submitted
     if request.method == "POST":
@@ -101,6 +104,7 @@ def show_sessions(request):
         # form_ready is only filled in when user goes to checkout
         # should be invisible in the browser
         form_ready = request.POST.get('finalised') == "y"
+        checkout_loaded = request.POST.get('checkout-loaded')
         # Check if user has gone to checkout
         if form_ready:
             # Confirm users bookings
@@ -111,7 +115,7 @@ def show_sessions(request):
             'existing_bookings': existing_bookings,
             'date': date,
             'user': user,
-            'remove': remove,
+            'checkout_loaded': checkout_loaded
             }
         return render(request, 'classbooking_app/make_booking.html', context)
     return render(

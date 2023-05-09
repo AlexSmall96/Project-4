@@ -10,10 +10,17 @@ document.addEventListener("DOMContentLoaded", function(){
     const cart = document.getElementById("cart")
     const remove = document.getElementById("remove")
     const addBoxes = document.getElementsByClassName("add-to-cart")
+    const removeBoxes = document.getElementsByClassName("remove-from-cart")
     const checkoutButton = document.getElementById("checkout-button")
     const timetable = document.getElementById("timetable")
     const confirmBookings = document.getElementById("confirm-bookings")
     const finalisedBox = document.getElementById("finalised")
+    const checkoutLoaded = document.getElementById("checkout-loaded")
+
+    if (checkoutLoaded.value === "y"){
+        timetable.style.display="none"
+        confirmBookings.style.display = "block"       
+    } 
 
     let checkoutList = document.getElementById("checkout-list").children
     let selectedBookings = []
@@ -44,12 +51,22 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     }
 
+    for (let box of removeBoxes){
+        box.addEventListener("click", () => {
+            remove.value = box.id.substring(0,6)
+            finalisedBox.value = ""
+            checkoutLoaded.value = "y"
+            form.submit()
+        })
+    }
+
     // Add event listener to checkout button
     checkoutButton.addEventListener("click", () => {
         // Hide timetable
         timetable.style.display="none"
         confirmBookings.style.display = "block"
         finalisedBox.value = "y"
+        checkoutLoaded.value = "y"
     })
     }
 })

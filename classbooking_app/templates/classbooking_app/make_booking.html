@@ -45,6 +45,8 @@
   <div id="confirm-bookings">
     <label for="finalised"><h1>Bookings Finalised:</h1></label>
     <input type="text" id="finalised" name="finalised">
+    <label for="checkout-loaded"><h1>Checkout Page Loaded:</h1></label>
+    <input type="text" id="checkout-loaded" name="checkout-loaded" value="{{ checkout_loaded }}">
  <input id="confirm" type="submit" value="Confirm Bookings">
  <h1>Your Chosen Classes</h1>
 
@@ -58,6 +60,7 @@
     <div class="col">Date</div>
     <div class="col">Time</div>
     <div class="col">Location</div>
+    <div class="col"></div>
   </div>
   {% for booking in existing_bookings %}
   <div id="{{ booking.session.id}}_selected" class="row">
@@ -65,6 +68,9 @@
     <div class="col">{{ booking.session.date }}</div>
     <div class="col">{{ booking.session.time }}</div>
     <div class="col">{{ booking.session.location }}</div>
+    <div class="col">
+      <input class="remove-from-cart" type="button" id="{{ booking.session.id }}_remove" name="{{ booking.session.id }}_remove" value="Remove from Cart">
+    </div>
   </div>
   {% endfor %}
  </div>
