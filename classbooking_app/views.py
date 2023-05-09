@@ -40,12 +40,11 @@ def create_booking(user, id):
     return booking
 
 
-def remove_booking(user, id):
+def delete_booking(user, id):
     session = get_object_or_404(Session, id=id)
-    bookings = Booking.objects.filter(user=user, session=session)
-    for booking in bookings:
-        booking.delete()
-        booking.save()
+    bookings = Booking.objects.filter(user=user, session=session).delete()
+
+
 
 
 def confirm_bookings(user):
@@ -96,7 +95,7 @@ def show_sessions(request):
                 create_booking(user, last_selected)
         # Check if remove field is non empty
         if remove != "":
-            remove_booking(user, remove)
+            delete_booking(user, remove)
         existing_bookings = Booking.objects.filter(user=user, confirmed=False)
         # form_ready is only filled in when user goes to checkout
         # should be invisible in the browser

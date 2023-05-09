@@ -34,10 +34,10 @@ document.addEventListener("DOMContentLoaded", function(){
             box.value = "Add to Cart"
         }
         box.addEventListener("click", () => {
-            if (this.value == "Add to Cart"){
-                cart.value = box.id
-            } else {
+            if (selectedBookings.includes(box.id)){
                 remove.value = box.id
+            } else {
+                cart.value = box.id
             }
             // Submit form
             form.submit()
