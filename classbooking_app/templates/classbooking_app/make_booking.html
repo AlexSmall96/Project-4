@@ -2,22 +2,18 @@
 
 {% block content %}
 
-{{ booking.session.id }}
 <div id="timetable">
 <h1>Showing Classes on {{ date }}</h1>
     <form method="POST" id="date-form">
         {% csrf_token %}
         <label for="select-date">Select Date:</label>
         <input type="date" id="select-date" name="date_name" value="{{ date }}">
-      <label for="username">Enter Username:</label>
-      <input type="text" id="username" name="user_name" value="{{ user }}">
-
-    <h1>{{ completed }}</h1>
-
-    <label for="cart"><h1>Cart:</h1></label>
-    <input type="text" id="cart" name="cart" value="{{ last_selected }}">
-    <label for="remove"><h1>Remove:</h1></label>
-    <input type="text" id="remove" name="remove" value="{{ remove }}">
+      <label class="invisible" for="username">Enter Username:</label>
+      <input class="invisible" type="text" id="username" name="user_name" value="{{ user }}">
+    <label class="invisible" for="cart"><h1>Cart:</h1></label>
+    <input class="invisible" type="text" id="cart" name="cart" value="{{ last_selected }}">
+    <label class="invisible" for="remove"><h1>Remove:</h1></label>
+    <input class="invisible" type="text" id="remove" name="remove" value="{{ remove }}">
     <div class="container">
       {% for session in todays_sessions %}
         <div class="excercise row vertical-margin">
@@ -43,11 +39,11 @@
   <button type="button" id="checkout-button">Checkout</button>
 </div>
   <div id="confirm-bookings">
-    <label for="finalised"><h1>Bookings Finalised:</h1></label>
-    <input type="text" id="finalised" name="finalised" value="{{ form_ready }}">
-    <label for="checkout-loaded"><h1>Checkout Page Loaded:</h1></label>
-    <input type="text" id="checkout-loaded" name="checkout-loaded" value="{{ checkout_loaded }}">
- <input id="confirm" type="submit" value="Confirm Bookings">
+    <label class="invisible" for="finalised"><h1>Bookings Finalised:</h1></label>
+    <input class="invisible" type="text" id="finalised" name="finalised" value="{{ form_ready }}">
+    <label class="invisible" for="checkout-loaded"><h1>Checkout Page Loaded:</h1></label>
+    <input class="invisible" type="text" id="checkout-loaded" name="checkout-loaded" value="{{ checkout_loaded }}">
+ 
  <h1>Your Chosen Classes</h1>
 
  
@@ -76,9 +72,10 @@
   {% endif %}
   {% endfor %}
  </div>
+ <input id="confirm" type="submit" value="Confirm Bookings">
 </div>
 
-<div id="users-bookings">
+<div id="users-bookings" class="invisible">
   {% for booking in existing_bookings %}
     {% if booking.confirmed == True %}
       <p>{{ booking.session.id }}</p>
