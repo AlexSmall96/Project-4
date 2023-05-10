@@ -20,7 +20,6 @@ class Activity(models.Model):
         null=False,
         blank=False,
         default="test_image")
-
     capacity = models.IntegerField(
         null=False,
         blank=False,

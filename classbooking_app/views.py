@@ -43,8 +43,8 @@ def create_booking(user, id):
 def delete_booking(user, id):
     session = get_object_or_404(Session, id=id)
     bookings = Booking.objects.filter(user=user, session=session).delete()
-    session_bookings = Booking.objects.filter(session=session)
-    session.spaces = 25 - len(session_bookings)
+    spaces_taken = len(Booking.objects.filter(session=session))
+    session.spaces = session.activity.capacity - spaces_taken
     session.save()
 
 
@@ -57,8 +57,8 @@ def confirm_bookings(user):
         booking.save()
         # Add user to count of attendees in session
         session = booking.session
-        session_bookings = Booking.objects.filter(session=session)
-        session.spaces = 25 - len(session_bookings)
+        spaces_taken = len(Booking.objects.filter(session=session))
+        session.spaces = session.activity.capacity - spaces_taken
         session.save()
 
 
