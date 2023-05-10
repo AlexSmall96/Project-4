@@ -32,7 +32,13 @@ class BookingAdmin(admin.ModelAdmin):
         "confirmed"
         )
 
-    list_filter = ('user', 'session', 'confirmed')
+    list_filter = (
+        'user',
+        'session__activity',
+        'session__date',
+        'session__time',
+        'confirmed'
+        )
 
     def date(self, obj):
         return obj.session.date
