@@ -9,24 +9,6 @@ def load_home_page(request):
     return render(request, 'classbooking_app/home.html')
 
 
-def login_page(request):
-    # Handle login form
-    if request.method == "POST":
-        # Get data from form
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        # Check if user is authenticated
-        user = authenticate(request, username=username, password=password)
-        # If user is authenticaed redirect to timetable page
-        if user is not None:
-            login(request, user)
-            return redirect('show_sessions')
-        else:
-            # Return user to home page
-            return redirect('load_home_page')
-    return render(request, 'classbooking_app/login.html')
-
-
 def create_booking(user, id):
     # Get session associated with booking
     session = get_object_or_404(Session, id=id)
@@ -107,40 +89,45 @@ def handle_form(request):
 
 
 def show_sessions(request):
-    # Get current user
     user = request.user
-    # Set current date as default
-    date = dt.today().strftime("%Y-%m-%d")
-    # Load current days sessions
-    todays_sessions = Session.objects.filter(date=date)
-    # Get users unconfirmed bookings
-    existing_bookings = Booking.objects.filter(user=user, confirmed=False)
-    # Default checkout page to not show
-    checkout_loaded = ""
-    # Pass through an initial context to timetable page
-    context = {
-        'date': date,
-        'todays_sessions': todays_sessions,
-        'existing_bookings': existing_bookings,
-        'checkout_loaded': checkout_loaded
-    }
-    # Handle form submitted
-    if request.method == "POST":
-        # Get data currently entered into form
-        context = handle_form(request)
-    return render(request, 'classbooking_app/make_booking.html', context)
+    if user.is_authenticated:
+        # Set current date as default
+        date = dt.today().strftime("%Y-%m-%d")
+        # Load current days sessions
+        todays_sessions = Session.objects.filter(date=date)
+        # Get users unconfirmed bookings
+        existing_bookings = Booking.objects.filter(user=user, confirmed=False)
+        # Default checkout page to not show
+        checkout_loaded = ""
+        # Pass through an initial context to timetable page
+        context = {
+            'date': date,
+            'todays_sessions': todays_sessions,
+            'existing_bookings': existing_bookings,
+            'checkout_loaded': checkout_loaded
+            }
+        # Handle form submitted
+        if request.method == "POST":
+            # Get data currently entered into form
+            context = handle_form(request)
+        return render(request, 'classbooking_app/make_booking.html', context)
+    else:
+        return render(request, 'classbooking_app/home.html')
 
 
 def view_bookings(request):
     # Save current user
     user = request.user
-    # If form is submitted delete the relevant booking
-    if request.method == "POST":
-        booking_id = request.POST.get('cancel')
-        delete_booking(user, booking_id)
-    # Pass through the remaining users bookings
-    bookings = Booking.objects.filter(user=user, confirmed=True)
-    context = {
-        'bookings': bookings
-    }
-    return render(request, 'classbooking_app/view_bookings.html', context)
+    if user.is_authenticated:
+        # If form is submitted delete the relevant booking
+        if request.method == "POST":
+            booking_id = request.POST.get('cancel')
+            delete_booking(user, booking_id)
+        # Pass through the remaining users bookings
+        bookings = Booking.objects.filter(user=user, confirmed=True)
+        context = {
+            'bookings': bookings
+        }
+        return render(request, 'classbooking_app/view_bookings.html', context)
+    else:
+        return render(request, 'classbooking_app/home.html')

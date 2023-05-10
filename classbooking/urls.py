@@ -23,5 +23,4 @@ urlpatterns = [
     path('', views.load_home_page, name='load_home_page'),
     path('make_booking.html', views.show_sessions, name='show_sessions'),
     path('view_bookings.html', views.view_bookings, name='view_bookings'),
-    path('login.html', views.login_page, name='login_page'),
 ]
