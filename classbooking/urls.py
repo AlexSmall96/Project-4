@@ -19,7 +19,6 @@ from classbooking_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('summernote/', include('django_summernote.urls')),
     path('', views.load_home_page, name='load_home_page'),
     path('make_booking.html', views.show_sessions, name='show_sessions'),
     path('view_bookings.html', views.view_bookings, name='view_bookings'),

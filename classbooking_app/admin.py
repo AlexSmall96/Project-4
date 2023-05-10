@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Session, Booking, Activity
-from django_summernote.admin import SummernoteModelAdmin
 
 
 class ActivityAdmin(admin.ModelAdmin):
@@ -11,7 +10,7 @@ class ActivityAdmin(admin.ModelAdmin):
         )
 
 
-class SessionAdmin(SummernoteModelAdmin):
+class SessionAdmin(admin.ModelAdmin):
     list_display = (
         "activity",
         "date",
@@ -24,7 +23,7 @@ class SessionAdmin(SummernoteModelAdmin):
     list_filter = ['activity', 'date', 'time', 'location', 'running']
 
 
-class BookingAdmin(SummernoteModelAdmin):
+class BookingAdmin(admin.ModelAdmin):
     list_display = (
         "user",
         "session",
@@ -33,7 +32,7 @@ class BookingAdmin(SummernoteModelAdmin):
         "confirmed"
         )
 
-    list_filter = ['user', 'session', 'confirmed']
+    list_filter = ('user', 'session', 'confirmed')
 
     def date(self, obj):
         return obj.session.date
