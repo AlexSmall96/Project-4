@@ -2,8 +2,41 @@ from django.contrib import admin
 from .models import Session, Booking, Activity
 
 
-admin.site.register(Activity)
-admin.site.register(Session)
-admin.site.register(Booking)
+class ActivityAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "description",
+        "capacity"
+        )
 
 
+class SessionAdmin(admin.ModelAdmin):
+    list_display = (
+        "activity",
+        "date",
+        "time",
+        "location",
+        "spaces",
+        "running"
+        )
+
+
+class BookingAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "session",
+        "date",
+        "time",
+        "confirmed"
+        )
+
+    def date(self, obj):
+        return obj.session.date
+
+    def time(self, obj):
+        return obj.session.time
+
+
+admin.site.register(Activity, ActivityAdmin)
+admin.site.register(Session, SessionAdmin)
+admin.site.register(Booking, BookingAdmin)
