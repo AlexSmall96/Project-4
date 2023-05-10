@@ -21,6 +21,12 @@ class Activity(models.Model):
         blank=False,
         default="test_image")
 
+    capacity = models.IntegerField(
+        null=False,
+        blank=False,
+        default=25
+    )
+
     def __str__(self):
         return self.name
 
