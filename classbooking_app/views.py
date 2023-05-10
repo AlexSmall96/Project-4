@@ -62,6 +62,50 @@ def confirm_bookings(user):
         session.save()
 
 
+def handle_form(request):
+    date = request.POST.get('date_name')
+    last_selected = request.POST.get('cart')
+    remove = request.POST.get('remove')
+    user = request.POST.get('user_name')
+    # Update todays_sessions with new date
+    todays_sessions = Session.objects.filter(date=date)
+    # Split cart data into individual session ids
+    # Take last cart_id and make unconfirmed booking
+    if last_selected != "":
+        # Check if booking already exists for user
+        session = get_object_or_404(Session, id=last_selected)
+        session_bookings = Booking.objects.filter(
+            user=user,
+            session=session
+            )
+        if len(session_bookings) == 0:
+            # Create unconfirmed booking
+            create_booking(user, last_selected)
+    # Check if remove field is non empty
+    if remove != "":
+        delete_booking(user, remove)
+    existing_bookings = Booking.objects.filter(user=user)
+    # form_ready is only filled in when user goes to checkout
+    # should be invisible in the browser
+    form_ready = request.POST.get('finalised') == "y"
+    checkout_loaded = request.POST.get('checkout-loaded')
+    # Check if user has gone to checkout
+    if form_ready:
+        # Confirm users bookings
+        confirm_bookings(user)
+    # Update context to pass back through to the browser
+    form_ready = checkout_loaded
+    context = {
+        'todays_sessions': todays_sessions,
+        'existing_bookings': existing_bookings,
+        'date': date,
+        'user': user,
+        'checkout_loaded': checkout_loaded,
+        'form_ready': form_ready
+        }
+    return context
+
+
 def show_sessions(request):
     # Get current user
     user = request.user
@@ -74,7 +118,7 @@ def show_sessions(request):
     # Default checkout page to not show
     checkout_loaded = ""
     # Pass through an initial context to timetable page
-    initial_context = {
+    context = {
         'date': date,
         'todays_sessions': todays_sessions,
         'existing_bookings': existing_bookings,
@@ -83,50 +127,8 @@ def show_sessions(request):
     # Handle form submitted
     if request.method == "POST":
         # Get data currently entered into form
-        date = request.POST.get('date_name')
-        last_selected = request.POST.get('cart')
-        remove = request.POST.get('remove')
-        user = request.POST.get('user_name')
-        # Update todays_sessions with new date
-        todays_sessions = Session.objects.filter(date=date)
-        # Split cart data into individual session ids
-        # Take last cart_id and make unconfirmed booking
-        if last_selected != "":
-            # Check if booking already exists for user
-            session = get_object_or_404(Session, id=last_selected)
-            session_bookings = Booking.objects.filter(
-                user=user,
-                session=session
-                )
-            if len(session_bookings) == 0:
-                # Create unconfirmed booking
-                create_booking(user, last_selected)
-        # Check if remove field is non empty
-        if remove != "":
-            delete_booking(user, remove)
-        existing_bookings = Booking.objects.filter(user=user)
-        # form_ready is only filled in when user goes to checkout
-        # should be invisible in the browser
-        form_ready = request.POST.get('finalised') == "y"
-        checkout_loaded = request.POST.get('checkout-loaded')
-        # Check if user has gone to checkout
-        if form_ready:
-            # Confirm users bookings
-            confirm_bookings(user)
-        # Update context to pass back through to the browser
-        form_ready = checkout_loaded
-        context = {
-            'todays_sessions': todays_sessions,
-            'existing_bookings': existing_bookings,
-            'date': date,
-            'user': user,
-            'checkout_loaded': checkout_loaded,
-            'form_ready': form_ready
-            }
-        return render(request, 'classbooking_app/make_booking.html', context)
-    return render(
-        request, 'classbooking_app/make_booking.html', initial_context
-        )
+        context = handle_form(request)
+    return render(request, 'classbooking_app/make_booking.html', context)
 
 
 def view_bookings(request):
