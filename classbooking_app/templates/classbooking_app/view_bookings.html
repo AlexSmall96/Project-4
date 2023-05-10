@@ -16,13 +16,13 @@
    <div class="col"></div>
  </div>
  {% for booking in bookings %}
- <div class="row">
+ <div class="row run-{{ booking.session.running }}">
    <div class="col">{{ booking.session.activity.name }}</div>
    <div class="col">{{ booking.session.date }}</div>
    <div class="col">{{ booking.session.time }}</div>
    <div class="col">{{ booking.session.location }}</div>
    <div class="col">
-     <input class="cancel-button" type="button" value="Cancel Booking" id="{{ booking.session.id }}_view">
+     <input class="cancel-button run-{{ booking.session.running }}-btn" type="button" value="Cancel Booking" id="{{ booking.session.id }}_view">
    </div>
  </div>
 </div>

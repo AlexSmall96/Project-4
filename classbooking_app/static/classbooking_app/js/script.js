@@ -47,24 +47,25 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Add event listener to each add to cart button
     for (let box of addBoxes){
-        if (selectedBookings.includes(box.id)){
-            box.value = "Remove from Cart"
-        } else if (userBookingsArr.includes(box.id)){ 
-            box.value = "Booked in. Cancel?"
-        } else if (box.value != "Class Cancelled" ) {
-            box.value = "Add to Cart"
-        }
-        box.addEventListener("click", () => {
-            if (box.value != "Class Cancelled"){
-                if (selectedBookings.includes(box.id) || userBookingsArr.includes(box.id)){
-                    remove.value = box.id
-                } else {
-                    cart.value = box.id
-                }
-                // Submit form
-                form.submit()
+        if (box.value != "Class Cancelled"){
+            if (selectedBookings.includes(box.id)){
+                box.value = "Remove from Cart"
+            } else if (userBookingsArr.includes(box.id)){ 
+                box.value = "Booked in. Cancel?"
+            } else {
+                box.value = "Add to Cart"
             }
-        })
+            box.addEventListener("click", () => {
+                    if (selectedBookings.includes(box.id) || userBookingsArr.includes(box.id)){
+                        remove.value = box.id
+                    } else {
+                        cart.value = box.id
+                    }
+                    // Submit form
+                    form.submit()
+            })
+        }
+
     }
 
     for (let box of removeBoxes){
@@ -89,6 +90,8 @@ document.addEventListener("DOMContentLoaded", function(){
     if(window.location.href === baseURL.concat('/view_bookings.html')){
         const cancelButtons = document.getElementsByClassName("cancel-button")
         const cancelForm = document.getElementById("cancel-form")
+        const cancelledBookBtns = document.getElementsByClassName("run-False-btn")
+
         let cancelField = document.getElementById("cancel")
         for (let button of cancelButtons){
             button.addEventListener("click", () => {
@@ -96,6 +99,10 @@ document.addEventListener("DOMContentLoaded", function(){
                 cancelForm.submit()
             })
         }
-
+        for (let button of cancelledBookBtns){
+            button.value = "Class Cancelled"
+        }
     }
+
+
 })
