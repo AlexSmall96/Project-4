@@ -20,6 +20,7 @@
     display:none
 }
 
-.run-False{
+.run-False, .run-False-btn{
     background-color: darkgrey;
 }
+

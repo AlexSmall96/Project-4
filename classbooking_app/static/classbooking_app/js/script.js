@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const cancelledSessBtns = document.getElementsByClassName("run-False-btn")
 
     for (let button of cancelledSessBtns){
-        console.log(button)
         button.value = "Class Cancelled"
     }
 
@@ -52,17 +51,19 @@ document.addEventListener("DOMContentLoaded", function(){
             box.value = "Remove from Cart"
         } else if (userBookingsArr.includes(box.id)){ 
             box.value = "Booked in. Cancel?"
-        } else {
+        } else if (box.value != "Class Cancelled" ) {
             box.value = "Add to Cart"
         }
         box.addEventListener("click", () => {
-            if (selectedBookings.includes(box.id) || userBookingsArr.includes(box.id)){
-                remove.value = box.id
-            } else {
-                cart.value = box.id
+            if (box.value != "Class Cancelled"){
+                if (selectedBookings.includes(box.id) || userBookingsArr.includes(box.id)){
+                    remove.value = box.id
+                } else {
+                    cart.value = box.id
+                }
+                // Submit form
+                form.submit()
             }
-            // Submit form
-            form.submit()
         })
     }
 
