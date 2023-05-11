@@ -2,13 +2,16 @@
 
 {% block contentbody %}
 <h1>login</h1>
+{% if form.errors %}
+<p>Invalid Username/Password</p>
+{% endif %}
 <form method="POST">
     {% csrf_token %}
     <label for="username">Username:</label>
     <input type="text" id="username" name="username">
     <label for="username">Password:</label>
     <input type="password" id="password" name="password">
-    <button type="submit">Login</button>
+    <button id="login" type="submit">Login</button>
 </form>
 
   
@@ -16,5 +19,5 @@
 
 
 {% block contentscript %}
-<script src="../../static/classbooking_app/js/script.js"></script>
+<script src="../../static/classbooking_app/js/login.js"></script>
 {% endblock %}
