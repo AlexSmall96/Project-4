@@ -6,19 +6,23 @@ document.addEventListener("DOMContentLoaded", function(){
         let yesButtons = document.getElementsByClassName("confirm-cancel")
         let cancelField = document.getElementById("cancel")
 
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
         for (let button of yesButtons){
-            let modalId = "modal-".concat(button.id.substring(0,6))
+            let sessionId = button.id.substring(0,6)
+            let modalId = "modal-".concat(sessionId)
             let modal = document.getElementById(modalId)
-            let modalHeaderId = "modal-header-".concat(button.id.substring(0,6))
-            let noButton = document.getElementById(button.id.substring(0,6).concat("-no"))
+            let modalHeaderId = "modal-header-".concat(sessionId)
             let modalHeader = document.getElementById(modalHeaderId)
-            button.addEventListener("click", () => {
+            let noButton = document.getElementById(sessionId.concat("-no"))
+            button.addEventListener("click", async function(){
                 button.style.display="none"
                 modalHeader.innerHTML = "Thanks for confirming, your booking has been cancelled."
                 noButton.innerHTML = "Return to Bookings."
+                await delay(2000)
+                cancelField.value = button.id.substring(0,6)
+                cancelForm.submit()
                 noButton.addEventListener("click", () => {
-                    cancelField.value = button.id.substring(0,6)
-                    cancelForm.submit()
                 })
 
             })
