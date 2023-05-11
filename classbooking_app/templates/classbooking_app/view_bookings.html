@@ -22,18 +22,36 @@
    <div class="col">{{ booking.session.time }}</div>
    <div class="col">{{ booking.session.location }}</div>
    <div class="col">
-     <input class="cancel-button run-{{ booking.session.running }}-btn" type="button" value="Cancel Booking" id="{{ booking.session.id }}_view">
+     <input class="cancel-button run-{{ booking.session.running }}-btn" type="button" value="Cancel Booking" id="{{ booking.session.id }}_view"data-toggle="modal" data-target="#modal-{{ booking.session.id }}">
    </div>
  </div>
 </div>
+</form>  
+
+<!-- Modal -->
+<div class="modal fade" id="modal-{{ booking.session.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modal-header-{{ booking.session.id }}" class="modal-title"
+        >Are you sure you want to cancel 
+        {{booking.session.activity.name}} 
+        at {{ booking.session.time }}
+        on {{ booking.session.date }}?
+      </h5>
+      </div>
+      <div class="modal-body">
+        <button id="{{ booking.session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
+        <button id="{{ booking.session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endfor %}
 {% endif %}
-
-
-</form>  
 {% endblock %}
 
 {% block contentscript %}  
-<script src="../../static/classbooking_app/js/view_bookings.js"></script>
+<script src="../../static/classbooking_app/js/view_bookings.js?2"></script>
 {% endblock %}
 
