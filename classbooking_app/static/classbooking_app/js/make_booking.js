@@ -1,8 +1,4 @@
 document.addEventListener("DOMContentLoaded", function(){
-    // Change for deployment
-    baseURL = 'https://8000-alexsmall96-project4-z4wrtww3ucz.ws-eu96b.gitpod.io'
-    if(window.location.href === baseURL.concat('/make_booking.html')){
-    
     // Declare const variables
     const currentDate = document.getElementById("select-date")
     const formCompleted = document.getElementById("form-complete")
@@ -85,24 +81,4 @@ document.addEventListener("DOMContentLoaded", function(){
         finalisedBox.value = "y"
         checkoutLoaded.value = "y"
     })
-    }
-
-    if(window.location.href === baseURL.concat('/view_bookings.html')){
-        const cancelButtons = document.getElementsByClassName("cancel-button")
-        const cancelForm = document.getElementById("cancel-form")
-        const cancelledBookBtns = document.getElementsByClassName("run-False-btn")
-
-        let cancelField = document.getElementById("cancel")
-        for (let button of cancelButtons){
-            button.addEventListener("click", () => {
-                cancelField.value = button.id.substring(0,6)
-                cancelForm.submit()
-            })
-        }
-        for (let button of cancelledBookBtns){
-            button.value = "Class Cancelled"
-        }
-    }
-
-
 })

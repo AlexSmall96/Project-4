@@ -1,6 +1,6 @@
 {% extends 'classbooking_app/base.html' %}
 
-{% block content %}
+{% block contentbody %}
 <h1>Your Bookings</h1>
 <form method="POST" id="cancel-form">
     {% csrf_token %}
@@ -32,3 +32,8 @@
 
 </form>  
 {% endblock %}
+
+{% block contentscript %}  
+<script src="../../static/classbooking_app/js/view_bookings.js"></script>
+{% endblock %}
+

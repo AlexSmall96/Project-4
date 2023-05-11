@@ -1,6 +1,6 @@
 {% extends 'classbooking_app/base.html' %}
 
-{% block content %}
+{% block contentbody %}
 
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
@@ -13,4 +13,8 @@
 
 
   
+{% endblock %}
+
+{% block contentscript %}  
+<script src="../../static/classbooking_app/js/script.js"></script>
 {% endblock %}
