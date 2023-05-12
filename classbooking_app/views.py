@@ -46,7 +46,7 @@ def confirm_bookings(user):
 
 def checkout(request):
     user = request.user
-    confirm_btn_class = ""
+    confirm_btn_class = "visible"
     confirm_msg_class = "invisible"
     if request.method == "POST":
         remove = request.POST.get('remove')
@@ -56,7 +56,7 @@ def checkout(request):
         if form_ready:
             confirm_bookings(user)
             confirm_btn_class = "invisible"
-            confirm_msg_class = ""
+            confirm_msg_class = "visible"
     existing_bookings = Booking.objects.filter(user=user)
     form_value = "y"
     context = {

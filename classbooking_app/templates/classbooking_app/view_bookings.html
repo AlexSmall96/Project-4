@@ -27,7 +27,6 @@
  </div>
 </div>
 </form>  
-
 <!-- Modal -->
 <div class="modal fade" id="modal-{{ booking.session.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -48,6 +47,11 @@
   </div>
 </div>
 {% endfor %}
+
+{% else %}
+<p>
+  You aren't booked into any classes yet, visit the <a href="/make_booking.html" id="timetable-link">Timetable</a> to book yourself in.
+</p>
 {% endif %}
 {% endblock %}
 

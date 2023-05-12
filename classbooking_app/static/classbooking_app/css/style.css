@@ -16,6 +16,10 @@
     display:none
 }
 
+.visible{
+    display:block
+}
+
 .run-False, .run-False-btn{
     background-color: darkgrey;
 }
