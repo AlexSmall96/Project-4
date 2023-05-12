@@ -48,7 +48,7 @@ def handle_form(request):
     date = request.POST.get('date_name')
     last_selected = request.POST.get('cart')
     remove = request.POST.get('remove')
-    user = request.POST.get('user_name')
+    user = request.user
     # Update todays_sessions with new date
     todays_sessions = Session.objects.filter(date=date)
     # Split cart data into individual session ids
@@ -81,7 +81,6 @@ def handle_form(request):
         'todays_sessions': todays_sessions,
         'existing_bookings': existing_bookings,
         'date': date,
-        'user': user,
         'checkout_loaded': checkout_loaded,
         'form_ready': form_ready
         }
@@ -90,44 +89,39 @@ def handle_form(request):
 
 def show_sessions(request):
     user = request.user
-    if user.is_authenticated:
-        # Set current date as default
-        date = dt.today().strftime("%Y-%m-%d")
-        # Load current days sessions
-        todays_sessions = Session.objects.filter(date=date)
-        # Get users unconfirmed bookings
-        existing_bookings = Booking.objects.filter(user=user, confirmed=False)
-        # Default checkout page to not show
-        checkout_loaded = ""
-        # Pass through an initial context to timetable page
-        context = {
-            'date': date,
-            'todays_sessions': todays_sessions,
-            'existing_bookings': existing_bookings,
-            'checkout_loaded': checkout_loaded
-            }
-        # Handle form submitted
-        if request.method == "POST":
-            # Get data currently entered into form
-            context = handle_form(request)
-        return render(request, 'classbooking_app/make_booking.html', context)
-    else:
-        return render(request, 'classbooking_app/home.html')
+    # Set current date as default
+    date = dt.today().strftime("%Y-%m-%d")
+    # Load current days sessions
+    todays_sessions = Session.objects.filter(date=date)
+    # Get users unconfirmed bookings
+    existing_bookings = Booking.objects.filter(user=user, confirmed=False)
+    # Default checkout page to not show
+    checkout_loaded = ""
+    # Pass through an initial context to timetable page
+    context = {
+        'date': date,
+        'todays_sessions': todays_sessions,
+        'existing_bookings': existing_bookings,
+        'checkout_loaded': checkout_loaded
+        }
+    # Handle form submitted
+    if request.method == "POST":
+        # Get data currently entered into form
+        context = handle_form(request)
+    return render(request, 'classbooking_app/make_booking.html', context)
 
 
 def view_bookings(request):
     # Save current user
     user = request.user
-    if user.is_authenticated:
-        # If form is submitted delete the relevant booking
-        if request.method == "POST":
-            booking_id = request.POST.get('cancel')
-            delete_booking(user, booking_id)
-        # Pass through the remaining users bookings
-        bookings = Booking.objects.filter(user=user, confirmed=True)
-        context = {
-            'bookings': bookings
-        }
-        return render(request, 'classbooking_app/view_bookings.html', context)
-    else:
-        return render(request, 'classbooking_app/home.html')
+    # If form is submitted delete the relevant booking
+    if request.method == "POST":
+        booking_id = request.POST.get('cancel')
+        delete_booking(user, booking_id)
+    # Pass through the remaining users bookings
+    bookings = Booking.objects.filter(user=user, confirmed=True)
+    context = {
+        'bookings': bookings
+    }
+    return render(request, 'classbooking_app/view_bookings.html', context)
+
