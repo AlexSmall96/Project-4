@@ -2,84 +2,56 @@
 
 {% block contentbody %}
 
-<div id="timetable">
 <h1>Showing Classes on {{ date }}</h1>
-    <form method="POST" id="date-form">
-        {% csrf_token %}
-        <label for="select-date">Select Date:</label>
-        <input type="date" id="select-date" name="date_name" value="{{ date }}">
-    <label class="invisible" for="cart"><h1>Cart:</h1></label>
-    <input class="invisible" type="text" id="cart" name="cart" value="{{ last_selected }}">
-    <label class="invisible" for="remove"><h1>Remove:</h1></label>
-    <input class="invisible" type="text" id="remove" name="remove" value="{{ remove }}">
+  <form method="POST" id="date-form">
+    {% csrf_token %}
+    <label for="select-date">Select Date:</label>
+    <input type="date" id="select-date" name="date_name" value="{{ date }}">
+    <label  for="cart"><h1>Cart:</h1></label>
+    <input  type="text" id="cart" name="cart" value="{{ last_selected }}">
+    <label  for="remove"><h1>Remove:</h1></label>
+    <input  type="text" id="remove" name="remove" value="{{ remove }}">
     <div class="container">
       {% for session in todays_sessions %}
-        <div class="excercise row vertical-margin run-{{ session.running }}">
-          <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time }}<br>{{ session.activity.duration }}</div>
-          <div class="col-5 col-sm-5 col-lg-3 has-bg-img">
-            <img class="bg-img my-image" src="../../static/classbooking_app/images/{{ session.activity.image }}">
-          </div>
-          <div class="col-6 col-sm-3 col-lg-3 align-self-center"><strong>{{ session.activity.name }}</strong>
-            <p>{{ session.activity.description }}</p>
-          </div>
-          <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-users"></i>{{ session.spaces }} spaces</div>
-          <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-location-dot"></i><span>{{ session.location }}</span></div>
-          <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
-            <input class="add-to-cart run-{{ session.running }}-btn" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
-          </div>
+      <div class="session row vertical-margin run-{{ session.running }}">
+        <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time | time:"G:i" }}<br>{{ session.activity.duration }}</div>
+        <div class="col-5 col-sm-5 col-lg-3 has-bg-img">
+          <img class="bg-img my-image" src="../../static/classbooking_app/images/{{ session.activity.image }}">
         </div>
-        {% endfor %}
-
+        <div class="col-6 col-sm-3 col-lg-3 align-self-center"><strong>{{ session.activity.name }}</strong>
+          <p>{{ session.activity.description }}</p>
+        </div>
+        <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-users"></i> {{ session.spaces }} spaces</div>
+        <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-location-dot"></i><span> {{ session.location }}</span></div>
+        <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
+          <input class="add-to-cart run-{{ session.running }}-btn" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
+        </div>
       </div>
-
-      
-    <!--<a href="/checkout.html"></a>-->
-  <button type="button" id="checkout-button">Checkout</button>
-</div>
-  <div id="confirm-bookings">
-    <label class="invisible" for="finalised"><h1>Bookings Finalised:</h1></label>
-    <input class="invisible" type="text" id="finalised" name="finalised" value="{{ form_ready }}">
-    <label class="invisible" for="checkout-loaded"><h1>Checkout Page Loaded:</h1></label>
-    <input class="invisible" type="text" id="checkout-loaded" name="checkout-loaded" value="{{ checkout_loaded }}">
- 
- <h1>Your Chosen Classes</h1>
- <div id="checkout-list" class="container">
-  <div class="row">
-    <div class="col">Activity</div>
-    <div class="col">Date</div>
-    <div class="col">Time</div>
-    <div class="col">Location</div>
-    <div class="col"></div>
-  </div>
-  {% for booking in existing_bookings %}
-  {% if booking.confirmed == False %}
-  <div id="{{ booking.session.id}}_selected" class="row">
-    <div  class="col">{{ booking.session.activity.name }}</div>
-    <div class="col">{{ booking.session.date }}</div>
-    <div class="col">{{ booking.session.time }}</div>
-    <div class="col">{{ booking.session.location }}</div>
-    <div class="col">
-      <input class="remove-from-cart" type="button" id="{{ booking.session.id }}_remove" name="{{ booking.session.id }}_remove" value="Remove from Cart">
+        {% endfor %}
     </div>
-  </div>
-  {% endif %}
-  {% endfor %}
- </div>
+  <a href="/checkout.html"> <button type="button" id="checkout-button">Checkout</button></a>
+</form>
 
- <input id="confirm" type="submit" value="Confirm Bookings">
-</div>
-
-<div id="users-bookings" class="invisible">
+<div class="invisible" id="confirmed-bookings">
   {% for booking in existing_bookings %}
     {% if booking.confirmed == True %}
       <p>{{ booking.session.id }}</p>
     {% endif %}
   {% endfor %}
 </div>
-</form>
+
+<div class="invisible" id="unconfirmed-bookings">
+  {% for booking in existing_bookings %}
+    {% if booking.confirmed == False %}
+      <p>{{ booking.session.id }}</p>
+    {% endif %}
+  {% endfor %}
+</div>
 
 {% endblock %}
 
-{% block contentscript %}  
+{% block contentscript %}
+
 <script src="../../static/classbooking_app/js/make_booking.js"></script>
+
 {% endblock %}

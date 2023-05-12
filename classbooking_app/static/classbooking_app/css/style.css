@@ -4,16 +4,12 @@
     height:150px;
 }
 
-.excercise{
+.session{
     border-style: solid;
     border-width: 2px;
     border-color:grey;
     border-radius: 2%;
     padding-bottom: 5px;
-}
-
-#confirm-bookings{
-    display:none;
 }
 
 .invisible{

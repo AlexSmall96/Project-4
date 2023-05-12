@@ -47,6 +47,9 @@ class Session(models.Model):
     def __str__(self):
         return self.activity.name
 
+        class Meta:
+            ordering = ["time"]
+
 
 class Booking(models.Model):
     session = models.ForeignKey(Session, on_delete=models.CASCADE)

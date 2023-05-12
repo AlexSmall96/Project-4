@@ -19,7 +19,7 @@
  <div class="row run-{{ booking.session.running }}">
    <div class="col">{{ booking.session.activity.name }}</div>
    <div class="col">{{ booking.session.date }}</div>
-   <div class="col">{{ booking.session.time }}</div>
+   <div class="col">{{ booking.session.time | time:"G:i" }}</div>
    <div class="col">{{ booking.session.location }}</div>
    <div class="col">
      <input class="cancel-button run-{{ booking.session.running }}-btn" type="button" value="Cancel Booking" id="{{ booking.session.id }}_view" data-toggle="modal" data-target="#modal-{{ booking.session.id }}">

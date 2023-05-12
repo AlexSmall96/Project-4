@@ -51,6 +51,7 @@ def handle_form(request):
     user = request.user
     # Update todays_sessions with new date
     todays_sessions = Session.objects.filter(date=date)
+    todays_sessions.order_by("time")
     # Split cart data into individual session ids
     # Take last cart_id and make unconfirmed booking
     if last_selected != "":
@@ -69,12 +70,16 @@ def handle_form(request):
     existing_bookings = Booking.objects.filter(user=user)
     # form_ready is only filled in when user goes to checkout
     # should be invisible in the browser
-    form_ready = request.POST.get('finalised') == "y"
+    form_ready = request.POST.get('form-ready') == "y"
     checkout_loaded = request.POST.get('checkout-loaded')
+    confirm_msg_class = "invisible"
+    confirm_btn_class = ""
     # Check if user has gone to checkout
     if form_ready:
         # Confirm users bookings
         confirm_bookings(user)
+        confirm_msg_class = ""
+        confirm_btn_class = "invisible"
     # Update context to pass back through to the browser
     form_ready = checkout_loaded
     context = {
@@ -82,32 +87,64 @@ def handle_form(request):
         'existing_bookings': existing_bookings,
         'date': date,
         'checkout_loaded': checkout_loaded,
-        'form_ready': form_ready
+        'form_ready': form_ready,
+        'confirm_msg_class': confirm_msg_class,
+        'confrim_btn_class': confirm_btn_class
         }
     return context
 
 
+def checkout(request):
+    user = request.user
+    form_value = "y"
+    existing_bookings = Booking.objects.filter(user=user)
+    confirm_btn_class = ""
+    confirm_msg_class = "invisible"
+    if request.method == "POST":
+        remove = request.POST.get('remove')
+        if remove != "":
+            delete_booking(user, remove)
+        form_ready = request.POST.get('form-ready') == "y"
+        if form_ready:
+            confirm_bookings(user)
+            confirm_btn_class = "invisible"
+            confirm_msg_class = ""
+        existing_bookings = Booking.objects.filter(user=user)
+        form_value = "y"
+    context = {
+        'existing_bookings': existing_bookings,
+        'confirm_btn_class': confirm_btn_class,
+        'confirm_msg_class': confirm_msg_class,
+        'form_value': form_value
+        }
+    return render(request, 'classbooking_app/checkout.html', context)
+
+
 def show_sessions(request):
     user = request.user
-    # Set current date as default
     date = dt.today().strftime("%Y-%m-%d")
-    # Load current days sessions
-    todays_sessions = Session.objects.filter(date=date).order_by('time')
-    # Get users unconfirmed bookings
-    existing_bookings = Booking.objects.filter(user=user, confirmed=False)
-    # Default checkout page to not show
-    checkout_loaded = ""
-    # Pass through an initial context to timetable page
+    if request.method == "POST":
+        date = request.POST.get('date_name')
+        last_selected = request.POST.get('cart')
+        remove = request.POST.get('remove')
+        if last_selected != "":
+            session = get_object_or_404(Session, id=last_selected)
+            session_bookings = Booking.objects.filter(
+                user=user,
+                session=session
+                )
+            if len(session_bookings) == 0:
+                # Create unconfirmed booking
+                create_booking(user, last_selected)
+        elif remove != "":
+            delete_booking(user, remove)
+    todays_sessions = Session.objects.filter(date=date)
+    existing_bookings = Booking.objects.filter(user=user)
     context = {
         'date': date,
         'todays_sessions': todays_sessions,
         'existing_bookings': existing_bookings,
-        'checkout_loaded': checkout_loaded
         }
-    # Handle form submitted
-    if request.method == "POST":
-        # Get data currently entered into form
-        context = handle_form(request)
     return render(request, 'classbooking_app/make_booking.html', context)
 
 
@@ -124,4 +161,3 @@ def view_bookings(request):
         'bookings': bookings
     }
     return render(request, 'classbooking_app/view_bookings.html', context)
-
