@@ -92,7 +92,7 @@ def show_sessions(request):
     # Set current date as default
     date = dt.today().strftime("%Y-%m-%d")
     # Load current days sessions
-    todays_sessions = Session.objects.filter(date=date)
+    todays_sessions = Session.objects.filter(date=date).order_by('time')
     # Get users unconfirmed bookings
     existing_bookings = Booking.objects.filter(user=user, confirmed=False)
     # Default checkout page to not show

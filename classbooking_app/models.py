@@ -25,6 +25,12 @@ class Activity(models.Model):
         blank=False,
         default=25
     )
+    duration = models.CharField(
+        max_length=5,
+        null=False,
+        blank=False,
+        default="1hr"
+    )
 
     def __str__(self):
         return self.name

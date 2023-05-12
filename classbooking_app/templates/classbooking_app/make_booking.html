@@ -15,7 +15,7 @@
     <div class="container">
       {% for session in todays_sessions %}
         <div class="excercise row vertical-margin run-{{ session.running }}">
-          <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time }}</div>
+          <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time }}<br>{{ session.activity.duration }}</div>
           <div class="col-5 col-sm-5 col-lg-3 has-bg-img">
             <img class="bg-img my-image" src="../../static/classbooking_app/images/{{ session.activity.image }}">
           </div>
