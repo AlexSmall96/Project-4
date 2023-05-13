@@ -9,10 +9,9 @@ def load_home_page(request):
     return render(request, 'classbooking_app/home.html')
 
 
-def create_booking(user, id, todays_sessions):
+def create_booking(user, id):
     # Get session associated with booking
-    session = todays_sessions.filter(id=id)[0]
-    # session = get_object_or_404(Session, id=id)
+    session = get_object_or_404(Session, id=id)
     # Create booking
     booking = Booking(
         session=session,
@@ -69,17 +68,17 @@ def checkout(request):
     return render(request, 'classbooking_app/checkout.html', context)
 
 
-def show_sessions(request):
+def load_timetable(request):
     user = request.user
     date = dt.today().strftime("%Y-%m-%d")
     old_date = date
     todays_sessions = Session.objects.filter(date=date)
     if request.method == "POST":
-        date = request.POST.get('date_name')
+        date = request.POST.get('date-name')
         last_selected = request.POST.get('cart')
         remove = request.POST.get('remove')
         if last_selected != "":
-            create_booking(user, last_selected, todays_sessions)
+            create_booking(user, last_selected)
         elif remove != "":
             delete_booking(user, remove)
     if old_date != date:
@@ -90,7 +89,7 @@ def show_sessions(request):
         'todays_sessions': todays_sessions,
         'existing_bookings': existing_bookings,
         }
-    return render(request, 'classbooking_app/make_booking.html', context)
+    return render(request, 'classbooking_app/timetable.html', context)
 
 
 def view_bookings(request):

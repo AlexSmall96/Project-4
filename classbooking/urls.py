@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path('', views.load_home_page, name='load_home_page'),
-    path('make_booking.html', views.show_sessions, name='show_sessions'),
+    path('timetable.html', views.load_timetable, name='load_timetable'),
     path('checkout.html', views.checkout, name='checkout'),
     path('view_bookings.html', views.view_bookings, name='view_bookings'),
 ]

@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const form = document.getElementById("date-form")
     const cart = document.getElementById("cart")
     const remove = document.getElementById("remove")
+    const dateChange = document.getElementById("date-change")
     const addBoxes = document.getElementsByClassName("add-to-cart")
     const cancelledSessBtns = document.getElementsByClassName("run-False-btn")
 
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
     // Add event listener on date input to convert date into serial number
     currentDate.addEventListener("change", () => {
+        dateChange.value = "y"
         form.submit()
     })
 

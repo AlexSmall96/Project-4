@@ -6,11 +6,10 @@
   <form method="POST" id="date-form">
     {% csrf_token %}
     <label for="select-date">Select Date:</label>
-    <input type="date" id="select-date" name="date_name" value="{{ date }}">
-    <label class="invisible" for="cart"><h1>Cart:</h1></label>
-    <input class="invisible" type="text" id="cart" name="cart" value="{{ last_selected }}">
-    <label class="invisible" for="remove"><h1>Remove:</h1></label>
-    <input class="invisible" type="text" id="remove" name="remove" value="{{ remove }}">
+    <input type="date" id="select-date" name="date-name" value="{{ date }}">
+    <input class="invisible" type="text" id="date-change" name="date-change">
+    <input class="invisible" type="text" id="cart" name="cart">
+    <input class="invisible" type="text" id="remove" name="remove">
     <div class="container">
       {% for session in todays_sessions %}
       <div class="session row vertical-margin run-{{ session.running }}">
@@ -56,6 +55,6 @@
 
 {% block contentscript %}
 
-<script src="../../static/classbooking_app/js/make_booking.js"></script>
+<script src="../../static/classbooking_app/js/timetable.js"></script>
 
 {% endblock %}
