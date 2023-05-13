@@ -70,22 +70,18 @@ def checkout(request):
 
 def load_timetable(request):
     user = request.user
-    date = dt.today().strftime("%Y-%m-%d")
-    old_date = date
     todays_sessions = Session.objects.filter(date__range=["2023-05-13", "2023-05-19"]).order_by("date")
-    if request.method == "POST":
-        date = request.POST.get('date-name')
-        last_selected = request.POST.get('cart')
-        remove = request.POST.get('remove')
-        if last_selected != "":
-            create_booking(user, last_selected)
-        elif remove != "":
-            delete_booking(user, remove)
-    if old_date != date:
-        todays_sessions = Session.objects.filter(date=date)
     existing_bookings = Booking.objects.filter(user=user)
+    if request.method == "POST":
+        cart = request.POST.get('cart')
+        cart_ids = cart.split()
+        for session_id in cart_ids:
+            create_booking(user, session_id)
+            existing_bookings = Booking.objects.filter(user=user)
+            context = {'existing_bookings': existing_bookings}
+            return render(request, 'classbooking_app/checkout.html', context)
+
     context = {
-        'date': date,
         'todays_sessions': todays_sessions,
         'existing_bookings': existing_bookings,
         }

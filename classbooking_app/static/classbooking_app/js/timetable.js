@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(){
     // Declare const variables
     const currentDate = document.getElementById("select-date")
-    const form = document.getElementById("date-form")
+    const timetableForm = document.getElementById("timetable-form")
+    const submitBtn = document.getElementById("submit-timetable-form")
+    const checkoutBtn = document.getElementById("checkout-btn")
     const cart = document.getElementById("cart")
     const remove = document.getElementById("remove")
     const dateChange = document.getElementById("date-change")
@@ -31,20 +33,56 @@ document.addEventListener("DOMContentLoaded", function(){
     for (let booking of confBookings){
         confBookingsArr.push(booking.innerHTML)
     }
+    console.log(confBookingsArr)
 
     let unconfBookings = document.getElementById("unconfirmed-bookings").children
     let unconfBookingsArr = []
     for (let booking of unconfBookings){
         unconfBookingsArr.push(booking.innerHTML)
     }
-    
+    console.log(unconfBookingsArr)
     // Add event listener on date input to convert date into serial number
     currentDate.addEventListener("change", () => {
         dateChange.value = "y"
         form.submit()
     })
 
+
+    for (let box of addBoxes){
+        if (box.value != "Class Cancelled"){
+            if (unconfBookingsArr.includes(box.id)){
+                box.value = "Remove from Cart"
+            } else if (confBookingsArr.includes(box.id)){ 
+                box.value = "Booked in. Cancel?"
+            } else {
+                box.value = "Add to Cart"
+            }
+        }
+    }
+
+    for (let box of addBoxes){
+        box.addEventListener("click", () => {
+            if (box.value === "Add to Cart"){
+                let oldCart = cart.value
+                box.value = "Remove from Cart"
+                cart.value = oldCart.concat(" ").concat(box.id)
+            } else if (box.value === "Remove from Cart"){
+                if (unconfBookingsArr.includes(box.id)){
+                    let oldRemove = remove.value
+                    remove.value = oldRemove.concat(" ").concat(box.id)
+                } else {
+                    let cartIds = cart.value.split(" ")
+                    let index=cartIds.indexOf(box.id)
+                    cartIds.splice(index,1)
+                    cart.value = cartIds.join(" ")
+                    box.value = "Add to Cart"
+                }
+
+            }
+        })
+    }
     // Add event listener to each add to cart button
+    /*
     for (let box of addBoxes){
         if (box.value != "Class Cancelled"){
             if (unconfBookingsArr.includes(box.id)){
@@ -65,4 +103,11 @@ document.addEventListener("DOMContentLoaded", function(){
             })
         }
     }
+    */
+
+    let formReady = document.getElementById("form-ready")
+    checkoutBtn.addEventListener("click", () => {
+        formReady.value="y"
+        timetableForm.submit()
+    })
 })

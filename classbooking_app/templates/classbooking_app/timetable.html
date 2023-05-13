@@ -3,13 +3,13 @@
 {% block contentbody %}
 
 <h1>Showing Classes on {{ date }}</h1>
-  <form method="POST" id="date-form">
+  <form method="POST" id="timetable-form">
     {% csrf_token %}
     <label for="select-date">Select Date:</label>
     <input type="date" id="select-date" name="date-name" value="{{ date }}">
     <input class="invisible" type="text" id="date-change" name="date-change">
-    <input class="invisible" type="text" id="cart" name="cart">
-    <input class="invisible" type="text" id="remove" name="remove">
+    <input class="" type="text" id="cart" name="cart">
+    <input class="" type="text" id="remove" name="remove">
     <div class="container">
       {% for session in todays_sessions %}
       <h2 id="{{ session.id }}-date-header" class="date-header invisible">{{ session.date }}</h2>
@@ -33,7 +33,8 @@
       </div>
         {% endfor %}
     </div>
-  <a href="/checkout.html"> <button type="button" id="checkout-button">Checkout</button></a>
+    <input class="invisible" type="text" id="form-ready" name="form-ready">
+  <button type="button" id="checkout-btn">Checkout</button>
 </form>
 
 <div class="invisible" id="confirmed-bookings">
