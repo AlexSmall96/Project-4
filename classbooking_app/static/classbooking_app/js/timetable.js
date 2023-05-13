@@ -81,6 +81,15 @@ document.addEventListener("DOMContentLoaded", function(){
             } 
         })
     }
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    let timetableModalTitle = document.getElementById("timetable-modal-title")
+    let confirmBtn = document.getElementById("confirm-btn")
+    confirmBtn.addEventListener("click", async function(){
+        timetableModalTitle.innerHTML = "Thanks for confirming, your classes have been booked."
+        await delay(2000)
+        timetableForm.submit()
+    })
     // Add event listener to each add to cart button
     /*
     for (let box of addBoxes){
