@@ -59,26 +59,26 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         }
     }
-
+    
+    let checkoutList = document.getElementById("checkout-list")
     for (let box of addBoxes){
         box.addEventListener("click", () => {
             if (box.value === "Add to Cart"){
-                let oldCart = cart.value
-                box.value = "Remove from Cart"
-                cart.value = oldCart.concat(" ").concat(box.id)
-            } else if (box.value === "Remove from Cart"){
-                if (unconfBookingsArr.includes(box.id)){
-                    let oldRemove = remove.value
-                    remove.value = oldRemove.concat(" ").concat(box.id)
-                } else {
-                    let cartIds = cart.value.split(" ")
-                    let index=cartIds.indexOf(box.id)
-                    cartIds.splice(index,1)
-                    cart.value = cartIds.join(" ")
-                    box.value = "Add to Cart"
-                }
+                let location = box.parentNode.previousSibling.previousSibling
+                let activity = location.previousSibling.previousSibling.previousSibling.previousSibling
+                let time = activity.previousSibling.previousSibling.previousSibling.previousSibling
+                let date = document.getElementById(box.id.concat("-date-header"))
 
-            }
+                let newRow = document.createElement("div")
+                newRow.classList.add("row")
+                newRow.innerHTML = `
+                <div class="col">${activity.children[0].innerHTML}</div>
+                <div class="col">${date.innerHTML}</div>
+                <div class="col">${time.innerHTML}</div>
+                <div class="col">${location.innerHTML}</div>
+                ` 
+                checkoutList.appendChild(newRow)
+            } 
         })
     }
     // Add event listener to each add to cart button
@@ -108,6 +108,6 @@ document.addEventListener("DOMContentLoaded", function(){
     let formReady = document.getElementById("form-ready")
     checkoutBtn.addEventListener("click", () => {
         formReady.value="y"
-        timetableForm.submit()
+        //timetableForm.submit()
     })
 })

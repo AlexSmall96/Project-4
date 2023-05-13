@@ -4,6 +4,7 @@
 <form method="POST" id="checkout-form">
 {% csrf_token %}
     <div class="invisible">
+        <input type="text" name="checkout-loaded">
         <label  for="form-ready"><h1>Bookings Finalised:</h1></label>
         <input class="invisible" type="text" id="form-ready" name="form-ready" value="{{ form_value }}">
         <label class="invisible" for="remove"><h1>Remove:</h1></label>
