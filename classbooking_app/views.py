@@ -72,7 +72,7 @@ def load_timetable(request):
     user = request.user
     date = dt.today().strftime("%Y-%m-%d")
     old_date = date
-    todays_sessions = Session.objects.filter(date=date)
+    todays_sessions = Session.objects.filter(date__range=["2023-05-13", "2023-05-19"]).order_by("date")
     if request.method == "POST":
         date = request.POST.get('date-name')
         last_selected = request.POST.get('cart')

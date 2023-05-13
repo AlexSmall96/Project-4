@@ -7,6 +7,20 @@ document.addEventListener("DOMContentLoaded", function(){
     const dateChange = document.getElementById("date-change")
     const addBoxes = document.getElementsByClassName("add-to-cart")
     const cancelledSessBtns = document.getElementsByClassName("run-False-btn")
+    const dateHeaders = document.getElementsByClassName("date-header")
+    
+    let dateArr = []
+    for (let header of dateHeaders){
+        dateArr.push(header.id)
+    }
+    
+    document.getElementById(dateArr[0]).classList.remove("invisible")
+    for (let i=1;i<dateArr.length;i++){
+        if (dateArr[i].substring(1,6) != dateArr[i-1].substring(1,6)){
+            document.getElementById(dateArr[i]).classList.remove("invisible")
+        }
+
+    }
 
     for (let button of cancelledSessBtns){
         button.value = "Class Cancelled"
