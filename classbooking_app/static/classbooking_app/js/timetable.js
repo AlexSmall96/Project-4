@@ -9,6 +9,41 @@ document.addEventListener("DOMContentLoaded", function(){
     const addBoxes = document.getElementsByClassName("add-to-cart")
     const cancelledSessBtns = document.getElementsByClassName("run-False-btn")
     const dateHeaders = document.getElementsByClassName("date-header")
+    const timetableModalTitle = document.getElementById("timetable-modal-title")
+    const timetableModal = document.getElementById("timetable-modal")
+    const confirmBtn = document.getElementById("confirm-btn")
+    const confirmed = document.getElementById("confirmed")
+    const existBookings = document.getElementById("existing-bookings")
+    const checkoutList = document.getElementById("checkout-list")
+
+    if (confirmed.value === "y"){
+        timetableModal.classList.remove("fade")
+        checkoutBtn.click()
+        timetableModal.classList.add("fade")
+        let cartIds = cart.value.split(" ")
+        for (let sessionId of cartIds){
+            if (sessionId != ""){
+                box = document.getElementById(sessionId)
+                let location = box.parentNode.previousSibling.previousSibling
+                let activity = location.previousSibling.previousSibling.previousSibling.previousSibling
+                let time = activity.previousSibling.previousSibling.previousSibling.previousSibling
+                let date = document.getElementById(box.id.concat("-date-header"))
+    
+                let newRow = document.createElement("div")
+                newRow.classList.add("row")
+                newRow.id = box.id.concat("-checkout")
+                newRow.innerHTML = `
+                <div class="col">${activity.children[0].innerHTML}</div>
+                <div class="col">${date.innerHTML}</div>
+                <div class="col">${time.innerHTML}</div>
+                <div class="col">${location.innerHTML}</div>
+                ` 
+                checkoutList.appendChild(newRow)
+                timetableModalTitle.innerHTML = "Thanks for confirming, your classes have been booked."
+                confirmBtn.innerHTML = "View all your Bookings"
+            }
+        }
+    }
     
     let dateArr = []
     for (let header of dateHeaders){
@@ -27,19 +62,17 @@ document.addEventListener("DOMContentLoaded", function(){
         button.value = "Class Cancelled"
     }
 
-    let confBookings = document.getElementById("confirmed-bookings").children
-    let confBookingsArr = []
-    for (let booking of confBookings){
-        confBookingsArr.push(booking.innerHTML)
-    }
-    console.log(confBookingsArr)
+    //let confBookings = document.getElementById("confirmed-bookings").children
+    //let confBookingsArr = []
+    //for (let booking of confBookings){
+        //confBookingsArr.push(booking.innerHTML)
+    //}
 
-    let unconfBookings = document.getElementById("unconfirmed-bookings").children
-    let unconfBookingsArr = []
-    for (let booking of unconfBookings){
-        unconfBookingsArr.push(booking.innerHTML)
-    }
-    console.log(unconfBookingsArr)
+    //let unconfBookings = document.getElementById("unconfirmed-bookings").children
+    //let unconfBookingsArr = []
+    //for (let booking of unconfBookings){
+        //unconfBookingsArr.push(booking.innerHTML)
+    //}
     // Add event listener on date input to convert date into serial number
     currentDate.addEventListener("change", () => {
         dateChange.value = "y"
@@ -47,19 +80,18 @@ document.addEventListener("DOMContentLoaded", function(){
     })
 
 
-    for (let box of addBoxes){
-        if (box.value != "Class Cancelled"){
-            if (unconfBookingsArr.includes(box.id)){
-                box.value = "Remove from Cart"
-            } else if (confBookingsArr.includes(box.id)){ 
-                box.value = "Booked in. Cancel?"
-            } else {
-                box.value = "Add to Cart"
-            }
-        }
-    }
+    //for (let box of addBoxes){
+        //if (box.value != "Class Cancelled"){
+            //if (unconfBookingsArr.includes(box.id)){
+                //box.value = "Remove from Cart"
+            //} else if (confBookingsArr.includes(box.id)){ 
+                //box.value = "Booked in. Cancel?"
+            //} else {
+                //box.value = "Add to Cart"
+            //}
+        //}
+    //}
     
-    let checkoutList = document.getElementById("checkout-list")
     for (let box of addBoxes){
         box.addEventListener("click", () => {
             if (box.value === "Add to Cart"){
@@ -93,13 +125,11 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     }
 
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-    let timetableModalTitle = document.getElementById("timetable-modal-title")
-    let confirmBtn = document.getElementById("confirm-btn")
-    confirmBtn.addEventListener("click", async function(){
-        timetableModalTitle.innerHTML = "Thanks for confirming, your classes have been booked."
-        await delay(2000)
+    //const delay = ms => new Promise(res => setTimeout(res, ms));
+    confirmBtn.addEventListener("click", function(){
+        confirmed.value = "y"
         timetableForm.submit()
+        
     })
     // Add event listener to each add to cart button
     /*

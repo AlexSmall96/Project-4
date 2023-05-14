@@ -8,7 +8,8 @@
     <label for="select-date">Select Date:</label>
     <input type="date" id="select-date" name="date-name" value="{{ date }}">
     <input class="invisible" type="text" id="date-change" name="date-change">
-    <input class="invisible" type="text" id="cart" name="cart">
+    <input class="invisible" type="text" id="cart" name="cart" value="{{ cart }}">
+    <input class="invisible" type="text" id="confirmed" name="confirmed" value="{{ confirmed }}">
     <div class="container">
       {% for session in todays_sessions %}
       <h2 id="{{ session.id }}-date-header" class="date-header invisible">{{ session.date }}</h2>
@@ -52,18 +53,20 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Book more Classes</button>
+        {% if confirmed != "y" %}
         <button id="confirm-btn" type="button" class="btn btn-primary">Confirm Bookings</button>
+        {% else %}
+        <a href="/view_bookings.html"><button id="confirm-btn" type="button" class="btn btn-primary">Confirm Bookings</button></a>
+        {% endif %}
       </div>
     </div>
   </div>
 </div>
 </form>
 
-<div class="invisible" id="confirmed-bookings">
+<div class="invisible" id="existing-bookings">
   {% for booking in existing_bookings %}
-    {% if booking.confirmed == True %}
       <p>{{ booking.session.id }}</p>
-    {% endif %}
   {% endfor %}
 </div>
 
