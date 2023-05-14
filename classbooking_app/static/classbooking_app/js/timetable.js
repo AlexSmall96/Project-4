@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 confirmBtn.innerHTML = "View all your Bookings"
             }
         }
+        confirmed.value = ""
     }
     
     let dateArr = []

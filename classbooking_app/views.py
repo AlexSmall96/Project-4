@@ -94,13 +94,23 @@ def load_timetable(request):
 def view_bookings(request):
     # Save current user
     user = request.user
-    # If form is submitted delete the relevant booking
-    if request.method == "POST":
-        booking_id = request.POST.get('cancel')
-        delete_booking(user, booking_id)
-    # Pass through the remaining users bookings
+    cancel_id = ""
     bookings = Booking.objects.filter(user=user)
     context = {
-        'bookings': bookings
-    }
+        'bookings': bookings,
+        'cancel_id': cancel_id,
+        }
+    # If form is submitted delete the relevant booking
+    if request.method == "POST":
+        cancel_id = request.POST.get('cancel')
+        delete_booking(user, cancel_id)
+        bookings = Booking.objects.filter(user=user)
+        cancelled_session = get_object_or_404(Session, id=cancel_id)
+        context = {
+            'bookings': bookings,
+            'cancel_id': cancel_id,
+            'cancelled_session': cancelled_session
+            }
+    # Pass through the remaining users bookings
+    
     return render(request, 'classbooking_app/view_bookings.html', context)
