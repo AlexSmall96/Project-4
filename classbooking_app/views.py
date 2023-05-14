@@ -72,6 +72,7 @@ def load_timetable(request):
     user = request.user
     confirmed = ""
     cart = ""
+    cancel_id = ""
     # Update date range to be a rolling 7 days
     todays_sessions = Session.objects.filter(date__range=["2023-05-13", "2023-05-19"]).order_by("date", "time")
     existing_bookings = Booking.objects.filter(user=user)
@@ -81,12 +82,16 @@ def load_timetable(request):
         confirmed = request.POST.get('confirmed')
         for session_id in cart_ids:
             create_booking(user, session_id)
+        cancel_id = request.POST.get("cancel-timetable")
+        if cancel_id != "":
+            delete_booking(user, cancel_id)
     existing_bookings = Booking.objects.filter(user=user)
     context = {
         'todays_sessions': todays_sessions,
         'existing_bookings': existing_bookings,
         'confirmed': confirmed,
-        'cart': cart
+        'cart': cart,
+        'cancel_id': cancel_id
         }
     return render(request, 'classbooking_app/timetable.html', context)
 

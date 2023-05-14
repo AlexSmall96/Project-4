@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const submitBtn = document.getElementById("submit-timetable-form")
     const checkoutBtn = document.getElementById("checkout-btn")
     const cart = document.getElementById("cart")
+    const cancelField = document.getElementById("cancel-timetable")
     const dateChange = document.getElementById("date-change")
     const addBoxes = document.getElementsByClassName("add-to-cart")
     const cancelledSessBtns = document.getElementsByClassName("run-False-btn")
@@ -13,8 +14,19 @@ document.addEventListener("DOMContentLoaded", function(){
     const timetableModal = document.getElementById("timetable-modal")
     const confirmBtn = document.getElementById("confirm-btn")
     const confirmed = document.getElementById("confirmed")
-    const existBookings = document.getElementById("existing-bookings")
+    const existBookings = document.getElementById("existing-bookings").children
     const checkoutList = document.getElementById("checkout-list")
+
+    if (cancelField.value != ""){
+        sessionId = cancelField.value
+        let cancelModal = document.getElementById("cancel-modal-".concat(sessionId))
+        let cancelModalBtn = document.getElementById("cancel-modal-btn-".concat(sessionId))
+        let cancelModalHead = document.getElementById("cancel-modal-header-".concat(sessionId))
+        cancelModal.classList.remove("fade")
+        cancelModalBtn.click()
+        cancelModal.classList.add("fade")
+        //cancelField.value = ""
+    }
 
     if (confirmed.value === "y"){
         timetableModal.classList.remove("fade")
@@ -51,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function(){
         dateArr.push(header.id)
     }
     
+    // show date headings on timetable
     document.getElementById(dateArr[0]).classList.remove("invisible")
     for (let i=1;i<dateArr.length;i++){
         if (dateArr[i].substring(1,6) != dateArr[i-1].substring(1,6)){
@@ -63,35 +76,20 @@ document.addEventListener("DOMContentLoaded", function(){
         button.value = "Class Cancelled"
     }
 
-    //let confBookings = document.getElementById("confirmed-bookings").children
-    //let confBookingsArr = []
-    //for (let booking of confBookings){
-        //confBookingsArr.push(booking.innerHTML)
-    //}
+    let existBookingsArr = []
+    for (let booking of existBookings){
+        existBookingsArr.push(booking.innerHTML)
+    }
 
-    //let unconfBookings = document.getElementById("unconfirmed-bookings").children
-    //let unconfBookingsArr = []
-    //for (let booking of unconfBookings){
-        //unconfBookingsArr.push(booking.innerHTML)
-    //}
-    // Add event listener on date input to convert date into serial number
-    currentDate.addEventListener("change", () => {
-        dateChange.value = "y"
-        form.submit()
-    })
-
-
-    //for (let box of addBoxes){
-        //if (box.value != "Class Cancelled"){
-            //if (unconfBookingsArr.includes(box.id)){
-                //box.value = "Remove from Cart"
-            //} else if (confBookingsArr.includes(box.id)){ 
-                //box.value = "Booked in. Cancel?"
-            //} else {
-                //box.value = "Add to Cart"
-            //}
-        //}
-    //}
+    for (let box of addBoxes){
+        if (box.value != "Class Cancelled"){
+            if (existBookingsArr.includes(box.id)){
+                box.value = "Booked in. Cancel?"
+            } else {
+                box.value = "Add to Cart"
+            }
+        }
+    }
     
     for (let box of addBoxes){
         box.addEventListener("click", () => {
@@ -122,6 +120,16 @@ document.addEventListener("DOMContentLoaded", function(){
                 cartIds.splice(index,1)
                 cart.value = cartIds.join(" ")
                 box.value = "Add to Cart"
+            } else if (box.value === "Booked in. Cancel?"){
+                let cancelModalBtn = document.getElementById("cancel-modal-btn-".concat(box.id))
+                cancelModalBtn.click()
+                console.log(box.id)
+                let yesButton = document.getElementById(box.id.concat("-yes"))
+                yesButton.addEventListener("click", () => {
+                    cancelField.value = box.id
+                    console.log(cancelField.value)
+                    timetableForm.submit()
+                })
             }
         })
     }
