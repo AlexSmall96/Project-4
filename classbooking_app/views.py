@@ -78,10 +78,6 @@ def load_timetable(request):
         cart_ids = cart.split()
         for session_id in cart_ids:
             create_booking(user, session_id)
-        remove = request.POST.get('remove')
-        remove_ids = remove.split()
-        for session_id in remove_ids:
-            delete_booking(user, session_id)
     existing_bookings = Booking.objects.filter(user=user)
     context = {
         'todays_sessions': todays_sessions,

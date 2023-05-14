@@ -8,8 +8,7 @@
     <label for="select-date">Select Date:</label>
     <input type="date" id="select-date" name="date-name" value="{{ date }}">
     <input class="invisible" type="text" id="date-change" name="date-change">
-    <input class="" type="text" id="cart" name="cart">
-    <input class="" type="text" id="remove" name="remove">
+    <input class="invisible" type="text" id="cart" name="cart">
     <div class="container">
       {% for session in todays_sessions %}
       <h2 id="{{ session.id }}-date-header" class="date-header invisible">{{ session.date }}</h2>
@@ -80,6 +79,6 @@
 
 {% block contentscript %}
 
-<script src="../../static/classbooking_app/js/timetable.js?2"></script>
+<script src="../../static/classbooking_app/js/timetable.js"></script>
 
 {% endblock %}

@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const submitBtn = document.getElementById("submit-timetable-form")
     const checkoutBtn = document.getElementById("checkout-btn")
     const cart = document.getElementById("cart")
-    const remove = document.getElementById("remove")
     const dateChange = document.getElementById("date-change")
     const addBoxes = document.getElementsByClassName("add-to-cart")
     const cancelledSessBtns = document.getElementsByClassName("run-False-btn")
@@ -71,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 let newRow = document.createElement("div")
                 newRow.classList.add("row")
+                newRow.id = box.id.concat("-checkout")
                 newRow.innerHTML = `
                 <div class="col">${activity.children[0].innerHTML}</div>
                 <div class="col">${date.innerHTML}</div>
@@ -78,7 +78,18 @@ document.addEventListener("DOMContentLoaded", function(){
                 <div class="col">${location.innerHTML}</div>
                 ` 
                 checkoutList.appendChild(newRow)
-            } 
+                oldCart=cart.value
+                cart.value = oldCart.concat(" ").concat(box.id)
+                box.value = "Remove from Cart"
+            } else if (box.value === "Remove from Cart"){
+                let removeRow = document.getElementById(box.id.concat("-checkout"))
+                removeRow.remove()
+                let cartIds = cart.value.split(" ")
+                let index=cartIds.indexOf(box.id)
+                cartIds.splice(index,1)
+                cart.value = cartIds.join(" ")
+                box.value = "Add to Cart"
+            }
         })
     }
 
