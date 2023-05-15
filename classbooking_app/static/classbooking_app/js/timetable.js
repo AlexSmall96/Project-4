@@ -51,12 +51,21 @@ document.addEventListener("DOMContentLoaded", function(){
                 <div class="col">${date.innerHTML}</div>
                 <div class="col">${time.innerHTML}</div>
                 <div class="col">${location.innerHTML}</div>
+                <input class="cancel-via-modal" type="button" id="${box.id}-cancel-modal" value="Booked in. Cancel?">
                 ` 
                 checkoutList.appendChild(newRow)
                 timetableModalTitle.innerHTML = "Thanks for confirming, your classes have been booked."
                 confirmBtn.innerHTML = "View all your Bookings"
             }
         }
+        //let cancelViaModal = document.getElementsByClassName("cancel-via-modal")
+        //for (let btn of cancelViaModal){
+            //btn.addEventListener("click", () => {
+                //sessionId = btn.id.substring(0,6)
+                //let origBtn = document.getElementById(sessionId)
+                //origBtn.click()
+            //})
+        //}
         confirmed.value = ""
     }
     

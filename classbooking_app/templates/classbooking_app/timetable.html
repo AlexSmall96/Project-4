@@ -25,7 +25,9 @@
         <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-users"></i> {{ session.spaces }} spaces</div>
         <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center"><i class="fa-solid fa-location-dot"></i><span> {{ session.location }}</span></div>
         <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
-          {% if session.spaces > 0 %}
+          {% if session.running == False %}
+          <div> Apologies, the gym has had to cancel this class. </div>
+          {% elif session.spaces > 0 %}
           <input class="add-to-cart run-{{ session.running }}-btn" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
           
           <!-- Cancel Class Modal-->
