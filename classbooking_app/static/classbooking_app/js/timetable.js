@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function(){
         cancelModal.classList.remove("fade")
         cancelModalBtn.click()
         cancelModal.classList.add("fade")
-        //cancelField.value = ""
+        cancelField.value = ""
     }
 
     if (confirmed.value === "y"){
@@ -127,7 +127,6 @@ document.addEventListener("DOMContentLoaded", function(){
                 let yesButton = document.getElementById(box.id.concat("-yes"))
                 yesButton.addEventListener("click", () => {
                     cancelField.value = box.id
-                    console.log(cancelField.value)
                     timetableForm.submit()
                 })
             }

@@ -9,7 +9,7 @@
     <input type="date" id="select-date" name="date-name" value="{{ date }}">
     <input class="invisible" type="text" id="date-change" name="date-change">
     <input class="invisible" type="text" id="cart" name="cart" value="{{ cart }}">
-    <input class="invisible" type="text" id="cancel-timetable" name="cancel-timetable" value="{{ cancel_id }}">
+    <input class="invisible" type="number" id="cancel-timetable" name="cancel-timetable" value="{{ cancel_id }}">
     <input class="invisible" type="text" id="confirmed" name="confirmed" value="{{ confirmed }}">
     <div class="container">
       {% for session in todays_sessions %}
@@ -28,29 +28,45 @@
           {% if session.spaces > 0 %}
           <input class="add-to-cart run-{{ session.running }}-btn" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
           
-          <!-- Modal to cancel class-->
+          <!-- Cancel Class Modal-->
           <button class="invisible" type="button" data-toggle="modal" data-target="#cancel-modal-{{ session.id }}" id="cancel-modal-btn-{{ session.id }}"></button>
           <div class="modal fade" id="cancel-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 id="cancel-modal-header-{{ booking.session.id }}" class="modal-title">
-                  Are you sure you want to cancel 
-                  {{session.activity.name}} 
-                  at {{ session.time }}
-                  on {{ session.date }}?
-                </h5>
+                  
+                    {% if cancel_id == session.id %}
+                    <h5 id="cancel-modal-header-{{ session.id }}" class="modal-title">
+                      Thanks for confirming. Your booking for {{ session.activity.name}} at {{ session.time}}
+                      on {{ session.date }} has been cancelled.
+                    </h5>
+
+                    {% else %}
+                    <h5 id="cancel-modal-header-{{ session.id }}" class="modal-title">
+                    Are you sure you want to cancel 
+                    {{session.activity.name}} 
+                    at {{ session.time }}
+                    on {{ session.date }}?
+                  </h5>
+                    {% endif %}
+               
                 </div>
                 <div class="modal-body">
+                  {% if cancel_id == session.id %}
+                  <a class="nav-link" href="/view_bookings.html">
+                    <button id="{{ session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">
+                      View your remaining bookings
+                    </button>
+                  </a>
+                  <button id="{{ session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">Book more classes</button>
+                  {% else %}
                   <button id="{{ session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
                   <button id="{{ session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                  {% endif %}
                 </div>
               </div>
             </div>
-          </div>
-
-          
-          
+          </div>                  
           {% else %}
           <div> Class Currently Full </div>
           {% endif %}
@@ -61,7 +77,7 @@
     <input class="invisible" type="text" id="form-ready" name="form-ready">
 <button type="button" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal">Checkout</button>
 
-<!-- Modal -->
+<!-- Checkout Modal -->
 <div class="modal fade" id="timetable-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

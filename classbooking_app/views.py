@@ -12,14 +12,14 @@ def load_home_page(request):
 def create_booking(user, id):
     # Get session associated with booking
     session = get_object_or_404(Session, id=id)
-    # Create booking
-    booking = Booking(
-        session=session,
-        user=user,
-        confirmed=False
-    )
-    booking.save()
-    return booking
+    if len(Booking.objects.filter(session=session, user=user)) == 0:
+        # Create booking
+        booking = Booking(
+            session=session,
+            user=user,
+            confirmed=False
+            )
+        booking.save()
 
 
 def delete_booking(user, id):
@@ -85,6 +85,7 @@ def load_timetable(request):
         cancel_id = request.POST.get("cancel-timetable")
         if cancel_id != "":
             delete_booking(user, cancel_id)
+            cancel_id = int(cancel_id)
     existing_bookings = Booking.objects.filter(user=user)
     context = {
         'todays_sessions': todays_sessions,
