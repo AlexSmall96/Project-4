@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const cancelField = document.getElementById("cancel-timetable")
     const dateChange = document.getElementById("date-change")
     const addBoxes = document.getElementsByClassName("add-to-cart")
+    const removeBoxes = document.getElementsByClassName("remove-from-cart")
     const cancelledSessBtns = document.getElementsByClassName("run-False-btn")
     const dateHeaders = document.getElementsByClassName("date-header")
     const timetableModalTitle = document.getElementById("timetable-modal-title")
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const confirmed = document.getElementById("confirmed")
     const existBookings = document.getElementById("existing-bookings").children
     const checkoutList = document.getElementById("checkout-list")
+    const checkoutDismiss = document.getElementById("checkout-dismiss")
 
     if (cancelField.value != ""){
         sessionId = cancelField.value
@@ -107,6 +109,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 <div class="col">${date.innerHTML}</div>
                 <div class="col">${time.innerHTML}</div>
                 <div class="col">${location.innerHTML}</div>
+                <div class="col">
+                <input class="remove-from-cart" type="button" id="${box.id}-remove" value="Remove from Cart">
+                </div>
                 ` 
                 checkoutList.appendChild(newRow)
                 oldCart=cart.value
@@ -132,6 +137,20 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         })
     }
+    
+    checkoutBtn.addEventListener("click", () => {
+        let removeBoxes = document.getElementsByClassName("remove-from-cart")
+        for (let box of removeBoxes){
+            box.addEventListener("click", () => {
+                sessionId = box.id.substring(0,6)
+                origBtn = document.getElementById(sessionId)
+                origBtn.click()
+                if (checkoutList.children.length === 1){
+                    checkoutDismiss.click()
+                }
+            })
+        }
+    })
 
     //const delay = ms => new Promise(res => setTimeout(res, ms));
     confirmBtn.addEventListener("click", function(){

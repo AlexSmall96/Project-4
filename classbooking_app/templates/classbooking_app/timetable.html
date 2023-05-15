@@ -94,12 +94,13 @@
             <div class="col"><strong>Date</strong></div>
             <div class="col"><strong>Time</strong></div>
             <div class="col"><strong>Location</strong></div>
+            <div class="col"></div>
           </div>
 
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Book more Classes</button>
+        <button id="checkout-dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Book more Classes</button>
         {% if confirmed != "y" %}
         <button id="confirm-btn" type="button" class="btn btn-primary">Confirm Bookings</button>
         {% else %}
@@ -129,6 +130,6 @@
 
 {% block contentscript %}
 
-<script src="../../static/classbooking_app/js/timetable.js"></script>
+<script src="../../static/classbooking_app/js/timetable.js?2"></script>
 
 {% endblock %}
