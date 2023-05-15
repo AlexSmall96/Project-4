@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const dateChange = document.getElementById("date-change")
     const addBoxes = document.getElementsByClassName("add-to-cart")
     const removeBoxes = document.getElementsByClassName("remove-from-cart")
-    const cancelledSessBtns = document.getElementsByClassName("run-False-btn")
     const dateHeaders = document.getElementsByClassName("date-header")
     const timetableModalTitle = document.getElementById("timetable-modal-title")
     const timetableModal = document.getElementById("timetable-modal")
@@ -51,21 +50,12 @@ document.addEventListener("DOMContentLoaded", function(){
                 <div class="col">${date.innerHTML}</div>
                 <div class="col">${time.innerHTML}</div>
                 <div class="col">${location.innerHTML}</div>
-                <input class="cancel-via-modal" type="button" id="${box.id}-cancel-modal" value="Booked in. Cancel?">
                 ` 
                 checkoutList.appendChild(newRow)
                 timetableModalTitle.innerHTML = "Thanks for confirming, your classes have been booked."
-                confirmBtn.innerHTML = "View all your Bookings"
+                confirmBtn.innerHTML = "View/Cancel your Bookings"
             }
         }
-        //let cancelViaModal = document.getElementsByClassName("cancel-via-modal")
-        //for (let btn of cancelViaModal){
-            //btn.addEventListener("click", () => {
-                //sessionId = btn.id.substring(0,6)
-                //let origBtn = document.getElementById(sessionId)
-                //origBtn.click()
-            //})
-        //}
         confirmed.value = ""
     }
     
@@ -81,10 +71,6 @@ document.addEventListener("DOMContentLoaded", function(){
             document.getElementById(dateArr[i]).classList.remove("invisible")
         }
 
-    }
-
-    for (let button of cancelledSessBtns){
-        button.value = "Class Cancelled"
     }
 
     let existBookingsArr = []
