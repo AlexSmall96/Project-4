@@ -3,6 +3,52 @@
 {% block contentbody %}
 <h1>Admin page</h1>
 
+Use fields to view or edit a session:
+<form method="POST">
+    {% csrf_token %}
+    <label for="date-filter">Date:</label>
+    <input type="date" id="date-filter" name="date-filter" value="{{ date_selected }}">
+    <label for="activity-filter">Activity:</label>
+    <select id="activity-filter" name="activity-filter" value="{{ activity_selected }}">
+        {% for activity in activities %}
+            <option value="{{ activity.name }}">{{ activity.name }}</option>
+        {% endfor %}
+    </select>
+    <label for="location-filter">Location:</label>
+    <select id="location-filter" name="location-filter" value="{{location_selected }}">
+            <option value="Studio A">Studio A</option>
+            <option value="Studio B">Studio B</option>
+            <option value="Dance Studio">Dance Studio</option>
+            <option value="Treadmill Studio">Treadmill Studio</option>
+            <option value="Spin Room">Spin Room</option>
+            <option value="Chillout Zone">Chillout Zone</option>
+    </select>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">Activity</div>
+            <div class="col">Date</div>
+            <div class="col">Time</div>
+            <div class="col">Location</div>
+            <div class="col">Spaces</div>
+            <div class="col">Running</div>
+        </div>
+        {% for session in sessions %}
+        <div class="row">
+            <div class="col">
+                <input type="text" id="{{ session.id }}-activity" name="{{ session.id }}-activity" value="{{ session.activity.name }}">
+                <input type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date }}">
+                <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time }}">
+                <input type="text" id="{{ session.id }}-location" name="{{ session.id }}-location" value="{{ session.location }}">
+                <input type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}">
+                <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" value="{{ session.running }}">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button type="submit">Make Changes</button>
+</form>
+
 {% endblock %}
 
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from .models import Booking, Session
+from .models import Activity, Session, Booking
 from datetime import date, timedelta
 
 
@@ -10,7 +10,19 @@ def load_home_page(request):
 
 
 def admin_page(request):
-    return render(request, 'classbooking_app/admin.html')
+    date_selected = date.today()
+    activities = Activity.objects.all()
+    if request.method == "POST":
+        date_selected = request.POST.get("date-filter")
+    sessions = Session.objects.filter(date=date_selected).order_by(
+        "date",
+        "time")
+    context = {
+        'date_selected': date_selected,
+        'sessions': sessions,
+        'activities': activities
+    }
+    return render(request, 'classbooking_app/admin.html', context)
 
 
 def create_booking(user, id):
