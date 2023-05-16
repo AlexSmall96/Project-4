@@ -19,6 +19,7 @@ from classbooking_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path('', views.load_home_page, name='load_home_page'),
     path('timetable.html', views.load_timetable, name='load_timetable'),

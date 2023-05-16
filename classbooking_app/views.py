@@ -73,9 +73,8 @@ def load_timetable(request):
     confirmed = ""
     cart = ""
     cancel_id = ""
-    # Update date range to be a rolling 7 days
-    range_strt = date.today()#.strftime("%a,%d,%b")
-    range_end = (date.today() + timedelta(days=6))#.strftime("%a,%d,%b")
+    range_strt = date.today()
+    range_end = (date.today() + timedelta(days=6))
     range = [range_strt, range_end]
     todays_sessions = Session.objects.filter(date__range=range).order_by(
         "date",
@@ -125,5 +124,4 @@ def view_bookings(request):
             'cancelled_session': cancelled_session
             }
     # Pass through the remaining users bookings
-    
     return render(request, 'classbooking_app/view_bookings.html', context)
