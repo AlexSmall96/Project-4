@@ -9,6 +9,10 @@ def load_home_page(request):
     return render(request, 'classbooking_app/home.html')
 
 
+def admin_page(request):
+    return render(request, 'classbooking_app/admin.html')
+
+
 def create_booking(user, id):
     # Get session associated with booking
     session = get_object_or_404(Session, id=id)

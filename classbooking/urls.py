@@ -25,4 +25,5 @@ urlpatterns = [
     path('timetable.html', views.load_timetable, name='load_timetable'),
     path('checkout.html', views.checkout, name='checkout'),
     path('view_bookings.html', views.view_bookings, name='view_bookings'),
+    path('admin.html', views.admin_page, name='admin_page'),
 ]
