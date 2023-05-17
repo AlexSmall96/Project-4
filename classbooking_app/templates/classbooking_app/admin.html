@@ -40,7 +40,7 @@ Use fields to view or edit a session:
         {% endif %}
         {% endfor %}
     </select>
-    <div class="container">
+    <div id="session-cont" class="container">
         <div class="row">
             <div class="col">Activity 
                 {%if activity_filter != "All" %}
@@ -60,6 +60,7 @@ Use fields to view or edit a session:
             </div>
             <div class="col">Spaces</div>
             <div class="col">Running</div>
+            <div class="col"></div>
         </div>
         {% for session in sessions %}
         <div class="row">
@@ -69,14 +70,31 @@ Use fields to view or edit a session:
                 <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}">
                 <input type="text" id="{{ session.id }}-location" name="{{ session.id }}-location" value="{{ session.location }}">
                 <input type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}">
-                <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" value="{{ session.running }}">
+                {% if session.running %}
+                <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" checked>
+                {% else %}
+                <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running">
+                {% endif %}
+                <button type="button" id="{{ session.id }}-remove" name="{{ session.id }}-remove">Remove</button>
             </div>
         </div>
         {% endfor %}
     </div>
+    <button type="button" id="add-session"><i class="fa-solid fa-square-plus"></i>Add Session</button>
     <button type="submit">Make Changes</button>
 </form>
 
+<div id="activity-list" class="invisible">
+    {% for activity in activities %}
+    <p>{{ activity }}</p>
+    {% endfor %}
+</div>
+
+<div id="location-list" class="invisible">
+    {% for location in locations %}
+    <p>{{ location }}</p>
+    {% endfor %}
+</div>
 {% endblock %}
 
 
