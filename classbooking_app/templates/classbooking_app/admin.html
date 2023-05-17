@@ -17,6 +17,8 @@ Use fields to view or edit a session:
 <form method="POST" id="session-form">
     {% csrf_token %}
     <input type="text" id="update-field" name="update-field">
+    <input type="text" id="update-feedback-field" name="update-feedback-field" value="{{ update_feedback_field }}">
+    <input type="text" id="update-field" name="delete-field">
     <label for="date-filter">Date:</label>
     <input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}">
     <label for="activity-filter">Activity: </label>
@@ -111,13 +113,13 @@ Use fields to view or edit a session:
                 {% endif %}                
             </div>
             <div class="col-lg-2">
-                <button type="button" class="update-btn" id="{{ session.id }}-update" name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
-                    Update Changes
+                <button type="button"  name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
+                    Save Changes
                 </button>
             </div>
             
             <div class="col-lg-2">
-                <button type="button" id="{{ session.id }}-remove" name="{{ session.id }}-remove">Delete Session</button>
+                <button type="button"  name="{{ session.id }}-delete" data-toggle="modal" data-target="#confirm-delete-modal-{{ session.id }}">Delete Session</button>
             </div>
         </div>
         <!-- Confirm Update Modal -->
@@ -129,7 +131,21 @@ Use fields to view or edit a session:
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">No, discard changes.</button>
-          <button type="button" class="btn btn-primary">Yes, save changes.</button>
+          <button type="button" class="btn btn-primary update-btn" id="{{ session.id }}-update">Yes, save changes.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+          <!-- Confirm Delete Modal -->
+<div class="modal fade" id="confirm-delete-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this session from the timetable?</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No, keep the session.</button>
+          <button type="button" class="btn btn-primary delete-btn" id="{{ session.id }}-delete">Yes, delete.</button>
         </div>
       </div>
     </div>
@@ -138,6 +154,20 @@ Use fields to view or edit a session:
     </div>
     <button type="button" id="add-session"><i class="fa-solid fa-square-plus"></i>Add Session</button>
 </form>
+<!-- Feedback modal -->
+<button type="button" data-toggle="modal" data-target="#feedback-modal" id="feedback-modal-btn" class="invisible"></button>
+<div class="modal fade" id="feedback-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedback-modal-title"></h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">View Sessions</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <div id="activity-list" class="invisible">
     {% for activity in activities %}
@@ -155,6 +185,6 @@ Use fields to view or edit a session:
 
 {% block contentscript %}
 
-<script src="../../static/classbooking_app/js/admin.js?2"></script>
+<script src="../../static/classbooking_app/js/admin.js"></script>
 
 {% endblock %}

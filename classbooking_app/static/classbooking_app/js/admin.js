@@ -10,8 +10,21 @@ document.addEventListener("DOMContentLoaded", function(){
     const locationFilterIcon = document.getElementById("location-filter-icon")
     const locationFilter = document.getElementById("location-filter")
     const updateBtns = document.getElementsByClassName("update-btn")
+    const deleteBtns = document.getElementsByClassName("delete-btn")
     const updateField = document.getElementById("update-field")
+    const updFeedField = document.getElementById("update-feedback-field")
+    const deleteField = document.getElementById("delete-field")
+    const feedbackModal = document.getElementById("feedback-modal")
+    const feedbackModalBtn = document.getElementById("feedback-modal-btn")
+    const feedbackModalTitle = document.getElementById("feedback-modal-title")
 
+    if (updFeedField.value === "y"){
+        feedbackModal.classList.remove("fade")
+        feedbackModalTitle.innerHTML = "Thanks for confirming, your changes have been saved."
+        feedbackModalBtn.click()
+        feedbackModal.classList.add("fade")
+        updFeedField.value = ""
+    }
 
     for (let icon of filterIcons){
         icon.addEventListener("click", () => {
@@ -84,12 +97,11 @@ document.addEventListener("DOMContentLoaded", function(){
     })
 
     for (let btn of updateBtns){
-        sessionId = btn.id.substring(0,6)
         btn.addEventListener("click", () => {
-            if (btn.innerHTML === "Update Changes"){
-                updateField.value = sessionId
-            }
-            
+            sessionId = btn.id.substring(0,6)
+            updateField.value = sessionId
+            updFeedField.value = "y"
+            sessionForm.submit()
         })
     }
 

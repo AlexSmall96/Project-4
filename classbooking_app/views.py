@@ -24,6 +24,22 @@ def name_to_id(activity):
     return names[activity]
 
 
+def update_session(request, id):
+    session = get_object_or_404(Session, id=id)
+    name = request.POST.get(id + '-activity')
+    activity = get_object_or_404(Activity, id=name_to_id(name))
+    session.activity = activity
+    session.date = request.POST.get(id + '-date')
+    session.time = request.POST.get(id + '-time')
+    session.location = request.POST.get(id + '-location')
+    session.spaces = request.POST.get(id + '-spaces')
+    if request.POST.get(id + '-running') == "on":
+        session.running = True
+    else:
+        session.running = False
+    session.save()
+
+
 def admin_page(request):
     # Default date filter to today
     date_filter = date.today().strftime("%Y-%m-%d")
@@ -33,6 +49,7 @@ def admin_page(request):
     # Default location and activity filters to all
     location_filter = 'All'
     activity_filter = 'All'
+    update_feedback_field = "y"
     # Load todays sessions
     sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
     # Get all activities and locations to use as dropdown for filters
@@ -42,6 +59,9 @@ def admin_page(request):
     # If data has been sent through form
     if request.method == "POST":
         # Update filters for date, activity and location
+        update_id = request.POST.get('update-field')
+        if update_id != "":
+            update_session(request, update_id)
         date_filter = request.POST.get("date-filter")
         activity_filter = request.POST.get('activity-filter')
         location_filter = request.POST.get('location-filter')
@@ -56,13 +76,15 @@ def admin_page(request):
             sessions = sessions.filter(activity=activity_id)
         if location_filter != "All":
             sessions = sessions.filter(location=location_filter)
+        update_feedback_field = request.POST.get('update-feedback-field')
     context = {
         'date_filter': date_filter,
         'location_filter': location_filter,
         'activity_filter': activity_filter,
         'sessions': sessions,
         'activities': activities,
-        'locations': locations
+        'locations': locations,
+        'update_feedback_field': update_feedback_field
     }
     return render(request, 'classbooking_app/admin.html', context)
 
