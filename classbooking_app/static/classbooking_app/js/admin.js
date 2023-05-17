@@ -6,13 +6,29 @@ document.addEventListener("DOMContentLoaded", function(){
     let containerLength = sessionCont.children.length
     const locationList = document.getElementById("location-list").children
     const activityList = document.getElementById("activity-list").children
+    const filterIcons = document.getElementsByClassName("filter-icon")
+    const locationFilterIcon = document.getElementById("location-filter-icon")
+    const locationFilter = document.getElementById("location-filter")
+   
+    for (let icon of filterIcons){
+        icon.addEventListener("click", () => {
+            filterId = icon.id.substring(0,10)
+            let filter = document.getElementById(filterId)
+            if (filterId === "dat-filter"){
+                filter.value = ""
+            } else {
+                filter.value= "All"
+            }
+            sessionForm.submit()
+        })
+    }
 
     for (let filter of filters){
         filter.addEventListener("change", () => {
             sessionForm.submit()
         })
     }
-    
+
     addSession.addEventListener("click", () => {
         let newRow = document.createElement("div")
         newRow.classList.add("row")
@@ -26,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function(){
         </select>
         <input type="number" id="${containerLength}-spaces" name="${containerLength}-spaces" min="0" max="25" step="1">
         <input type="checkbox" id="${containerLength}-running" name="${containerLength}-running" checked>
-        <button type="button" id="${containerLength}-remove" name="${containerLength}-remove">Remove</button>
+        <button type="button" id="${containerLength}-remove" name="${containerLength}-remove">Delete</button>
         </div>
         `
         sessionCont.appendChild(newRow)

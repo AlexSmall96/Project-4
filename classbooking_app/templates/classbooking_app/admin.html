@@ -17,9 +17,9 @@ Use fields to view or edit a session:
 <form method="POST" id="session-form">
     {% csrf_token %}
     <label for="date-filter">Date:</label>
-    <input class="filter" type="date" id="date-filter" name="date-filter" value="{{ date_filter }}">
+    <input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}">
     <label for="activity-filter">Activity: </label>
-    <select class="filter" id="activity-filter" name="activity-filter" value="{{ activity_filter }}">
+    <select class="filter" id="act-filter" name="activity-filter" value="{{ activity_filter }}">
         <option class="activity-option" value="All">All</option>
         {% for activity in activities %}
         {% if activity.name == activity_filter %}
@@ -30,7 +30,7 @@ Use fields to view or edit a session:
         {% endfor %}
     </select>
     <label for="location-filter">Location:</label>
-    <select class="filter" id="location-filter" name="location-filter" value="{{ location_filter }}">
+    <select class="filter" id="loc-filter" name="location-filter" value="{{ location_filter }}">
         <option value="All">All</option>
         {% for location in locations %}
         {% if location == location_filter %}
@@ -44,18 +44,24 @@ Use fields to view or edit a session:
         <div class="row">
             <div class="col">Activity 
                 {%if activity_filter != "All" %}
-                <i class="fa-solid fa-filter-circle-xmark"></i>
+                <button type="button" id="act-filter-icon" class="filter-icon"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+                {% else %}
+                <button type="button" id="act-filter-icon" class="filter-icon invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
                 {% endif %}
             </div>
             <div class="col">Date
                 {%if date_filter != "" %}
-                <i class="fa-solid fa-filter-circle-xmark"></i>
+                <button type="button" id="dat-filter-icon" class="filter-icon"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+                {% else %}
+                <button type="button" id="dat-filter-icon" class="filter-icon invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
                 {% endif %}
             </div>
             <div class="col">Time</div>
             <div class="col">Location:
                 {%if location_filter != "All" %}
-                <i class="fa-solid fa-filter-circle-xmark"></i>
+                <button type="button" id="loc-filter-icon" class="filter-icon"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+                {% else %}
+                <button type="button" id="loc-filter-icon" class="filter-icon invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
                 {% endif %}               
             </div>
             <div class="col">Spaces</div>
@@ -65,16 +71,24 @@ Use fields to view or edit a session:
         {% for session in sessions %}
         <div class="row">
             <div class="col">
-                <select id="{{ session.id }}-activity" name="{{ session.id }}-activity" value="{{ session.activity.name }}">
+                <select id="{{ session.id }}-activity" name="{{ session.id }}-activity">
                     {% for activity in activities %}
+                    {% if activity == session.activity %}
+                    <option value="{{ activity.name }}" selected>{{ activity.name }}</option>
+                    {% else %}
                     <option value="{{ activity.name }}">{{ activity.name }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
                 <input type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
                 <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}">
-                <select id="{{ session.id }}-location" name="{{ session.id }}-location" value="{{ session.location }}">
+                <select id="{{ session.id }}-location" name="{{ session.id }}-location">
                     {% for location in locations %}
+                    {% if location == session.location %}
+                    <option value="{{ location }}" selected>{{ location }}</option>
+                    {% else %}
                     <option value="{{ location }}">{{ location }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
                 <input type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}" min="0" max="25" step="1">
@@ -83,7 +97,7 @@ Use fields to view or edit a session:
                 {% else %}
                 <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running">
                 {% endif %}
-                <button type="button" id="{{ session.id }}-remove" name="{{ session.id }}-remove">Remove</button>
+                <button type="button" id="{{ session.id }}-remove" name="{{ session.id }}-remove">Delete</button>
             </div>
         </div>
         {% endfor %}
