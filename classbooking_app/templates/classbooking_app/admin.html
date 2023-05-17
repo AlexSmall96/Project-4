@@ -16,6 +16,7 @@
 Use fields to view or edit a session:
 <form method="POST" id="session-form">
     {% csrf_token %}
+    <input type="text" id="update-field" name="update-field">
     <label for="date-filter">Date:</label>
     <input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}">
     <label for="activity-filter">Activity: </label>
@@ -42,35 +43,36 @@ Use fields to view or edit a session:
     </select>
     <div id="session-cont" class="container">
         <div class="row">
-            <div class="col">Activity 
+            <div class="col-lg-2">Activity 
                 {%if activity_filter != "All" %}
                 <button type="button" id="act-filter-icon" class="filter-icon"><i class="fa-solid fa-filter-circle-xmark"></i></button>
                 {% else %}
                 <button type="button" id="act-filter-icon" class="filter-icon invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
                 {% endif %}
             </div>
-            <div class="col">Date
+            <div class="col-lg-1">Date
                 {%if date_filter != "" %}
                 <button type="button" id="dat-filter-icon" class="filter-icon"><i class="fa-solid fa-filter-circle-xmark"></i></button>
                 {% else %}
                 <button type="button" id="dat-filter-icon" class="filter-icon invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
                 {% endif %}
             </div>
-            <div class="col">Time</div>
-            <div class="col">Location:
+            <div class="col-lg-1">Time</div>
+            <div class="col-lg-2">Location:
                 {%if location_filter != "All" %}
                 <button type="button" id="loc-filter-icon" class="filter-icon"><i class="fa-solid fa-filter-circle-xmark"></i></button>
                 {% else %}
                 <button type="button" id="loc-filter-icon" class="filter-icon invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
                 {% endif %}               
             </div>
-            <div class="col">Spaces</div>
-            <div class="col">Running</div>
-            <div class="col"></div>
+            <div class="col-lg-1">Spaces</div>
+            <div class="col-lg-1">Running</div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
         </div>
         {% for session in sessions %}
         <div class="row">
-            <div class="col">
+            <div class="col-lg-2">
                 <select id="{{ session.id }}-activity" name="{{ session.id }}-activity">
                     {% for activity in activities %}
                     {% if activity == session.activity %}
@@ -79,9 +81,15 @@ Use fields to view or edit a session:
                     <option value="{{ activity.name }}">{{ activity.name }}</option>
                     {% endif %}
                     {% endfor %}
-                </select>
+                    </select>
+            </div>
+            <div class="col-lg-1">
                 <input type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
+            </div>
+            <div class="col-lg-1">
                 <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}">
+            </div>
+            <div class="col-lg-2">
                 <select id="{{ session.id }}-location" name="{{ session.id }}-location">
                     {% for location in locations %}
                     {% if location == session.location %}
@@ -91,19 +99,44 @@ Use fields to view or edit a session:
                     {% endif %}
                     {% endfor %}
                 </select>
+            </div>
+            <div class="col-lg-1">
                 <input type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}" min="0" max="25" step="1">
+            </div>
+            <div class="col-lg-1">
                 {% if session.running %}
                 <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" checked>
                 {% else %}
                 <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running">
-                {% endif %}
-                <button type="button" id="{{ session.id }}-remove" name="{{ session.id }}-remove">Delete</button>
+                {% endif %}                
+            </div>
+            <div class="col-lg-2">
+                <button type="button" class="update-btn" id="{{ session.id }}-update" name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
+                    Update Changes
+                </button>
+            </div>
+            
+            <div class="col-lg-2">
+                <button type="button" id="{{ session.id }}-remove" name="{{ session.id }}-remove">Delete Session</button>
             </div>
         </div>
+        <!-- Confirm Update Modal -->
+<div class="modal fade" id="confirm-update-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to make changes to this session?</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No, discard changes.</button>
+          <button type="button" class="btn btn-primary">Yes, save changes.</button>
+        </div>
+      </div>
+    </div>
+  </div>
         {% endfor %}
     </div>
     <button type="button" id="add-session"><i class="fa-solid fa-square-plus"></i>Add Session</button>
-    <button type="submit">Make Changes</button>
 </form>
 
 <div id="activity-list" class="invisible">

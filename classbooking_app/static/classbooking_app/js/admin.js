@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", function(){
     const filterIcons = document.getElementsByClassName("filter-icon")
     const locationFilterIcon = document.getElementById("location-filter-icon")
     const locationFilter = document.getElementById("location-filter")
-   
+    const updateBtns = document.getElementsByClassName("update-btn")
+    const updateField = document.getElementById("update-field")
+
+
     for (let icon of filterIcons){
         icon.addEventListener("click", () => {
             filterId = icon.id.substring(0,10)
@@ -33,16 +36,29 @@ document.addEventListener("DOMContentLoaded", function(){
         let newRow = document.createElement("div")
         newRow.classList.add("row")
         newRow.innerHTML=`
-        <div class="col">
-        <select id="${containerLength}-activity">
-        </select>
+        <div class="col-lg-2">
+        <select id="${containerLength}-activity"></select>
+        </div>
+        <div class="col-lg-1">
         <input type="date" id="${containerLength}-date" name="${containerLength}-date">
+        </div>
+        <div class="col-lg-1">
         <input type="time" id="${containerLength}-time" name="${containerLength}-time">
-        <select id="${containerLength}-location">
-        </select>
+        </div>
+        <div class="col-lg-2">
+        <select id="${containerLength}-location"></select>       
+        </div>
+        <div class="col-lg-1">
         <input type="number" id="${containerLength}-spaces" name="${containerLength}-spaces" min="0" max="25" step="1">
+        </div>
+        <div class="col-lg-1">
         <input type="checkbox" id="${containerLength}-running" name="${containerLength}-running" checked>
-        <button type="button" id="${containerLength}-remove" name="${containerLength}-remove">Delete</button>
+        </div>
+        <div class="col-lg-2">
+        <button type="button" id="${containerLength}-update" name="${containerLength}-remove">Save Session</button>
+        </div>
+        <div class="col-lg-2">
+        <button type="button" id="${containerLength}-remove" name="${containerLength}-remove">Delete Session</button>
         </div>
         `
         sessionCont.appendChild(newRow)
@@ -67,6 +83,15 @@ document.addEventListener("DOMContentLoaded", function(){
 
     })
 
+    for (let btn of updateBtns){
+        sessionId = btn.id.substring(0,6)
+        btn.addEventListener("click", () => {
+            if (btn.innerHTML === "Update Changes"){
+                updateField.value = sessionId
+            }
+            
+        })
+    }
 
 
 })
