@@ -2,24 +2,15 @@
 
 {% block contentbody %}
 <h1>Admin page</h1>
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#">Sessions</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Bookings</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Activties</a>
-    </li>
-  </ul>
-Use fields to view or edit a session:
+Use filters to load sessions:
 <form method="POST" id="session-form">
     {% csrf_token %}
-    <input type="text" id="update-field" name="update-field">
-    <input type="text" id="update-feedback-field" name="update-feedback-field" value="{{ update_feedback_field }}">
-    <input type="text" id="delete-field" name="delete-field">
-    <input type="text" id="delete-feedback-field" name="delete-feedback-field" value="{{ delete_feedback_field }}">
+    <input class="invisible" type="text" id="update-field" name="update-field">
+    <input class="invisible" type="text" id="update-feedback-field" name="update-feedback-field" value="{{ update_feedback_field }}">
+    <input class="invisible" type="text" id="delete-field" name="delete-field">
+    <input class="invisible" type="text" id="delete-feedback-field" name="delete-feedback-field" value="{{ delete_feedback_field }}">
+    <input class="invisible" type="text" id="create-field" name="create-field">
+    <input class="invisible" type="text" id="create-feedback-field" name="create-feedback-field" value="{{ create_feedback_field }}">
     <label for="date-filter">Date:</label>
     <input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}">
     <label for="activity-filter">Activity: </label>
@@ -155,6 +146,21 @@ Use fields to view or edit a session:
     </div>
     <button type="button" id="add-session"><i class="fa-solid fa-square-plus"></i>Add Session</button>
 </form>
+          <!-- Confirm Create Modal -->
+          <div class="modal fade" id="confirm-create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to create this session?</h5>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button type="button" class="btn btn-primary" id="create-btn-modal">Yes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
 <!-- Feedback modal -->
 <button type="button" data-toggle="modal" data-target="#feedback-modal" id="feedback-modal-btn" class="invisible"></button>
 <div class="modal fade" id="feedback-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -181,6 +187,8 @@ Use fields to view or edit a session:
     <p>{{ location }}</p>
     {% endfor %}
 </div>
+
+<p class="invisible" id="max-id">{{ max_id }}</p>
 {% endblock %}
 
 

@@ -24,6 +24,28 @@ def name_to_id(activity):
     return names[activity]
 
 
+def create_session(request, id):
+    name = request.POST.get(id + '-activity')
+    activity = get_object_or_404(Activity, id=name_to_id(name))
+    date = request.POST.get(id + '-date')
+    time = request.POST.get(id + '-time')
+    location = request.POST.get(id + '-location')
+    spaces = request.POST.get(id + '-spaces')
+    if request.POST.get(id + '-running') == "on":
+        running = True
+    else:
+        running = False
+    session = Session(
+        activity=activity,
+        date=date,
+        time=time,
+        spaces=spaces,
+        location=location,
+        running=running
+    )
+    session.save()
+
+
 def update_session(request, id):
     session = get_object_or_404(Session, id=id)
     name = request.POST.get(id + '-activity')
@@ -56,8 +78,10 @@ def admin_page(request):
     activity_filter = 'All'
     update_feedback_field = ""
     delete_feedback_field = ""
+    create_feedback_field = ""
     # Load todays sessions
     sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
+    max_id = Session.objects.all().values_list('id', flat=True).order_by('-id')[0]
     # Get all activities and locations to use as dropdown for filters
     activities = Activity.objects.all()
     locations = Session.objects.all().values_list(
@@ -73,6 +97,10 @@ def admin_page(request):
         if delete_id != "":
             # delete_session(delete_id)
             delete_feedback_field = "y"
+        create_id = request.POST.get('create-field')
+        if create_id != "":
+            create_session(request, create_id)
+            create_feedback_field = "y"
         date_filter = request.POST.get("date-filter")
         activity_filter = request.POST.get('activity-filter')
         location_filter = request.POST.get('location-filter')
@@ -95,7 +123,9 @@ def admin_page(request):
         'activities': activities,
         'locations': locations,
         'update_feedback_field': update_feedback_field,
-        'delete_feedback_field': delete_feedback_field
+        'delete_feedback_field': delete_feedback_field,
+        'create_feedback_field': create_feedback_field,
+        'max_id': max_id
     }
     return render(request, 'classbooking_app/admin.html', context)
 
