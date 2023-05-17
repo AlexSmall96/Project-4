@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const deleteBtns = document.getElementsByClassName("delete-btn")
     const updateField = document.getElementById("update-field")
     const updFeedField = document.getElementById("update-feedback-field")
+    const delFeedField = document.getElementById("delete-feedback-field")
     const deleteField = document.getElementById("delete-field")
     const feedbackModal = document.getElementById("feedback-modal")
     const feedbackModalBtn = document.getElementById("feedback-modal-btn")
@@ -24,6 +25,14 @@ document.addEventListener("DOMContentLoaded", function(){
         feedbackModalBtn.click()
         feedbackModal.classList.add("fade")
         updFeedField.value = ""
+    }
+    
+    if (delFeedField.value === "y"){
+        feedbackModal.classList.remove("fade")
+        feedbackModalTitle.innerHTML = "Thanks for confirming, the session has been deleted."
+        feedbackModalBtn.click()
+        feedbackModal.classList.add("fade")
+        delFeedField.value = ""        
     }
 
     for (let icon of filterIcons){
@@ -100,7 +109,14 @@ document.addEventListener("DOMContentLoaded", function(){
         btn.addEventListener("click", () => {
             sessionId = btn.id.substring(0,6)
             updateField.value = sessionId
-            updFeedField.value = "y"
+            sessionForm.submit()
+        })
+    }
+
+    for (let btn of deleteBtns){
+        btn.addEventListener("click", () => {
+            sessionId = btn.id.substring(0,6)
+            deleteField.value = sessionId
             sessionForm.submit()
         })
     }

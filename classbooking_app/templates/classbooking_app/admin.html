@@ -18,7 +18,8 @@ Use fields to view or edit a session:
     {% csrf_token %}
     <input type="text" id="update-field" name="update-field">
     <input type="text" id="update-feedback-field" name="update-feedback-field" value="{{ update_feedback_field }}">
-    <input type="text" id="update-field" name="delete-field">
+    <input type="text" id="delete-field" name="delete-field">
+    <input type="text" id="delete-feedback-field" name="delete-feedback-field" value="{{ delete_feedback_field }}">
     <label for="date-filter">Date:</label>
     <input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}">
     <label for="activity-filter">Activity: </label>

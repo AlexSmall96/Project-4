@@ -40,6 +40,11 @@ def update_session(request, id):
     session.save()
 
 
+def delete_session(id):
+    session = get_object_or_404(Session, id=id)
+    session.delete()
+
+
 def admin_page(request):
     # Default date filter to today
     date_filter = date.today().strftime("%Y-%m-%d")
@@ -49,7 +54,8 @@ def admin_page(request):
     # Default location and activity filters to all
     location_filter = 'All'
     activity_filter = 'All'
-    update_feedback_field = "y"
+    update_feedback_field = ""
+    delete_feedback_field = ""
     # Load todays sessions
     sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
     # Get all activities and locations to use as dropdown for filters
@@ -62,6 +68,11 @@ def admin_page(request):
         update_id = request.POST.get('update-field')
         if update_id != "":
             update_session(request, update_id)
+            update_feedback_field = "y"
+        delete_id = request.POST.get('delete-field')
+        if delete_id != "":
+            # delete_session(delete_id)
+            delete_feedback_field = "y"
         date_filter = request.POST.get("date-filter")
         activity_filter = request.POST.get('activity-filter')
         location_filter = request.POST.get('location-filter')
@@ -76,7 +87,6 @@ def admin_page(request):
             sessions = sessions.filter(activity=activity_id)
         if location_filter != "All":
             sessions = sessions.filter(location=location_filter)
-        update_feedback_field = request.POST.get('update-feedback-field')
     context = {
         'date_filter': date_filter,
         'location_filter': location_filter,
@@ -84,7 +94,8 @@ def admin_page(request):
         'sessions': sessions,
         'activities': activities,
         'locations': locations,
-        'update_feedback_field': update_feedback_field
+        'update_feedback_field': update_feedback_field,
+        'delete_feedback_field': delete_feedback_field
     }
     return render(request, 'classbooking_app/admin.html', context)
 
