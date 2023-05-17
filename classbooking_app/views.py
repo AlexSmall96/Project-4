@@ -10,17 +10,25 @@ def load_home_page(request):
 
 
 def admin_page(request):
-    date_selected = date.today()
+    date_filter = date.today()
+    sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
     activities = Activity.objects.all()
+    locations = Session.objects.all().values_list(
+        'location', flat=True).distinct()
     if request.method == "POST":
-        date_selected = request.POST.get("date-filter")
-    sessions = Session.objects.filter(date=date_selected).order_by(
-        "date",
-        "time")
+        date_filter = request.POST.get("date-filter")
+        activity_filter = request.POST.get('activity-filter')
+        location_filter = request.POST.get('location-filter')
+        sessions = Session.objects.filter(
+            date=date_filter,
+            activity=activity_filter,
+            location=location_filter
+            ).order_by("date", "time")
     context = {
-        'date_selected': date_selected,
+        'date_filter': date_filter,
         'sessions': sessions,
-        'activities': activities
+        'activities': activities,
+        'locations': locations
     }
     return render(request, 'classbooking_app/admin.html', context)
 
