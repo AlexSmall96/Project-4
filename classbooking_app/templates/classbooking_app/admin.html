@@ -65,11 +65,19 @@ Use fields to view or edit a session:
         {% for session in sessions %}
         <div class="row">
             <div class="col">
-                <input type="text" id="{{ session.id }}-activity" name="{{ session.id }}-activity" value="{{ session.activity.name }}">
+                <select id="{{ session.id }}-activity" name="{{ session.id }}-activity" value="{{ session.activity.name }}">
+                    {% for activity in activities %}
+                    <option value="{{ activity.name }}">{{ activity.name }}</option>
+                    {% endfor %}
+                </select>
                 <input type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
                 <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}">
-                <input type="text" id="{{ session.id }}-location" name="{{ session.id }}-location" value="{{ session.location }}">
-                <input type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}">
+                <select id="{{ session.id }}-location" name="{{ session.id }}-location" value="{{ session.location }}">
+                    {% for location in locations %}
+                    <option value="{{ location }}">{{ location }}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}" min="0" max="25" step="1">
                 {% if session.running %}
                 <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" checked>
                 {% else %}

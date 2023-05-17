@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(){
         <input type="time" id="${containerLength}-time" name="${containerLength}-time">
         <select id="${containerLength}-location">
         </select>
-        <input type="number" id="${containerLength}-spaces" name="${containerLength}-spaces">
+        <input type="number" id="${containerLength}-spaces" name="${containerLength}-spaces" min="0" max="25" step="1">
         <input type="checkbox" id="${containerLength}-running" name="${containerLength}-running" checked>
         <button type="button" id="${containerLength}-remove" name="${containerLength}-remove">Remove</button>
         </div>
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function(){
             newOption.innerHTML = loc.innerHTML
             locationSelect.appendChild(newOption)
         }        
-        
+
         containerLength = sessionCont.children.length
 
     })
