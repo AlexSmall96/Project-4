@@ -9,23 +9,57 @@ def load_home_page(request):
     return render(request, 'classbooking_app/home.html')
 
 
+def name_to_id(activity):
+    names = {
+        'Boxfit':	1,
+        'Kettlebell Chaos':	2,
+        'Yoga':	3,
+        'Spin':	4,
+        'Body Burn': 5,
+        'Pilates':	6,
+        'Mindfulness': 7,
+        'HIIT':	8,
+        'Treadmill Torture': 9
+    }
+    return names[activity]
+
+
 def admin_page(request):
-    date_filter = date.today()
+    # Default date filter to today
+    date_filter = date.today().strftime("%Y-%m-%d")
+    range_strt = date.today()
+    range_end = (date.today() + timedelta(days=27))
+    range = [range_strt, range_end]
+    # Default location and activity filters to all
+    location_filter = 'All'
+    activity_filter = 'All'
+    # Load todays sessions
     sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
+    # Get all activities and locations to use as dropdown for filters
     activities = Activity.objects.all()
     locations = Session.objects.all().values_list(
         'location', flat=True).distinct()
+    # If data has been sent through form
     if request.method == "POST":
+        # Update filters for date, activity and location
         date_filter = request.POST.get("date-filter")
         activity_filter = request.POST.get('activity-filter')
         location_filter = request.POST.get('location-filter')
-        sessions = Session.objects.filter(
-            date=date_filter,
-            activity=activity_filter,
-            location=location_filter
-            ).order_by("date", "time")
+        if date_filter != "":
+            sessions = Session.objects.filter(
+                date=date_filter).order_by("date", "time")
+        else:
+            sessions = Session.objects.filter(
+                date__range=range).order_by("date", "time")
+        if activity_filter != "All":
+            activity_id = name_to_id(activity_filter)
+            sessions = sessions.filter(activity=activity_id)
+        if location_filter != "All":
+            sessions = sessions.filter(location=location_filter)
     context = {
         'date_filter': date_filter,
+        'location_filter': location_filter,
+        'activity_filter': activity_filter,
         'sessions': sessions,
         'activities': activities,
         'locations': locations

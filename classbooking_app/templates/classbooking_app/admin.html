@@ -14,29 +14,50 @@
     </li>
   </ul>
 Use fields to view or edit a session:
-<form method="POST">
+<form method="POST" id="session-form">
     {% csrf_token %}
     <label for="date-filter">Date:</label>
-    <input type="date" id="date-filter" name="date-filter" value="{{ date_filter }}">
-    <label for="activity-filter">Activity:</label>
-    <select id="activity-filter" name="activity-filter" value="{{ activity_filter }}">
+    <input class="filter" type="date" id="date-filter" name="date-filter" value="{{ date_filter }}">
+    <label for="activity-filter">Activity: </label>
+    <select class="filter" id="activity-filter" name="activity-filter" value="{{ activity_filter }}">
+        <option class="activity-option" value="All">All</option>
         {% for activity in activities %}
-            <option value="{{ activity.name }}">{{ activity.name }}</option>
+        {% if activity.name == activity_filter %}
+            <option value = "{{ activity.name }}" selected>{{ activity.name }}</option>
+        {% else %}
+        <option value="{{ activity.name }}">{{ activity.name }}</option>
+        {% endif %}
         {% endfor %}
     </select>
     <label for="location-filter">Location:</label>
-    <select id="location-filter" name="location-filter" value="{{location_filter }}">
+    <select class="filter" id="location-filter" name="location-filter" value="{{ location_filter }}">
+        <option value="All">All</option>
         {% for location in locations %}
-            <option value="{{ location }}">{{ location }}</option>
+        {% if location == location_filter %}
+            <option value = "{{ location }}" selected>{{ location }}</option>
+        {% else %}
+        <option value="{{ location }}">{{ location }}</option>
+        {% endif %}
         {% endfor %}
     </select>
-
     <div class="container">
         <div class="row">
-            <div class="col">Activity</div>
-            <div class="col">Date</div>
+            <div class="col">Activity 
+                {%if activity_filter != "All" %}
+                <i class="fa-solid fa-filter-circle-xmark"></i>
+                {% endif %}
+            </div>
+            <div class="col">Date
+                {%if date_filter != "" %}
+                <i class="fa-solid fa-filter-circle-xmark"></i>
+                {% endif %}
+            </div>
             <div class="col">Time</div>
-            <div class="col">Location</div>
+            <div class="col">Location:
+                {%if location_filter != "All" %}
+                <i class="fa-solid fa-filter-circle-xmark"></i>
+                {% endif %}               
+            </div>
             <div class="col">Spaces</div>
             <div class="col">Running</div>
         </div>
@@ -44,8 +65,8 @@ Use fields to view or edit a session:
         <div class="row">
             <div class="col">
                 <input type="text" id="{{ session.id }}-activity" name="{{ session.id }}-activity" value="{{ session.activity.name }}">
-                <input type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date }}">
-                <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time }}">
+                <input type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
+                <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}">
                 <input type="text" id="{{ session.id }}-location" name="{{ session.id }}-location" value="{{ session.location }}">
                 <input type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}">
                 <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" value="{{ session.running }}">
@@ -60,7 +81,7 @@ Use fields to view or edit a session:
 
 
 {% block contentscript %}
-<!--
-<script src="../../static/classbooking_app/js/checkout.js?2"></script>
--->
+
+<script src="../../static/classbooking_app/js/admin.js?2"></script>
+
 {% endblock %}
