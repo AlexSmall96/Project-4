@@ -39,7 +39,6 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-<section id="about">
 <div id="about-timetable" class="container">
   <div class="row no-gutters">
     <div class="col has-bg-img">
@@ -56,21 +55,40 @@
       <h2>Our Classes</h2>
       <p>Boxfit? No problem. Yoga or Mindfullness ? Come unwind with us. HIIT ? Book now and test your limits!
       </p>
+      {% if user.is_authenticated %}
+      Hi {{ user.username }}!
+      <p><a href="{% url 'logout' %}">Log Out</a></p>
+    {% else %}
+      <p>You are not logged in. Please <a href="{% url 'login' %}">Log In</a> to view timetable and book classes.</p>
+    {% endif %}
     </div>
     <div class="col-6 has-bg-img">
       <img class="bg-img" id="about-class-img" src="../../static/classbooking_app/images/about-class-4.jpg">
     </div>
   </div>
+  <div class="row no-gutters">
+    <div class="col-6 has-bg-img">
+      <img class="bg-img" id="about-class-img" src="../../static/classbooking_app/images/sauna.jpg">
+    </div>
+    <div class="col-6">
+      <h2>Our Spa</h2>
+      <p>Relax and unwind after your workout in our luxurious sauna, steam room or jacuzzi, or even a pampering session.
+      </p>
+    </div>
+  </div>
 </div>
-</section>
-<div class="container">
-  {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-  <p>You are not logged in. Please <a href="{% url 'login' %}">Log In</a> to view timetable and book classes.</p>
-{% endif %}
-</div>
+  <div id="members-area">
+    {% if user.is_authenticated %}
+      <a class="nav-link" href="/view_bookings.html"><button>Members Area</button></a>
+    {% else %}
+    <a class="nav-link" href="{% url 'login' %}"><button>Login or Signup Today!</button></a>
+    {% endif %}
+</button>
+  </div>
+
+
+
+
 
 
 
