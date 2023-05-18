@@ -20,32 +20,64 @@
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
       <h2>Choose Membership Option</h2>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-    <label class="form-check-label" for="gridRadios1">
-      Standard Membership
-    </label>
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Standard Membership</h5>
+      <h6 class="card-subtitle mb-2 text-muted">£59.99 / month</h6>
+      <p class="card-text">Access to all our gym, pool and spa facilities and full timetable access.</p>
+      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+    </div>
+  </div>
   </div>
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-    <label class="form-check-label" for="gridRadios2">
-      Off peak Membership
-    </label>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Off-Peak Membership</h5>
+        <h6 class="card-subtitle mb-2 text-muted">£44.99 / month</h6>
+        <p class="card-text">Access to all our gym, pool and spa facilities before 5pm. Full timetable access.</p>
+        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option2">
+      </div>
+    </div>
   </div>
-  <div class="form-check disabled">
-    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
-    <label class="form-check-label" for="gridRadios3">
-      Family Membership
-    </label>
+  <div class="form-check">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Family Membership</h5>
+        <h6 class="card-subtitle mb-2 text-muted">£119.99 / month</h6>
+        <p class="card-text">For 2 adults and up to 3 children. Adults have access to gym, pool and spa facilities and full timetable access. Children have pool and gym access while accompanied by an adult.</p>
+        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option3">
+      </div>
+    </div>
   </div>
+
     </div>
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
       <h2>Details</h2>
-      <label for="email">Email Adress:</label>
-      <input type="email" id="email">    
-      <label for="dob">Date of Birth</label>
-      <input type="date" id="dob">
-      <label for="health-check">I confirm that I am fit and healthy and have no known medical conditions that prevent me from taking part in physical excercise.</label>
-      <input type="checkbox" id="health-check">
+      <form>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputdate" class="col-sm-2 col-form-label">Date of Birth</label>
+          <div class="col-sm-2">
+            <input type="date" class="form-control" id="inputdate">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-2">Checkbox</div>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck1">
+              <label class="form-check-label" for="gridCheck1">
+                I confirm that I am fit and healthy and have no known medical conditions that prevent me from taking part in physical excercise
+              </label>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
       <h2>Payment</h2>

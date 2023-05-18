@@ -12,7 +12,9 @@
       <img class="d-block w-100 hero" src="../../static/classbooking_app/images/hero-gym.jpg" alt="First slide">
       <div class="carousel-caption d-none d-md-block">
         <h2>Work Up a Sweat</h2>
-        <p>View our facilities</p>
+        <div id="facilities-link" class="list-group">
+          <a class="list-group-item list-group-item-action" href="#facilities-target">View our Facilities</a>
+        </div>
       </div>
     </div>
     <div class="carousel-item">
@@ -39,15 +41,26 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-<div id="about-timetable" class="container">
+<div id="about" class="container">
   <div class="row no-gutters">
     <div class="col has-bg-img">
       <img class="bg-img" id="about-pool-img" src="../../static/classbooking_app/images/pool.jpg">
     </div>
     <div class="col">
-      <h2>Our Facilities</h2>
-      <p>A state of the art gym and pool, 3 studios and a spin room. We've got your fitness needs covered.
-      </p>
+      <div data-spy="scroll" data-target="#facilities-link" data-offset="0" class="scrollspy-example">
+        <h2 id="facilities-target">Our Facilities</h2>
+        <p>A state of the art gym and pool, class studios and a spin room. We've got your fitness needs covered.
+           <a class="" data-toggle="collapse" href="#facilities-text" role="button" aria-expanded="false" aria-controls="facilitiesText">
+          Read More
+        </a></p>
+          <div class="collapse" id="facilities-text">
+            <div class="">
+              Complete with 4 power/squat racks, 2 olympic lifting platforms and an extensive dumbell collection. Along with weight and cardio machines, a cool off/stretch area,
+              whatever your fitness goals are, we've got the equipment for you.<br>
+              Our pool is 25m long with 6 lanes plus an open swimming area, perfect for those wanting a serious workout or just a quick dip.            
+            </div>
+          </div>
+      </div>
     </div>
   </div>
   <div class="row no-gutters">
@@ -73,6 +86,17 @@
     <div class="col-6">
       <h2>Our Spa</h2>
       <p>Relax and unwind after your workout in our luxurious sauna, steam room or jacuzzi, or even a pampering session.
+        <a class="" data-toggle="collapse" href="#spa-text" role="button" aria-expanded="false" aria-controls="spaText">
+          Read More
+        </a><p>
+
+        </p>
+        <div class="collapse" id="spa-text">
+          <div class="">
+            Kick your feet up and begin your post-workout recovery with us in our premium oak sauna, with temperatures ranging from 70 to 100 degrees celcius.
+            If you're feeling brave, take a cold plunge in one our ice baths, or if you're looking for total relaxation, book yourself in for a massage or facial with our expert spa team.
+          </div>
+        </div>
       </p>
     </div>
   </div>
