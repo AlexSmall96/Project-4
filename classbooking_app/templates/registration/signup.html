@@ -4,7 +4,21 @@
 
 {% block contentbody %}
 <div id="sign-up">
-  <h2>Choose Membership Option</h2>
+  
+
+ 
+  
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Membership Options</a>
+      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Personal Details</a>
+      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Payment</a>
+      <a class="nav-item nav-link" id="nav-login-tab" data-toggle="tab" href="#nav-login" role="tab" aria-controls="nav-login" aria-selected="false">Login Details</a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <h2>Choose Membership Option</h2>
   <div class="form-check">
     <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
     <label class="form-check-label" for="gridRadios1">
@@ -23,34 +37,42 @@
       Family Membership
     </label>
   </div>
-  <h2>Details</h2>
-  <label for="email">Email Adress:</label>
-  <input type="email" id="email">    
-  <label for="dob">Date of Birth</label>
-  <input type="date" id="dob">
-  <label for="health-check">I confirm that I am fit and healthy and have no known medical conditions that prevent me from taking part in physical excercise.</label>
-  <input type="checkbox" id="health-check">
-  <h2>Payment</h2>
-  <label for="payment"> Card Details:</label>
-  <input id="payment" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
-  <h2>Login Details</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-        <small>{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-        <p>{{ error }}</p>
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <h2>Details</h2>
+      <label for="email">Email Adress:</label>
+      <input type="email" id="email">    
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob">
+      <label for="health-check">I confirm that I am fit and healthy and have no known medical conditions that prevent me from taking part in physical excercise.</label>
+      <input type="checkbox" id="health-check">
+    </div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+      <h2>Payment</h2>
+      <label for="payment"> Card Details:</label>
+      <input id="payment" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+    </div>
+    <div class="tab-pane fade" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
+      <h2>Login Details</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% if field.help_text %}
+            <small>{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        </p>
       {% endfor %}
-    </p>
-  {% endfor %}
-
-    <button type="submit">Sign Up</button>
-  </form>
+    
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
