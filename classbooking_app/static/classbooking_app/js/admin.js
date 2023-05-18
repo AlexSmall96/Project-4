@@ -129,7 +129,11 @@ document.addEventListener("DOMContentLoaded", function(){
         let discardBtns = document.getElementsByClassName("discard-btn")
         for (let btn of discardBtns){
             btn.addEventListener("click", () => {
-                document.getElementById(`${sessionId}-row`).remove()
+                let newId = btn.id.substring(0,6)
+                let newRow = document.getElementById(`${newId}-row`)
+                if (newRow){
+                    newRow.remove()
+                }
             })
         }
 
@@ -147,7 +151,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
     for (let btn of deleteBtns){
         btn.addEventListener("click", () => {
-            console.log("clicked")
             sessionId = btn.id.substring(0,6)
             deleteField.value = sessionId
             sessionForm.submit()
