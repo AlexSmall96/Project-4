@@ -3,7 +3,37 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block contentbody %}
-  <h2>Sign up</h2>
+<div id="sign-up">
+  <h2>Choose Membership Option</h2>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+    <label class="form-check-label" for="gridRadios1">
+      Standard Membership
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+    <label class="form-check-label" for="gridRadios2">
+      Off peak Membership
+    </label>
+  </div>
+  <div class="form-check disabled">
+    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+    <label class="form-check-label" for="gridRadios3">
+      Family Membership
+    </label>
+  </div>
+  <h2>Details</h2>
+  <label for="email">Email Adress:</label>
+  <input type="email" id="email">    
+  <label for="dob">Date of Birth</label>
+  <input type="date" id="dob">
+  <label for="health-check">I confirm that I am fit and healthy and have no known medical conditions that prevent me from taking part in physical excercise.</label>
+  <input type="checkbox" id="health-check">
+  <h2>Payment</h2>
+  <label for="payment"> Card Details:</label>
+  <input id="payment" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+  <h2>Login Details</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -21,4 +51,6 @@
 
     <button type="submit">Sign Up</button>
   </form>
+</div>
+
 {% endblock %}

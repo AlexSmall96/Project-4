@@ -34,6 +34,11 @@
     height: 600px;
 }
 
+#sign-up{
+    height:500px;
+    margin-top:50px ;
+}
+
 .carousel-item img {
     position: absolute;
     object-fit:cover;
