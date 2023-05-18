@@ -29,7 +29,6 @@
         <p>View our spa facilities</p>
       </div>
     </div>
-
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -40,12 +39,39 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-{% if user.is_authenticated %}
+<section id="about">
+<div id="about-timetable" class="container">
+  <div class="row no-gutters">
+    <div class="col has-bg-img">
+      <img class="bg-img" id="about-pool-img" src="../../static/classbooking_app/images/pool.jpg">
+    </div>
+    <div class="col">
+      <h2>Our Facilities</h2>
+      <p>A state of the art gym and pool, 3 studios and a spin room. We've got your fitness needs covered.
+      </p>
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-6">
+      <h2>Our Classes</h2>
+      <p>Boxfit? No problem. Yoga or Mindfullness ? Come unwind with us. HIIT ? Book now and test your limits!
+      </p>
+    </div>
+    <div class="col-6 has-bg-img">
+      <img class="bg-img" id="about-class-img" src="../../static/classbooking_app/images/about-class-4.jpg">
+    </div>
+  </div>
+</div>
+</section>
+<div class="container">
+  {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>You are not logged in. Please <a href="{% url 'login' %}">Log In</a> to view timetable and book classes.</p>
 {% endif %}
+</div>
+
 
 
 
