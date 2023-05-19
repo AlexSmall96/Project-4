@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from .models import Activity, Session, Booking
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 
 
 def load_home_page(request):
@@ -196,12 +196,14 @@ def load_timetable(request):
     cancel_id = ""
     range_strt = date.today()
     range_end = (date.today() + timedelta(days=6))
+    time_rng = (datetime.now(), datetime.now() + timedelta(hours=144))
     range = [range_strt, range_end]
     weeks_sessions = Session.objects.filter(date__range=range).order_by(
         "date",
         "time")
     dates = Session.objects.filter(date__range=range).values_list(
         'date', flat=True).distinct().order_by("date")
+    now = datetime.now().strftime("%H:%M")
     existing_bookings = Booking.objects.filter(user=user)
     if request.method == "POST":
         cart = request.POST.get('cart')
@@ -222,7 +224,8 @@ def load_timetable(request):
         'cart': cart,
         'cancel_id': cancel_id,
         'range_strt': range_strt,
-        'range_end': range_end
+        'range_end': range_end,
+        'now': now
         }
     return render(request, 'classbooking_app/timetable.html', context)
 

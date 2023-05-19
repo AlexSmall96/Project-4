@@ -31,11 +31,6 @@ header nav, footer{
     overflow: scroll;
 }
 
-
-#timetable-box{
-
-}
-
 #about-pool-img{
     width:100%;
     float:right;
@@ -69,11 +64,6 @@ header nav, footer{
     border-color:grey;
     border-radius: 2%;
     padding-bottom: 5px;
-}
-
-#members-area{
-    width:30%;
-    margin:auto;
 }
 
 .invisible{
@@ -155,4 +145,8 @@ footer{
     margin:auto;
     padding-top:10px;
 
+}
+
+#cards .card{
+    display:inline;
 }
