@@ -9,8 +9,11 @@
     {% for date in dates %}
     <a class="nav-item nav-link {% if date == range_strt %} active {% endif %}" id="nav-{{ date }}-tab" data-toggle="tab" href="#nav-{{ date }}" role="tab" aria-controls="nav-{{ date }}" aria-selected="true">{{ date |date:"D jS, M" }}</a>
     {% endfor %}
-    <a class="nav-item nav-link" href="#"><button type="button" class="btn btn-primary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal" disabled>Checkout</button></a>
-    
+    <a class="nav-item nav-link" href="#">
+      <button type="button" class="btn btn-primary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal" disabled>
+      Confirm Bookings
+      </button>
+  </a>
   </div>
 </nav>
 <form method="POST" id="timetable-form">
