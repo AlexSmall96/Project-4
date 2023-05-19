@@ -69,8 +69,8 @@
       <p>Boxfit? No problem. Yoga or Mindfullness ? Come unwind with us. HIIT ? Book now and test your limits!
       </p>
       {% if user.is_authenticated %}
-      Hi {{ user.username }}!
-      <p><a href="{% url 'logout' %}">Log Out</a></p>
+      View the <a class="" href="/timetable.html" id="timetable-link">Timetable</a> to book classes, 
+      or head to the <a class="" href="/view_bookings.html">Members Area</a> to review your bookings.
     {% else %}
       <p>You are not logged in. Please <a href="{% url 'login' %}">Log In</a> to view timetable and book classes.</p>
     {% endif %}

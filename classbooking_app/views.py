@@ -197,9 +197,11 @@ def load_timetable(request):
     range_strt = date.today()
     range_end = (date.today() + timedelta(days=6))
     range = [range_strt, range_end]
-    todays_sessions = Session.objects.filter(date__range=range).order_by(
+    weeks_sessions = Session.objects.filter(date__range=range).order_by(
         "date",
         "time")
+    dates = Session.objects.filter(date__range=range).values_list(
+        'date', flat=True).distinct().order_by("date")
     existing_bookings = Booking.objects.filter(user=user)
     if request.method == "POST":
         cart = request.POST.get('cart')
@@ -213,7 +215,8 @@ def load_timetable(request):
             cancel_id = int(cancel_id)
     existing_bookings = Booking.objects.filter(user=user)
     context = {
-        'todays_sessions': todays_sessions,
+        'weeks_sessions': weeks_sessions,
+        'dates': dates,
         'existing_bookings': existing_bookings,
         'confirmed': confirmed,
         'cart': cart,

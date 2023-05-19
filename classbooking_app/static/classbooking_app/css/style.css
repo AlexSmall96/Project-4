@@ -19,6 +19,10 @@
     --bs-gutter-x: 0;
 }
 
+#timetable-container{
+    height:700px;
+    overflow: scroll;
+}
 
 #about-pool-img{
     width:100%;

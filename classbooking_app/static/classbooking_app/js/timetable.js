@@ -58,20 +58,6 @@ document.addEventListener("DOMContentLoaded", function(){
         }
         confirmed.value = ""
     }
-    
-    let dateArr = []
-    for (let header of dateHeaders){
-        dateArr.push(header.id)
-    }
-    
-    // show date headings on timetable
-    document.getElementById(dateArr[0]).classList.remove("invisible")
-    for (let i=1;i<dateArr.length;i++){
-        if (dateArr[i].substring(1,6) != dateArr[i-1].substring(1,6)){
-            document.getElementById(dateArr[i]).classList.remove("invisible")
-        }
-
-    }
 
     let existBookingsArr = []
     for (let booking of existBookings){
@@ -130,8 +116,22 @@ document.addEventListener("DOMContentLoaded", function(){
                     timetableForm.submit()
                 })
             }
+            let count=0
+            for (let box of addBoxes){
+                if (box.value === "Remove from Cart"){
+                    count++
+                    break
+                }
+            }
+            if (count > 0){
+                checkoutBtn.disabled = false
+            } else {
+                checkoutBtn.disabled = true
+            }
         })
     }
+
+    
     
     checkoutBtn.addEventListener("click", () => {
         let removeBoxes = document.getElementsByClassName("remove-from-cart")

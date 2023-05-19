@@ -3,88 +3,107 @@
 {% block contentbody %}
 
 <h1>Showing Classes from {{ range_strt|date:"D jS, M" }} to {{ range_end|date:"D jS, M" }}</h1>
-  <form method="POST" id="timetable-form">
-    {% csrf_token %}
+<!-- Date Navigation Tabs -->
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    {% for date in dates %}
+    <a class="nav-item nav-link {% if date == range_strt %} active {% endif %}" id="nav-{{ date }}-tab" data-toggle="tab" href="#nav-{{ date }}" role="tab" aria-controls="nav-{{ date }}" aria-selected="true">{{ date |date:"D jS, M" }}</a>
+    {% endfor %}
+    <a class="nav-item nav-link" href="#"><button type="button" class="btn btn-primary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal" disabled>Checkout</button></a>
+    
+  </div>
+</nav>
+<form method="POST" id="timetable-form">
+  {% csrf_token %}
+<!-- Date Navigation Content -->
+<div class="tab-content" id="nav-tabContent">
+  {% for date in dates %}
+  <div class="tab-pane fade show {% if date == range_strt %} active {% endif %}" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
+  <div class="container">
+ {% for session in weeks_sessions %}
+ {% if session.date == date %}
+  <h2 id="{{ session.id }}-date-header" class="date-header invisible"></h2>
+ <div class="session row vertical-margin run-{{ session.running }}">
+  <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time | time:"G:i" }}<br>{{ session.activity.duration }}</div>
+  <div class="col-5 col-sm-5 col-lg-3 has-bg-img vertical-margin">
+    <img class="bg-img my-image" src="../../static/classbooking_app/images/{{ session.activity.image }}">
+  </div>
+  <div class="col-6 col-sm-3 col-lg-3 align-self-center"><strong>{{ session.activity.name }}</strong>
+    <p>{{ session.activity.description }}</p>
+  </div>
+  <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center">
+    {% if session.running == True %}
+    <i class="fa-solid fa-users"></i>
+    {{ session.spaces }} spaces
+    {% else %}
+    <div> Apologies, the gym has had to cancel this class. </div>
+    {% endif %}
+  </div>
+  <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center">
+    {% if session.running == True %} <i class="fa-solid fa-location-dot"></i><span>{{ session.location }} </span>{% endif %}
+  </div>
+  <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
+    {% if session.running == False %}
+    <div></div>
+    {% elif session.spaces > 0 %}
+    <input class="add-to-cart run-{{ session.running }}-btn" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
+    
+    <!-- Cancel Class Modal-->
+    <button class="invisible" type="button" data-toggle="modal" data-target="#cancel-modal-{{ session.id }}" id="cancel-modal-btn-{{ session.id }}"></button>
+    <div class="modal fade" id="cancel-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            
+              {% if cancel_id == session.id %}
+              <h5 id="cancel-modal-header-{{ session.id }}" class="modal-title">
+                Thanks for confirming. Your booking for {{ session.activity.name}} at {{ session.time}}
+                on {{ session.date }} has been cancelled.
+              </h5>
+
+              {% else %}
+              <h5 id="cancel-modal-header-{{ session.id }}" class="modal-title">
+              Are you sure you want to cancel 
+              {{session.activity.name}} 
+              at {{ session.time }}
+              on {{ session.date }}?
+            </h5>
+              {% endif %}
+         
+          </div>
+          <div class="modal-body">
+            {% if cancel_id == session.id %}
+            <a class="nav-link" href="/view_bookings.html">
+              <button id="{{ session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">
+                View/Cancel your remaining bookings
+              </button>
+            </a>
+            <button id="{{ session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">Book more classes</button>
+            {% else %}
+            <button id="{{ session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
+            <button id="{{ session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>                  
+    {% else %}
+    <div> Class Currently Full </div>
+    {% endif %}
+  </div>
+</div>
+ {% endif %}
+ {% endfor %}
+</div>
+ </div>
+  {% endfor %}
+</div>
+     <!-- Hidden Inputs to communicate with python -->
     <input class="invisible" type="text" id="date-change" name="date-change">
     <input class="invisible" type="text" id="cart" name="cart" value="{{ cart }}">
     <input class="invisible" type="number" id="cancel-timetable" name="cancel-timetable" value="{{ cancel_id }}">
     <input class="invisible" type="text" id="confirmed" name="confirmed" value="{{ confirmed }}">
-    <div class="container">
-      {% for session in todays_sessions %}
-      <h2 id="{{ session.id }}-date-header" class="date-header invisible">{{ session.date|date:"D jS, M" }}</h2>
-      <div class="session row vertical-margin run-{{ session.running }}">
-        <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time | time:"G:i" }}<br>{{ session.activity.duration }}</div>
-        <div class="col-5 col-sm-5 col-lg-3 has-bg-img vertical-margin">
-          <img class="bg-img my-image" src="../../static/classbooking_app/images/{{ session.activity.image }}">
-        </div>
-        <div class="col-6 col-sm-3 col-lg-3 align-self-center"><strong>{{ session.activity.name }}</strong>
-          <p>{{ session.activity.description }}</p>
-        </div>
-        <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center">
-          {% if session.running == True %}
-          <i class="fa-solid fa-users"></i>
-          {{ session.spaces }} spaces
-          {% else %}
-          <div> Apologies, the gym has had to cancel this class. </div>
-          {% endif %}
-        </div>
-        <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center">
-          {% if session.running == True %} <i class="fa-solid fa-location-dot"></i><span>{{ session.location }} </span>{% endif %}
-        </div>
-        <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
-          {% if session.running == False %}
-          <div></div>
-          {% elif session.spaces > 0 %}
-          <input class="add-to-cart run-{{ session.running }}-btn" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
-          
-          <!-- Cancel Class Modal-->
-          <button class="invisible" type="button" data-toggle="modal" data-target="#cancel-modal-{{ session.id }}" id="cancel-modal-btn-{{ session.id }}"></button>
-          <div class="modal fade" id="cancel-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  
-                    {% if cancel_id == session.id %}
-                    <h5 id="cancel-modal-header-{{ session.id }}" class="modal-title">
-                      Thanks for confirming. Your booking for {{ session.activity.name}} at {{ session.time}}
-                      on {{ session.date }} has been cancelled.
-                    </h5>
-
-                    {% else %}
-                    <h5 id="cancel-modal-header-{{ session.id }}" class="modal-title">
-                    Are you sure you want to cancel 
-                    {{session.activity.name}} 
-                    at {{ session.time }}
-                    on {{ session.date }}?
-                  </h5>
-                    {% endif %}
-               
-                </div>
-                <div class="modal-body">
-                  {% if cancel_id == session.id %}
-                  <a class="nav-link" href="/view_bookings.html">
-                    <button id="{{ session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">
-                      View/Cancel your remaining bookings
-                    </button>
-                  </a>
-                  <button id="{{ session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">Book more classes</button>
-                  {% else %}
-                  <button id="{{ session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
-                  <button id="{{ session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          </div>                  
-          {% else %}
-          <div> Class Currently Full </div>
-          {% endif %}
-        </div>
-      </div>
-        {% endfor %}
-    </div>
     <input class="invisible" type="text" id="form-ready" name="form-ready">
-<button type="button" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal">Checkout</button>
 
 <!-- Checkout Modal -->
 <div class="modal fade" id="timetable-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,6 +140,9 @@
 </div>
 </form>
 
+<!-- 
+  Hidden data on existing bookings, used by timetable.js to determine text on buttons
+-->
 <div class="invisible" id="existing-bookings">
   {% for booking in existing_bookings %}
       <p>{{ booking.session.id }}</p>
