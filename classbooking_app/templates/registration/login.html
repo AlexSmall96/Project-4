@@ -2,11 +2,11 @@
 
 {% block contentbody %}
 
-<div id="login-section">
+<div class="center-section">
     <div>
         <h2>LOGIN</h2> 
     </div>
-    <div id="login-form">
+    <div class="center-form">
         <form method="POST" >
         {% csrf_token %}
             <div class="vertical-margin">
@@ -16,7 +16,7 @@
                 <input type="text" id="username" name="username">
             </div>
             <div class="vertical-margin">
-                <label for="username">Password:</label>
+                <label for="password">Password:</label>
             </div>
             <div class="vertical-margin">
                 <input type="password" id="password" name="password">

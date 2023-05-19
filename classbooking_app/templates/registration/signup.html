@@ -10,99 +10,115 @@
   
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Membership Options</a>
-      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Personal Details</a>
-      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Payment</a>
+      <a class="nav-item nav-link active" id="nav-membership-tab" data-toggle="tab" href="#nav-membership" role="tab" aria-controls="nav-membership" aria-selected="true">Membership Options</a>
+      <a class="nav-item nav-link" id="nav-personal-tab" data-toggle="tab" href="#nav-personal" role="tab" aria-controls="nav-personal" aria-selected="false">Personal Details</a>
+      <a class="nav-item nav-link" id="nav-payment-tab" data-toggle="tab" href="#nav-payment" role="tab" aria-controls="nav-payment" aria-selected="false">Payment</a>
       <a class="nav-item nav-link" id="nav-login-tab" data-toggle="tab" href="#nav-login" role="tab" aria-controls="nav-login" aria-selected="false">Login Details</a>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-      <h2>Choose Membership Option</h2>
-  <div class="form-check">
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Standard Membership</h5>
-      <h6 class="card-subtitle mb-2 text-muted">£59.99 / month</h6>
-      <p class="card-text">Access to all our gym, pool and spa facilities and full timetable access.</p>
-      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-    </div>
-  </div>
-  </div>
-  <div class="form-check">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Off-Peak Membership</h5>
-        <h6 class="card-subtitle mb-2 text-muted">£44.99 / month</h6>
-        <p class="card-text">Access to all our gym, pool and spa facilities before 5pm. Full timetable access.</p>
-        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option2">
-      </div>
-    </div>
-  </div>
-  <div class="form-check">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Family Membership</h5>
-        <h6 class="card-subtitle mb-2 text-muted">£119.99 / month</h6>
-        <p class="card-text">For 2 adults and up to 3 children. Adults have access to gym, pool and spa facilities and full timetable access. Children have pool and gym access while accompanied by an adult.</p>
-        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option3">
-      </div>
-    </div>
-  </div>
-
-  </div>
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-      <h2>Details</h2>
-      <form>
-        <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+    <div class="tab-pane fade show active" id="nav-membership" role="tabpanel" aria-labelledby="nav-membership-tab">
+  <div class="container" id="membership-options">
+    <div class="row">
+      <div class="col-3">
+        <div class="form-check">
+          <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Standard Membership</h5>
+            <h6 class="card-subtitle mb-2 text-muted">£59.99 / month</h6>
+            <p class="card-text">Access to all our gym, pool and spa facilities and full timetable access.</p>
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="inputdate" class="col-sm-2 col-form-label">Date of Birth</label>
-          <div class="col-sm-2">
-            <input type="date" class="form-control" id="inputdate">
-          </div>
         </div>
-        <div class="form-group row">
-          <div class="col-sm-2">Checkbox</div>
-          <div class="col-sm-10">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1">
-              <label class="form-check-label" for="gridCheck1">
-                I confirm that I am fit and healthy and have no known medical conditions that prevent me from taking part in physical excercise
-              </label>
+      </div>
+      <div class="col-3">
+        <div class="form-check">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Off-Peak Membership</h5>
+              <h6 class="card-subtitle mb-2 text-muted">£44.99 / month</h6>
+              <p class="card-text">Access to all our gym, pool and spa facilities before 5pm. Full timetable access.</p>
+              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option2">
             </div>
           </div>
         </div>
-      </form>
+      </div>
+      <div class="col-4">
+        <div class="form-check">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Family Membership</h5>
+              <h6 class="card-subtitle mb-2 text-muted">£119.99 / month</h6>
+              <p class="card-text">For 2 adults and up to 3 children. Adults have access to gym, pool and spa facilities and full timetable access. Children have pool and gym access while accompanied by an adult.</p>
+              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option3">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-      <h2>Payment</h2>
-      <label for="payment"> Card Details:</label>
-      <input id="payment" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+  </div>
+  </div>
+    <div class="tab-pane fade" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
+      <div class="center-section">
+        <div>
+        </div>
+        <div class="center-form">
+                <div class="vertical-margin">
+                    <label for="email">Email Address:</label>
+                </div>
+                <div class="vertical-margin">
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="vertical-margin">
+                    <label for="dob">Date of Birth:</label>
+                </div>
+                <div class="vertical-margin">
+                    <input type="date" id="dob" name="dob">
+                </div>
+               <div class="vertical-margin">
+                <input type="checkbox" id="declare-health" name="declare-health">
+                <label for="declare-health">
+                  I confirm that I am fit and healthy and have no known health conditions that prevent me from taking part in physical excercise.
+                </label>
+              </div>
+        </div>
+    </div>
+    </div>
+    <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab">
+      <div class="center-section">
+        <label for="payment"> Plese enter Card Details:</label>
+        <input id="payment" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+      </div>
     </div>
     <div class="tab-pane fade" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
-      <h2>Login Details</h2>
-      <form method="post">
-        {% csrf_token %}
-        {% for field in form %}
-        <p>
-          {{ field.label_tag }}<br>
-          {{ field }}
-          {% if field.help_text %}
-            <small>{{ field.help_text }}</small>
-          {% endif %}
-          {% for error in field.errors %}
-            <p>{{ error }}</p>
+      <div class="center-section">
+        <div class="center-form">
+          <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="vertical-margin">
+              {{ field.label_tag }}
+              {{ field }}
+              {% if field.help_text %}
+              <small>{{ field.help_text }}</small>
+            {% endif %}
+            </div>
+            <div class="vertical-margin">
+
+            </div>
+            <div class="vertical-margin">
+              {% for error in field.errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
           {% endfor %}
-        </p>
-      {% endfor %}
-    
-        <button type="submit">Sign Up</button>
-      </form>
+        <div class="vertical-margin">
+          <button class="btn btn-secondary" type="submit">Sign Up!</button>
+        </div>
+        </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
