@@ -1,24 +1,39 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block contentbody %}
-<h1>login</h1>
-or <a href="{% url 'signup' %}">signup</a>
-{% if form.errors %}
-<p>Invalid Username/Password</p>
-{% endif %}
-<form method="POST">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
-    <label for="username">Password:</label>
-    <input type="password" id="password" name="password">
-    <button id="login" type="submit">Login</button>
-</form>
+
+<div id="login-section">
+    <div>
+        <h2>LOGIN</h2> 
+    </div>
+    <div id="login-form">
+        <form method="POST" >
+        {% csrf_token %}
+            <div class="vertical-margin">
+                <label for="username">Username:</label>
+            </div>
+            <div class="vertical-margin">
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="vertical-margin">
+                <label for="username">Password:</label>
+            </div>
+            <div class="vertical-margin">
+                <input type="password" id="password" name="password">
+            </div>
+            {% if form.errors %}
+            <p>Invalid Username/Password</p>
+            {% endif %} 
+            <div class="vertical-margin">
+                <button class="btn btn-secondary" id="login" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+    <div class="vertical-margin">
+        Not joined us yet? <a href="{% url 'signup' %}"><button type="button" class="btn btn-light">Sign Up Today!</button></a> 
+    </div>
+</div>
+
 
   
-{% endblock %}
-
-
-{% block contentscript %}
-<script src="../../static/classbooking_app/js/login.js"></script>
 {% endblock %}

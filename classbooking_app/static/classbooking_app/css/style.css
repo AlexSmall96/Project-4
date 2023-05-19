@@ -83,3 +83,23 @@
 #session-cont{
     margin-top: 20px;
 }
+
+/* Login Page */
+#login-section{
+    width:25%;
+    height:400px;
+    margin:auto;
+    margin-top: 150px;
+    text-align: center;
+}
+
+#login-form{
+    border-style: solid;
+    border-width: 2px;
+    border-color: grey;
+}
+
+.vertical-margin{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
