@@ -230,6 +230,7 @@ def load_timetable(request):
 def view_bookings(request):
     # Save current user
     user = request.user
+    current_date = date.today()
     cancel_id = ""
     bookings = Booking.objects.filter(user=user)
     context = {
@@ -245,7 +246,8 @@ def view_bookings(request):
         context = {
             'bookings': bookings,
             'cancel_id': cancel_id,
-            'cancelled_session': cancelled_session
+            'cancelled_session': cancelled_session,
+            'current_date': current_date
             }
     # Pass through the remaining users bookings
     return render(request, 'classbooking_app/view_bookings.html', context)

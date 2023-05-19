@@ -1,4 +1,10 @@
+header nav, footer{
+    height:100px;
+}
 
+.beneath-header{
+    margin-top:100px;
+}
 .my-image{
     width:100%;
     height:150px;
@@ -19,9 +25,15 @@
     --bs-gutter-x: 0;
 }
 
-#timetable-container{
+#timetable-tabContent{
+    margin-top: 10px;
     height:700px;
     overflow: scroll;
+}
+
+
+#timetable-box{
+
 }
 
 #about-pool-img{
@@ -84,6 +96,10 @@
     margin-top: 20px;
 }
 
+#members-area{
+margin-top: 100px;
+}
+
 /* Login Page */
 .center-section{
     width:50%;
@@ -110,4 +126,33 @@
 
 .card{
     height:200px;
+}
+
+footer{
+    background-color: grey;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#membership-footer{
+    width:25%;
+    margin:auto;
+    padding-top:10px;
+}
+
+#footer-btn{
+    color:black;
+    background-color:lightgray;
+    border-style: solid;
+    border-width: 2px;
+    border-color: goldenrod
+}
+
+#contact{
+    width:25%;
+    margin:auto;
+    padding-top:10px;
+
 }

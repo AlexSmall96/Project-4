@@ -1,7 +1,12 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block contentbody %}
-<h1>Your Bookings</h1>
+
+<div id="members-area">
+  <h1>Welcome to the Members Area, {{ user.username }}</h1>
+  <h2>Member Since {{ user.date_joined|date:"M d, Y" }}</h2>
+</div>
+<h2>Your Upcoming Bookings:</h2>
 <form method="POST" id="cancel-form">
     {% csrf_token %}
     <label class="invisible" for="cancel">Cancel Booking:</label>
@@ -16,6 +21,7 @@
    <div class="col"></div>
  </div>
  {% for booking in bookings %}
+ {% if booking.session.date >= current_date %}
  <div class="row run-{{ booking.session.running }}">
    <div class="col">{{ booking.session.activity.name }}</div>
    <div class="col">{{ booking.session.date }}</div>
@@ -71,13 +77,11 @@
     </div>
   </div>
 </div>
-{% endfor %}
-
-{% else %}
-<p>
-  You aren't booked into any classes yet, visit the <a href="/timetable.html" id="timetable-link">Timetable</a> to book yourself in.
-</p>
 {% endif %}
+{% endfor %}
+{% endif %}
+
+
 {% endblock %}
 
 {% block contentscript %}  

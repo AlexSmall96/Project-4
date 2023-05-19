@@ -50,7 +50,7 @@
       <div data-spy="scroll" data-target="#facilities-link" data-offset="0" class="scrollspy-example">
         <h2 id="facilities-target">Our Facilities</h2>
         <p>A state of the art gym and pool, class studios and a spin room. We've got your fitness needs covered.
-           <a class="" data-toggle="collapse" href="#facilities-text" role="button" aria-expanded="false" aria-controls="facilitiesText">
+           <a class="read-more" data-toggle="collapse" href="#facilities-text" role="button" aria-expanded="false" aria-controls="facilitiesText">
           Read More
         </a></p>
           <div class="collapse" id="facilities-text">
@@ -86,7 +86,7 @@
     <div class="col-6">
       <h2>Our Spa</h2>
       <p>Relax and unwind after your workout in our luxurious sauna, steam room or jacuzzi, or even a pampering session.
-        <a class="" data-toggle="collapse" href="#spa-text" role="button" aria-expanded="false" aria-controls="spaText">
+        <a class="read-more" data-toggle="collapse" href="#spa-text" role="button" aria-expanded="false" aria-controls="spaText">
           Read More
         </a><p>
 
@@ -101,15 +101,24 @@
     </div>
   </div>
 </div>
-  <div id="members-area">
-    {% if user.is_authenticated %}
-      <a class="nav-link" href="/view_bookings.html"><button>Members Area</button></a>
-    {% else %}
-    <a class="nav-link" href="{% url 'login' %}"><button>Login or Signup Today!</button></a>
-    {% endif %}
-</button>
+<footer>
+  <div id="membership-footer">
+    <a class="nav-link" {% if user.is_authenticated %} href="/view_bookings.html" {%else %} href="{% url 'signup' %}" {% endif %}>
+      <button id="footer-btn" type="button" class="btn btn-secondary">
+      {% if user.is_authenticated %} Members Area {%else %} View our Membership Options {% endif %}
+      </button>
+    </a>
   </div>
+  <div id="contact">
+    <i class="fa-brands fa-facebook fa-2xl"></i>
+    <i class="fa-brands fa-instagram fa-2xl"></i>
+    <i class="fa-brands fa-linkedin fa-2xl"></i>
+    <i class="fa-brands fa-github fa-2xl"></i>
+  </div>
+</footer>
 
+
+  
 
 
 
@@ -121,8 +130,8 @@
 {% endblock %}
 
 {% block contentscript %}  
-<!--
-<script src="../../static/classbooking_app/js/view_bookings.js"></script>
--->
+
+<script src="../../static/classbooking_app/js/home.js"></script>
+
 
 {% endblock %}
