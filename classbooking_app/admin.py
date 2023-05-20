@@ -29,7 +29,6 @@ class BookingAdmin(admin.ModelAdmin):
         "session",
         "date",
         "time",
-        "confirmed"
         )
 
     list_filter = (
@@ -37,7 +36,6 @@ class BookingAdmin(admin.ModelAdmin):
         'session__activity',
         'session__date',
         'session__time',
-        'confirmed'
         )
 
     def date(self, obj):

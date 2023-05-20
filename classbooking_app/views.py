@@ -141,7 +141,6 @@ def create_booking(user, id):
         booking = Booking(
             session=session,
             user=user,
-            confirmed=False
             )
         booking.save()
 
@@ -152,20 +151,6 @@ def delete_booking(user, id):
     spaces_taken = len(Booking.objects.filter(session=session))
     session.spaces = session.activity.capacity - spaces_taken
     session.save()
-
-
-def confirm_bookings(user):
-    # Select users unconfirmed bookings
-    bookings = Booking.objects.filter(user=user, confirmed=False)
-    for booking in bookings:
-        # Set booking to confirmed
-        booking.confirmed = True
-        booking.save()
-        # Add user to count of attendees in session
-        session = booking.session
-        spaces_taken = len(Booking.objects.filter(session=session))
-        session.spaces = session.activity.capacity - spaces_taken
-        session.save()
 
 
 def checkout(request):

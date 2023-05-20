@@ -59,7 +59,6 @@ class Booking(models.Model):
         blank=False,
         default="test_user"
         )
-    confirmed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user
