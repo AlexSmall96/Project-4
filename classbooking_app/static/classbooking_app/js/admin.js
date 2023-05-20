@@ -76,13 +76,13 @@ document.addEventListener("DOMContentLoaded", function(){
         <input type="checkbox" id="${sessionId}-running" name="${sessionId}-running" checked>
         </div>
         <div class="col-lg-2">
-        <button class="create-btn" type="button" id="${sessionId}-create" name="${sessionId}-create" data-toggle="modal" data-target="#confirm-create-modal">Create Session</button>
+        <button class="create-btn admin-btn" type="button" id="${sessionId}-create" name="${sessionId}-create" data-toggle="modal" data-target="#confirm-create-modal">Create Session</button>
         </div>
         <div class="col-lg-2">
-        <button type="button" class="discard-btn" id="${sessionId}-discard" name="${sessionId}-discard">Discard</button>
+        <button type="button" class="discard-btn admin-btn" id="${sessionId}-discard" name="${sessionId}-discard">Discard</button>
         </div>
         `
-        sessionCont.appendChild(newRow)
+        sessionCont.insertBefore(newRow, sessionCont.firstChild)
         activitySelect = document.getElementById(`${sessionId}-activity`)
         for (let act of activityList){
             let newOption = document.createElement("option")

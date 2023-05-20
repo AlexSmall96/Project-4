@@ -1,15 +1,18 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block contentbody %}
-<h3 class="beneath-header"><i class="fa-solid fa-circle-exclamation"></i> For Admin use only:</h3>
+<form method="POST" id="session-form">
+<div  class="beneath-header" id="admin-instructions">
+<h3><i class="fa-solid fa-circle-exclamation"></i> This page is for Admin use only:</h3>
 <ul>
  <li>Use the below filters to load sessions.</li>
- <li>Use the date, activity and location filters below to view sessions. Press the filter icons that appear above to unfilter that field.</li>
+ <li>Use the date, activity and location filters below to view sessions. By default, the timetable for the next month is shown. Press the filter icons that appear above to unfilter that field.</li>
  <li>For any session shown, alter the fields as required and press 'Save Session Changes' and press confirm on the popup. Altering information without pressing save WILL NOT update the</li>
  <li>To delete a session, press the corresponding 'Delete Session' button and press confirm on the popup. The session WILL NOT be deleted without pressing confirm.</li>
 <li> Please ensure all members who are booked into a session are informed of any session changes or deletions. </li>
 </ul>
-<form method="POST" id="session-form">
+
+
     {% csrf_token %}
     <input class="invisible" type="text" id="update-field" name="update-field">
     <input class="invisible" type="text" id="delete-field" name="delete-field">
@@ -39,35 +42,40 @@
         {% endif %}
         {% endfor %}
     </select>
-    <div id="session-cont" class="container">
-        <div class="row">
-            <div class="col-lg-2">Activity 
-                {%if activity_filter != "All" %}
-                <button type="button" id="act-filter-icon" class="filter-icon"><i class="fa-solid fa-filter-circle-xmark"></i></button>
-                {% else %}
-                <button type="button" id="act-filter-icon" class="filter-icon invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
-                {% endif %}
-            </div>
-            <div class="col-lg-1">Date
-                {%if date_filter != "" %}
-                <button type="button" id="dat-filter-icon" class="filter-icon"><i class="fa-solid fa-filter-circle-xmark"></i></button>
-                {% else %}
-                <button type="button" id="dat-filter-icon" class="filter-icon invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
-                {% endif %}
-            </div>
-            <div class="col-lg-1">Time</div>
-            <div class="col-lg-2">Location:
-                {%if location_filter != "All" %}
-                <button type="button" id="loc-filter-icon" class="filter-icon"><i class="fa-solid fa-filter-circle-xmark"></i></button>
-                {% else %}
-                <button type="button" id="loc-filter-icon" class="filter-icon invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
-                {% endif %}               
-            </div>
-            <div class="col-lg-1">Spaces</div>
-            <div class="col-lg-1">Running</div>
-            <div class="col-lg-2"></div>
-            <div class="col-lg-2"></div>
-        </div>
+  </div>
+    <div id="show-sessions" class="container session-box">
+      <div class="row">
+        <div id="session-headers" class="row">
+          <div class="col-lg-2">Activity 
+              {%if activity_filter != "All" %}
+              <button type="button" id="act-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% else %}
+              <button type="button" id="act-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% endif %}
+          </div>
+          <div class="col-lg-1">Date
+              {%if date_filter != "" %}
+              <button type="button" id="dat-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% else %}
+              <button type="button" id="dat-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% endif %}
+          </div>
+          <div class="col-lg-1">Time</div>
+          <div class="col-lg-2">Location:
+              {%if location_filter != "All" %}
+              <button type="button" id="loc-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% else %}
+              <button type="button" id="loc-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% endif %}               
+          </div>
+          <div class="col-lg-1">Spaces</div>
+          <div class="col-lg-1">Running</div>
+          <div class="col-lg-2">Save</div>
+          <div class="col-lg-2">Delete</div>
+      </div>
+      </div>
+    </div>
+    <div id="session-cont" class="container session-box">
         {% for session in sessions %}
         <div class="row">
             <div class="col-lg-2">
@@ -82,7 +90,7 @@
                     </select>
             </div>
             <div class="col-lg-1">
-                <input type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
+                <input class="date-edit" type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
             </div>
             <div class="col-lg-1">
                 <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}" step="3660">
@@ -147,8 +155,14 @@
     </div>
   </div>
         {% endfor %}
-    </div>
-    <button class="admin-btn" type="button" id="add-session"><i class="fa-solid fa-square-plus"></i>Add Session</button>
+</div>
+<div class="container vertical-margin">
+  <div id="add-btn-section" class="row">
+    <button class="admin-btn" type="button" id="add-session"><i class="fa-solid fa-square-plus"></i> Add Session</button>  
+  </div>
+</div>
+
+
 </form>
           <!-- Confirm Create Modal -->
           <div class="modal fade" id="confirm-create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
