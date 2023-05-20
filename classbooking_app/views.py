@@ -204,7 +204,13 @@ def load_timetable(request):
     weeks_sessions = Session.objects.filter(date__range=[tomorrow, next_week])
     todays_sessions = Session.objects.filter(date=today, time__gte=now)
     weeks_sessions = weeks_sessions.union(todays_sessions)
-    dates = Session.objects.filter(date__range=[today, next_week]).values_list(
+    if len(todays_sessions) == 0:
+        tab_range = [tomorrow, next_week]
+        active_date = tomorrow
+    else:
+        tab_range = [today, next_week]
+        active_date = today
+    dates = Session.objects.filter(date__range=tab_range).values_list(
         'date', flat=True).distinct().order_by("date")
     existing_bookings = Booking.objects.filter(user=user)
     if request.method == "POST":
@@ -220,12 +226,14 @@ def load_timetable(request):
     existing_bookings = Booking.objects.filter(user=user)
     context = {
         'weeks_sessions': weeks_sessions,
+        'todays_sessions': todays_sessions,
         'dates': dates,
         'existing_bookings': existing_bookings,
         'confirmed': confirmed,
         'cart': cart,
         'cancel_id': cancel_id,
-        'today': today
+        'today': today,
+        'active_date': active_date
         }
     return render(request, 'classbooking_app/timetable.html', context)
 

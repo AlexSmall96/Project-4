@@ -22,11 +22,12 @@ document.addEventListener("DOMContentLoaded", function(){
     const confirmCheckList = document.getElementById("confirm-checkout-list")
     const checkoutDismiss = document.getElementById("checkout-dismiss")
 
+    // Check for users existing bookings to determine button text
     let existBookingsArr = []
     for (let booking of existBookings){
         existBookingsArr.push(booking.innerHTML)
     }
-
+    
     for (let box of addBoxes){
         if (box.value != "Class Cancelled"){
             if (existBookingsArr.includes(box.id)){
@@ -37,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
     
+    // Collate list of users selected classes for confirmation modal
     for (let box of addBoxes){
         box.addEventListener("click", () => {
             if (box.value === "Add to Cart"){
@@ -87,9 +89,11 @@ document.addEventListener("DOMContentLoaded", function(){
                 }
             }
             if (count > 0){
+                checkoutBtn.disabled = false
                 checkoutBtn.classList.remove("btn-secondary")
                 checkoutBtn.classList.add("btn-primary")
             } else {
+                checkoutBtn.disabled = true
                 checkoutBtn.classList.remove("btn-primary")
                 checkoutBtn.classList.add("btn-secondary")
             }
@@ -97,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     
-    
+    // Allow user to remove class from checkout modal
     checkoutBtn.addEventListener("click", () => {
         let removeBoxes = document.getElementsByClassName("remove-from-cart")
         for (let box of removeBoxes){
@@ -111,41 +115,11 @@ document.addEventListener("DOMContentLoaded", function(){
             })
         }
     })
-
-    //const delay = ms => new Promise(res => setTimeout(res, ms));
+    
+    // Submit the form once user has confirmed via the checkout modal
     confirmBtn.addEventListener("click", function(){
         confirmed.value = "y"
         cancelField.value=""
         timetableForm.submit()
-        
-    })
-    // Add event listener to each add to cart button
-    /*
-    for (let box of addBoxes){
-        if (box.value != "Class Cancelled"){
-            if (unconfBookingsArr.includes(box.id)){
-                box.value = "Remove from Cart"
-            } else if (confBookingsArr.includes(box.id)){ 
-                box.value = "Booked in. Cancel?"
-            } else {
-                box.value = "Add to Cart"
-            }
-            box.addEventListener("click", () => {
-                    if (confBookingsArr.includes(box.id) || unconfBookingsArr.includes(box.id)){
-                        remove.value = box.id
-                    } else {
-                        cart.value = box.id
-                    }
-                    // Submit form
-                    form.submit()
-            })
-        }
-    }
-    */
-
-    let formReady = document.getElementById("form-ready")
-    checkoutBtn.addEventListener("click", () => {
-        formReady.value="y"
-        //timetableForm.submit()
     })
 })

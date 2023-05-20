@@ -18,10 +18,14 @@
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     {% for date in dates %}
-    <a class="nav-item nav-link {% if date == today %} active {% endif %}" id="nav-{{ date }}-tab" data-toggle="tab" href="#nav-{{ date }}" role="tab" aria-controls="nav-{{ date }}" aria-selected="true">{{ date |date:"D jS, M" }}</a>
+    {% if date == active_date %}
+    <a class="nav-item nav-link date-tabs active" id="nav-{{ date }}-tab" data-toggle="tab" href="#nav-{{ date }}" role="tab" aria-controls="nav-{{ date }}" aria-selected="true">{{ date |date:"D jS, M" }}</a>
+    {% else %}
+    <a class="nav-item nav-link date-tabs" id="nav-{{ date }}-tab" data-toggle="tab" href="#nav-{{ date }}" role="tab" aria-controls="nav-{{ date }}">{{ date |date:"D jS, M" }}</a>
+    {% endif %}
     {% endfor %}
     <a class="nav-item nav-link" href="#">
-      <button type="button" class="btn btn-secondary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal">
+      <button type="button" class="btn btn-secondary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal" disabled>
       Confirm Bookings
       </button>
   </a>
@@ -32,7 +36,11 @@
 <!-- Date Navigation Content -->
 <div class="tab-content" id="timetable-tabContent"> 
 {% for date in dates %}
-  <div class="tab-pane fade show {% if date == today %} active {% endif %}" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
+{% if date == active_date %}
+  <div class="tab-pane fade show active" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
+{% else %}
+<div class="tab-pane fade show" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
+{% endif %}
   <div class="container">
     
  {% for session in weeks_sessions %}
@@ -95,7 +103,6 @@
   {% endfor %}
 </div>
      <!-- Hidden Inputs to communicate with python -->
-    <input class="invisible" type="text" id="date-change" name="date-change">
     <input class="invisible" type="text" id="cart" name="cart" value="{{ cart }}">
     <input class="invisible" type="number" id="cancel-timetable" name="cancel-timetable" value="{{ cancel_id }}">
     <input class="invisible" type="text" id="confirmed" name="confirmed" value="{{ confirmed }}">
