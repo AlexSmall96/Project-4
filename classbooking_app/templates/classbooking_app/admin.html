@@ -6,11 +6,9 @@ Use filters to load sessions:
 <form method="POST" id="session-form">
     {% csrf_token %}
     <input class="invisible" type="text" id="update-field" name="update-field">
-    <input class="invisible" type="text" id="update-feedback-field" name="update-feedback-field" value="{{ update_feedback_field }}">
     <input class="invisible" type="text" id="delete-field" name="delete-field">
-    <input class="invisible" type="text" id="delete-feedback-field" name="delete-feedback-field" value="{{ delete_feedback_field }}">
     <input class="invisible" type="text" id="create-field" name="create-field">
-    <input class="invisible" type="text" id="create-feedback-field" name="create-feedback-field" value="{{ create_feedback_field }}">
+    <input class="invisible" type="text" id="feedback-field" name="feedback-field" value="{{ feedback_field }}">
     <label for="date-filter">Date:</label>
     <input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}">
     <label for="activity-filter">Activity: </label>

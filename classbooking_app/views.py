@@ -38,15 +38,25 @@ def create_session(request, id):
         running = True
     else:
         running = False
-    session = Session(
-        activity=activity,
+    clash = len(Session.objects.filter(
         date=date,
         time=time,
-        spaces=spaces,
         location=location,
-        running=running
-    )
+        running=True
+        )) > 0
+    if clash:
+        return f"Session not created. Another session is already taking place in {location} on {date} at {time}."
+    else:
+        session = Session(
+            activity=activity,
+            date=date,
+            time=time,
+            spaces=spaces,
+            location=location,
+            running=running
+        )
     session.save()
+    return f"Thank you a session for {name} on {date} at {time} in {location} has been created."
 
 
 def update_session(request, id):
@@ -81,12 +91,17 @@ def update_session(request, id):
         session.running = running
         session.spaces = request.POST.get(id + '-spaces')
         session.save()
-        return "Thank you, Session details have been updated."
+        return f"Thank you, your {name} session details have been updated."
 
 
 def delete_session(id):
     session = get_object_or_404(Session, id=id)
+    name = session.activity.name
+    date = session.date
+    time = session.time
+    location = session.location
     session.delete()
+    return f"Thank you, your {name} session on {date} at {time} in {location} has been deleted."
 
 
 def admin_page(request):
@@ -98,10 +113,8 @@ def admin_page(request):
     # Default location and activity filters to all
     location_filter = 'All'
     activity_filter = 'All'
-    update_feedback_field = ""
+    feedback_field = ""
     feedback = ""
-    delete_feedback_field = ""
-    create_feedback_field = ""
     # Load todays sessions
     sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
     max_id = Session.objects.all().values_list('id', flat=True).order_by('-id')[0]
@@ -115,15 +128,15 @@ def admin_page(request):
         update_id = request.POST.get('update-field')
         if update_id != "":
             feedback = update_session(request, update_id)
-            update_feedback_field = "y"
+            feedback_field = "y"
         delete_id = request.POST.get('delete-field')
         if delete_id != "":
-            # delete_session(delete_id)
-            delete_feedback_field = "y"
+            feedback = delete_session(delete_id)
+            feedback_field = "y"
         create_id = request.POST.get('create-field')
         if create_id != "":
-            create_session(request, create_id)
-            create_feedback_field = "y"
+            feedback = create_session(request, create_id)
+            feedback_field = "y"
         date_filter = request.POST.get("date-filter")
         activity_filter = request.POST.get('activity-filter')
         location_filter = request.POST.get('location-filter')
@@ -145,10 +158,8 @@ def admin_page(request):
         'sessions': sessions,
         'activities': activities,
         'locations': locations,
-        'update_feedback_field': update_feedback_field,
+        'feedback_field': feedback_field,
         'feedback': feedback,
-        'delete_feedback_field': delete_feedback_field,
-        'create_feedback_field': create_feedback_field,
         'max_id': max_id
     }
     return render(request, 'classbooking_app/admin.html', context)
