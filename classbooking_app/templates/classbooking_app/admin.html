@@ -1,8 +1,14 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block contentbody %}
-<h1 class="beneath-header">Admin page</h1>
-Use filters to load sessions:
+<h3 class="beneath-header"><i class="fa-solid fa-circle-exclamation"></i> For Admin use only:</h3>
+<ul>
+ <li>Use the below filters to load sessions.</li>
+ <li>Use the date, activity and location filters below to view sessions. Press the filter icons that appear above to unfilter that field.</li>
+ <li>For any session shown, alter the fields as required and press 'Save Session Changes' and press confirm on the popup. Altering information without pressing save WILL NOT update the</li>
+ <li>To delete a session, press the corresponding 'Delete Session' button and press confirm on the popup. The session WILL NOT be deleted without pressing confirm.</li>
+<li> Please ensure all members who are booked into a session are informed of any session changes or deletions. </li>
+</ul>
 <form method="POST" id="session-form">
     {% csrf_token %}
     <input class="invisible" type="text" id="update-field" name="update-field">
@@ -103,13 +109,13 @@ Use filters to load sessions:
                 {% endif %}                
             </div>
             <div class="col-lg-2">
-                <button type="button"  name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
+                <button class="admin-btn" type="button"  name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
                     Save Session Changes
                 </button>
             </div>
             
             <div class="col-lg-2">
-                <button type="button"  name="{{ session.id }}-delete" data-toggle="modal" data-target="#confirm-delete-modal-{{ session.id }}">Delete Session</button>
+                <button class="admin-btn" type="button"  name="{{ session.id }}-delete" data-toggle="modal" data-target="#confirm-delete-modal-{{ session.id }}">Delete Session</button>
             </div>
         </div>
         <!-- Confirm Update Modal -->
@@ -142,7 +148,7 @@ Use filters to load sessions:
   </div>
         {% endfor %}
     </div>
-    <button type="button" id="add-session"><i class="fa-solid fa-square-plus"></i>Add Session</button>
+    <button class="admin-btn" type="button" id="add-session"><i class="fa-solid fa-square-plus"></i>Add Session</button>
 </form>
           <!-- Confirm Create Modal -->
           <div class="modal fade" id="confirm-create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
