@@ -12,52 +12,15 @@ document.addEventListener("DOMContentLoaded", function(){
     const dateHeaders = document.getElementsByClassName("date-header")
     const timetableModalTitle = document.getElementById("timetable-modal-title")
     const timetableModal = document.getElementById("timetable-modal")
+    const confirmModal = document.getElementById("confirm-modal")
+    const confirmModalTitle = document.getElementById("confirm-modal-title")
+    const confirmModalBtn = document.getElementById("confirm-modal-btn")
     const confirmBtn = document.getElementById("confirm-btn")
     const confirmed = document.getElementById("confirmed")
     const existBookings = document.getElementById("existing-bookings").children
     const checkoutList = document.getElementById("checkout-list")
+    const confirmCheckList = document.getElementById("confirm-checkout-list")
     const checkoutDismiss = document.getElementById("checkout-dismiss")
-
-    if (cancelField.value != ""){
-        sessionId = cancelField.value
-        let cancelModal = document.getElementById("cancel-modal-".concat(sessionId))
-        let cancelModalBtn = document.getElementById("cancel-modal-btn-".concat(sessionId))
-        let cancelModalHead = document.getElementById("cancel-modal-header-".concat(sessionId))
-        cancelModal.classList.remove("fade")
-        cancelModalBtn.click()
-        cancelModal.classList.add("fade")
-        cancelField.value = ""
-    }
-
-    if (confirmed.value === "y"){
-        timetableModal.classList.remove("fade")
-        checkoutBtn.click()
-        timetableModal.classList.add("fade")
-        let cartIds = cart.value.split(" ")
-        for (let sessionId of cartIds){
-            if (sessionId != ""){
-                box = document.getElementById(sessionId)
-                let location = box.parentNode.previousSibling.previousSibling
-                let activity = location.previousSibling.previousSibling.previousSibling.previousSibling
-                let time = activity.previousSibling.previousSibling.previousSibling.previousSibling
-                let date = document.getElementById(box.id.concat("-date-header"))
-    
-                let newRow = document.createElement("div")
-                newRow.classList.add("row")
-                newRow.id = box.id.concat("-checkout")
-                newRow.innerHTML = `
-                <div class="col">${activity.children[0].innerHTML}</div>
-                <div class="col">${date.innerHTML}</div>
-                <div class="col">${time.innerHTML}</div>
-                <div class="col">${location.innerHTML}</div>
-                ` 
-                checkoutList.appendChild(newRow)
-                timetableModalTitle.innerHTML = "Thanks for confirming, your classes have been booked."
-                confirmBtn.innerHTML = "View/Cancel your Bookings"
-            }
-        }
-        confirmed.value = ""
-    }
 
     let existBookingsArr = []
     for (let booking of existBookings){
@@ -109,10 +72,10 @@ document.addEventListener("DOMContentLoaded", function(){
             } else if (box.value === "Booked in. Cancel?"){
                 let cancelModalBtn = document.getElementById("cancel-modal-btn-".concat(box.id))
                 cancelModalBtn.click()
-                console.log(box.id)
                 let yesButton = document.getElementById(box.id.concat("-yes"))
                 yesButton.addEventListener("click", () => {
                     cancelField.value = box.id
+                    confirmed.value = ""
                     timetableForm.submit()
                 })
             }
@@ -124,9 +87,11 @@ document.addEventListener("DOMContentLoaded", function(){
                 }
             }
             if (count > 0){
-                checkoutBtn.disabled = false
+                checkoutBtn.classList.remove("btn-secondary")
+                checkoutBtn.classList.add("btn-primary")
             } else {
-                checkoutBtn.disabled = true
+                checkoutBtn.classList.remove("btn-primary")
+                checkoutBtn.classList.add("btn-secondary")
             }
         })
     }
@@ -150,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function(){
     //const delay = ms => new Promise(res => setTimeout(res, ms));
     confirmBtn.addEventListener("click", function(){
         confirmed.value = "y"
+        cancelField.value=""
         timetableForm.submit()
         
     })

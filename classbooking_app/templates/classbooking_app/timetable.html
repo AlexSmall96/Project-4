@@ -3,13 +3,25 @@
 {% block contentbody %}
 
 <!-- Date Navigation Tabs -->
-<nav class="beneath-header">
+<div id="timetable-instructions" class="beneath-header">
+  <ul><i class="fa-solid fa-circle-question"></i>
+    <li> View the timetable for each day by clicking on the tabs below.</li>
+    <li> Click add to/remove from cart to select a class and confirm using the 'Confirm Bookings' button. </li>
+    <li> Your booked in classes can be cancelled via the cancel buttons. </li>
+  </ul>
+  {% if confirmed != "" %}
+  <h3>Thanks for confirming, your classes have been booked. View all your bookings at <a href="/view_bookings.html">Members Area</a></h3>
+  {% elif cancel_id != "" %}
+  <h3>Thanks for confirming, your booking has been cancelled. View your remaining bookings at <a href="/view_bookings.html">Members Area</a></h3>
+  {% endif %}
+</div>
+<nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     {% for date in dates %}
     <a class="nav-item nav-link {% if date == today %} active {% endif %}" id="nav-{{ date }}-tab" data-toggle="tab" href="#nav-{{ date }}" role="tab" aria-controls="nav-{{ date }}" aria-selected="true">{{ date |date:"D jS, M" }}</a>
     {% endfor %}
     <a class="nav-item nav-link" href="#">
-      <button type="button" class="btn btn-primary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal" disabled>
+      <button type="button" class="btn btn-secondary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal">
       Confirm Bookings
       </button>
   </a>
@@ -57,35 +69,16 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            
-              {% if cancel_id == session.id %}
-              <h5 id="cancel-modal-header-{{ session.id }}" class="modal-title">
-                Thanks for confirming. Your booking for {{ session.activity.name}} at {{ session.time}}
-                on {{ session.date }} has been cancelled.
-              </h5>
-
-              {% else %}
               <h5 id="cancel-modal-header-{{ session.id }}" class="modal-title">
               Are you sure you want to cancel 
               {{session.activity.name}} 
               at {{ session.time }}
               on {{ session.date }}?
             </h5>
-              {% endif %}
-         
           </div>
           <div class="modal-body">
-            {% if cancel_id == session.id %}
-            <a class="nav-link" href="/view_bookings.html">
-              <button id="{{ session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">
-                View/Cancel your remaining bookings
-              </button>
-            </a>
-            <button id="{{ session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">Book more classes</button>
-            {% else %}
             <button id="{{ session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
             <button id="{{ session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-            {% endif %}
           </div>
         </div>
       </div>
@@ -132,11 +125,7 @@
       </div>
       <div class="modal-footer">
         <button id="checkout-dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Book more Classes</button>
-        {% if confirmed != "y" %}
         <button id="confirm-btn" type="button" class="btn btn-primary">Confirm Bookings</button>
-        {% else %}
-        <a href="/view_bookings.html"><button id="confirm-btn" type="button" class="btn btn-primary">Confirm Bookings</button></a>
-        {% endif %}
       </div>
     </div>
   </div>
@@ -164,6 +153,6 @@
 
 {% block contentscript %}
 
-<script src="../../static/classbooking_app/js/timetable.js?2"></script>
+<script src="../../static/classbooking_app/js/timetable.js"></script>
 
 {% endblock %}
