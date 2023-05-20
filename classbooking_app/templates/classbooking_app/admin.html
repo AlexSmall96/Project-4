@@ -81,7 +81,7 @@ Use filters to load sessions:
                 <input type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
             </div>
             <div class="col-lg-1">
-                <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}">
+                <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}" step="3660">
             </div>
             <div class="col-lg-2">
                 <select id="{{ session.id }}-location" name="{{ session.id }}-location">

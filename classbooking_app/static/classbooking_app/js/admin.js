@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function(){
         <input type="date" id="${sessionId}-date" name="${sessionId}-date" required value="${defaultDate}">
         </div>
         <div class="col-lg-1">
-        <input type="time" id="${sessionId}-time" name="${sessionId}-time" required value="06:30">
+        <input type="time" id="${sessionId}-time" name="${sessionId}-time" step="3600" required value="06:30">
         </div>
         <div class="col-lg-2">
         <select id="${sessionId}-location" name="${sessionId}-location" required></select>       
@@ -98,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function(){
         <button type="button" class="discard-btn" id="${sessionId}-discard" name="${sessionId}-discard">Discard</button>
         </div>
         `
-        
         sessionCont.appendChild(newRow)
         activitySelect = document.getElementById(`${sessionId}-activity`)
         for (let act of activityList){

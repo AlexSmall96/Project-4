@@ -51,9 +51,6 @@ def create_session(request, id):
 
 def update_session(request, id):
     session = get_object_or_404(Session, id=id)
-    old_date = session.date
-    old_time = session.time
-    old_loc = session.location
     name = request.POST.get(id + '-activity')
     activity = get_object_or_404(Activity, id=name_to_id(name))
     date = request.POST.get(id + '-date')
@@ -63,15 +60,17 @@ def update_session(request, id):
         running = True
     else:
         running = False
+    same_session = len(Session.objects.filter(
+        activity=activity,
+        date=date,
+        time=time,
+        location=location)) > 0
     clash = len(Session.objects.filter(
         date=date,
         time=time,
         location=location,
-        running=True)
-        ) > 0
-    same_session = False
-    if location == old_loc:
-        same_session = True
+        running=True
+    )) > 0
     if clash and not same_session:
         return f"Changes not saved. Another session is already taking place in {location} on {date} at {time}."
     else:
