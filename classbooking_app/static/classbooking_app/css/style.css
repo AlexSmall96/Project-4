@@ -215,7 +215,7 @@ border-width: 2px;
 }
 
 #add-btn-section{
-    width:20%;
+    width:30%;
     margin:auto;
 }
 
@@ -232,6 +232,7 @@ border-width: 2px;
     }
     #admin-headers{
         font-size: small;
+        margin-top: 0px;
     }
     #admin-instructions{
         font-size:small;
@@ -239,6 +240,26 @@ border-width: 2px;
     #admin-instructions input, #admin-instructions select{
         margin-right:5px;
         width:20%;
+    }
+    .session-box{
+        width:100%;
+    }
+}
+
+@media (max-wdith:320px){
+    #admin-instructions input, #admin-instructions select{
+        margin-right:1px;
+        width:10%;
+    }
+    #admin-headers{
+        font-size: xx-small;
+    }
+    #admin-instructions{
+        font-size:xx-small;
+    }
+
+    .session-box{
+        font-size:xx-small;
     }
 }
 
