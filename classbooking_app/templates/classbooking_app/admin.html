@@ -43,42 +43,42 @@
         {% endfor %}
     </select>
   </div>
-    <div id="show-sessions" class="container session-box">
+    <div id="admin-headers" class="container session-box">
       <div class="row">
         <div id="session-headers" class="row">
-          <div class="col-lg-2">Activity 
+          <div class="col-xl-2 col-3">Activity 
               {%if activity_filter != "All" %}
               <button type="button" id="act-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
               <button type="button" id="act-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}
           </div>
-          <div class="col-lg-1">Date
+          <div class="col-xl-1 col-2">Date
               {%if date_filter != "" %}
               <button type="button" id="dat-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
               <button type="button" id="dat-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}
           </div>
-          <div class="col-lg-1">Time</div>
-          <div class="col-lg-2">Location:
+          <div class="col-xl-1 col-1">Time</div>
+          <div class="col-xl-2 col-2">Location:
               {%if location_filter != "All" %}
               <button type="button" id="loc-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
               <button type="button" id="loc-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}               
           </div>
-          <div class="col-lg-1">Spaces</div>
-          <div class="col-lg-1">Running</div>
-          <div class="col-lg-2">Save</div>
-          <div class="col-lg-2">Delete</div>
+          <div class="col-xl-1">Spaces</div>
+          <div class="col-xl-1">Running</div>
+          <div class="col-xl-1">Save</div>
+          <div class="col-xl-1">Delete</div>
       </div>
       </div>
     </div>
     <div id="session-cont" class="container session-box">
         {% for session in sessions %}
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-xl-2 col-3">
                 <select id="{{ session.id }}-activity" name="{{ session.id }}-activity">
                     {% for activity in activities %}
                     {% if activity == session.activity %}
@@ -89,13 +89,13 @@
                     {% endfor %}
                     </select>
             </div>
-            <div class="col-lg-1">
+            <div class="col-xl-1 col-2">
                 <input class="date-edit" type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
             </div>
-            <div class="col-lg-1">
+            <div class="col-xl-1 col-1">
                 <input type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}" step="3660">
             </div>
-            <div class="col-lg-2">
+            <div class="col-xl-2 col-2">
                 <select id="{{ session.id }}-location" name="{{ session.id }}-location">
                     {% for location in locations %}
                     {% if location == session.location %}
@@ -106,24 +106,26 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-lg-1">
+            <div class="col-xl-1 col-1">
                 <input type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}" min="0" max="25" step="1">
             </div>
-            <div class="col-lg-1">
+            <div class="col-xl-1 col-1">
                 {% if session.running %}
                 <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" checked>
                 {% else %}
                 <input type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running">
                 {% endif %}                
             </div>
-            <div class="col-lg-2">
+            <div class="col-xl-2 col-1">
                 <button class="admin-btn" type="button"  name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
-                    Save Session Changes
+                  <p class="action-icon"><i class="fa-solid fa-floppy-disk"></i></p><p class="action-txt">Save Changes</p>
                 </button>
             </div>
             
-            <div class="col-lg-2">
-                <button class="admin-btn" type="button"  name="{{ session.id }}-delete" data-toggle="modal" data-target="#confirm-delete-modal-{{ session.id }}">Delete Session</button>
+            <div class="col-xl-2 col-1">
+                <button class="admin-btn" type="button"  name="{{ session.id }}-delete" data-toggle="modal" data-target="#confirm-delete-modal-{{ session.id }}">
+                  <p class="action-icon"><i class="fa-solid fa-trash-can"></i></p><p class="action-txt">Delete</p>
+                </button>
             </div>
         </div>
         <!-- Confirm Update Modal -->
