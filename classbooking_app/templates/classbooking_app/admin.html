@@ -1,7 +1,7 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block contentbody %}
-<h1>Admin page</h1>
+<h1 class="beneath-header">Admin page</h1>
 Use filters to load sessions:
 <form method="POST" id="session-form">
     {% csrf_token %}
@@ -167,7 +167,9 @@ Use filters to load sessions:
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="feedback-modal-title"></h5>
+          <h5 class="modal-title" id="feedback-modal-title">
+            {{ feedback }}
+          </h5>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">View Sessions</button>
@@ -189,11 +191,12 @@ Use filters to load sessions:
 </div>
 
 <p class="invisible" id="max-id">{{ max_id }}</p>
+<p class="invisible" id="default-date">{{ date_filter }}</p>
 {% endblock %}
 
 
 {% block contentscript %}
 
-<script src="../../static/classbooking_app/js/admin.js?2"></script>
+<script src="../../static/classbooking_app/js/admin.js"></script>
 
 {% endblock %}

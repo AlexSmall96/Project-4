@@ -51,18 +51,38 @@ def create_session(request, id):
 
 def update_session(request, id):
     session = get_object_or_404(Session, id=id)
+    old_date = session.date
+    old_time = session.time
+    old_loc = session.location
     name = request.POST.get(id + '-activity')
     activity = get_object_or_404(Activity, id=name_to_id(name))
-    session.activity = activity
-    session.date = request.POST.get(id + '-date')
-    session.time = request.POST.get(id + '-time')
-    session.location = request.POST.get(id + '-location')
-    session.spaces = request.POST.get(id + '-spaces')
+    date = request.POST.get(id + '-date')
+    time = request.POST.get(id + '-time')
+    location = request.POST.get(id + '-location')
     if request.POST.get(id + '-running') == "on":
-        session.running = True
+        running = True
     else:
-        session.running = False
-    session.save()
+        running = False
+    clash = len(Session.objects.filter(
+        date=date,
+        time=time,
+        location=location,
+        running=True)
+        ) > 0
+    same_session = False
+    if location == old_loc:
+        same_session = True
+    if clash and not same_session:
+        return f"Changes not saved. Another session is already taking place in {location} on {date} at {time}."
+    else:
+        session.activity = activity
+        session.date = date
+        session.time = time
+        session.location = location
+        session.running = running
+        session.spaces = request.POST.get(id + '-spaces')
+        session.save()
+        return "Thank you, Session details have been updated."
 
 
 def delete_session(id):
@@ -80,6 +100,7 @@ def admin_page(request):
     location_filter = 'All'
     activity_filter = 'All'
     update_feedback_field = ""
+    feedback = ""
     delete_feedback_field = ""
     create_feedback_field = ""
     # Load todays sessions
@@ -94,7 +115,7 @@ def admin_page(request):
         # Update filters for date, activity and location
         update_id = request.POST.get('update-field')
         if update_id != "":
-            update_session(request, update_id)
+            feedback = update_session(request, update_id)
             update_feedback_field = "y"
         delete_id = request.POST.get('delete-field')
         if delete_id != "":
@@ -126,6 +147,7 @@ def admin_page(request):
         'activities': activities,
         'locations': locations,
         'update_feedback_field': update_feedback_field,
+        'feedback': feedback,
         'delete_feedback_field': delete_feedback_field,
         'create_feedback_field': create_feedback_field,
         'max_id': max_id

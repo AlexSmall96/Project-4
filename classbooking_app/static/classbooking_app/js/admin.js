@@ -21,10 +21,11 @@ document.addEventListener("DOMContentLoaded", function(){
     const feedbackModal = document.getElementById("feedback-modal")
     const feedbackModalBtn = document.getElementById("feedback-modal-btn")
     const feedbackModalTitle = document.getElementById("feedback-modal-title")
-
+    const defaultDate = document.getElementById("default-date").innerHTML
+ 
     if (updFeedField.value === "y"){
         feedbackModal.classList.remove("fade")
-        feedbackModalTitle.innerHTML = "Thanks for confirming, your changes have been saved."
+        //feedbackModalTitle.innerHTML = "Thanks for confirming, your changes have been saved."
         feedbackModalBtn.click()
         feedbackModal.classList.add("fade")
         updFeedField.value = ""
@@ -73,19 +74,19 @@ document.addEventListener("DOMContentLoaded", function(){
         newRow.id = `${sessionId}-row`
         newRow.innerHTML=`
         <div class="col-lg-2">
-        <select id="${sessionId}-activity" name="${sessionId}-activity"></select>
+        <select id="${sessionId}-activity" name="${sessionId}-activity" required></select>
         </div>
         <div class="col-lg-1">
-        <input type="date" id="${sessionId}-date" name="${sessionId}-date">
+        <input type="date" id="${sessionId}-date" name="${sessionId}-date" required value="${defaultDate}">
         </div>
         <div class="col-lg-1">
-        <input type="time" id="${sessionId}-time" name="${sessionId}-time">
+        <input type="time" id="${sessionId}-time" name="${sessionId}-time" required value="06:30">
         </div>
         <div class="col-lg-2">
-        <select id="${sessionId}-location" name="${sessionId}-location"></select>       
+        <select id="${sessionId}-location" name="${sessionId}-location" required></select>       
         </div>
         <div class="col-lg-1">
-        <input type="number" id="${sessionId}-spaces" name="${sessionId}-spaces" min="0" max="25" step="1">
+        <input type="number" id="${sessionId}-spaces" name="${sessionId}-spaces" min="0" max="25" step="1" value="20" required>
         </div>
         <div class="col-lg-1">
         <input type="checkbox" id="${sessionId}-running" name="${sessionId}-running" checked>
