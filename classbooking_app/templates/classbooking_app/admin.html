@@ -61,17 +61,17 @@
               {% endif %}
           </div>
           <div class="col-xl-1 col-1">Time</div>
-          <div class="col-xl-2 col-2">Location:
+          <div class="col-xl-2 col-2"><i class="fa-solid fa-location-dot"></i>
               {%if location_filter != "All" %}
               <button type="button" id="loc-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
               <button type="button" id="loc-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}               
           </div>
-          <div class="col-xl-1">Spaces</div>
-          <div class="col-xl-1">Running</div>
-          <div class="col-xl-1">Save</div>
-          <div class="col-xl-1">Delete</div>
+          <div class="col-xl-1 col-1"><i class="fa-solid fa-users"></i></div>
+          <div class="col-xl-1 col-1">Running</div>
+          <div class="col-xl-1 col-1"></div>
+          <div class="col-xl-1 col-1"></div>
       </div>
       </div>
     </div>
@@ -160,7 +160,14 @@
 </div>
 <div class="container vertical-margin">
   <div id="add-btn-section" class="row">
-    <button class="admin-btn" type="button" id="add-session"><i class="fa-solid fa-square-plus"></i> Add Session</button>  
+    <button class="admin-btn" type="button" id="add-session">
+      <p class="action-icon">
+        <i class="fa-solid fa-square-plus"></i>
+      </p>
+      <p class="action-txt">
+        Add Session
+      </p>
+    </button>  
   </div>
 </div>
 

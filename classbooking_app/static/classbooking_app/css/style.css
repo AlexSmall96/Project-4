@@ -178,6 +178,7 @@ border-width: 2px;
 
 #admin-headers{
     margin-top:20px;
+    font-weight: bold;
 }
 
 .session-box{
@@ -228,6 +229,16 @@ border-width: 2px;
     }
     .action-txt{
         display:none;
+    }
+    #admin-headers{
+        font-size: small;
+    }
+    #admin-instructions{
+        font-size:small;
+    }
+    #admin-instructions input, #admin-instructions select{
+        margin-right:5px;
+        width:20%;
     }
 }
 
