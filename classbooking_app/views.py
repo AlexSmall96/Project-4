@@ -227,23 +227,51 @@ def view_bookings(request):
     # Save current user
     user = request.user
     current_date = date.today()
+    now = datetime.now()
+    date_min = current_date + timedelta(days=1)
     cancel_id = ""
-    bookings = Booking.objects.filter(user=user)
+    bookings = Booking.objects.filter(
+        user=user,
+        session__date__gte=date_min
+        ).order_by("session__date", "session__time")
+    todays_bookings = Booking.objects.filter(
+        user=user,
+        session__date=current_date,
+        session__time__gte=now).order_by("session__date","session__time")
+    no_tot_bookings = len(todays_bookings) + len(bookings)
     context = {
         'bookings': bookings,
+        'no_tot_bookings': no_tot_bookings,
         'cancel_id': cancel_id,
+        'todays_bookings': todays_bookings
         }
     # If form is submitted delete the relevant booking
     if request.method == "POST":
         cancel_id = request.POST.get('cancel')
         delete_booking(user, cancel_id)
-        bookings = Booking.objects.filter(user=user)
+        session = get_object_or_404(Session, id=cancel_id)
+        cancel_name = session.activity.name
+        cancel_date = session.date
+        cancel_time = session.time
+        bookings = Booking.objects.filter(
+            user=user,
+            session__date__gte=date_min
+            ).order_by("session__date", "session__time")
+        todays_bookings = Booking.objects.filter(
+            user=user,
+            session__date=current_date,
+            session__time__gte=now).order_by("session__date", "session__time")
+        no_tot_bookings = len(todays_bookings) + len(bookings)
         cancelled_session = get_object_or_404(Session, id=cancel_id)
         context = {
             'bookings': bookings,
             'cancel_id': cancel_id,
+            'cancel_name': cancel_name,
+            'cancel_date': cancel_date,
+            'cancel_time': cancel_time,
             'cancelled_session': cancelled_session,
-            'current_date': current_date
+            'current_date': current_date,
+            'no_tot_bookings': no_tot_bookings
             }
     # Pass through the remaining users bookings
     return render(request, 'classbooking_app/view_bookings.html', context)

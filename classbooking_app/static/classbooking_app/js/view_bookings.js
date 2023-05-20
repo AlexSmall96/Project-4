@@ -7,15 +7,6 @@ document.addEventListener("DOMContentLoaded", function(){
         let yesButtons = document.getElementsByClassName("confirm-cancel")
         let cancelField = document.getElementById("cancel")
 
-        if (cancelField.value != ""){
-            confirmModal.classList.remove("fade")
-            confirmModalBtn.click()
-            confirmModal.classList.add("fade")
-            cancelField.value = ""
-        }
-
-        //const delay = ms => new Promise(res => setTimeout(res, ms));
-
         for (let button of yesButtons){
             let sessionId = button.id.substring(0,6)
             let modalId = "modal-".concat(sessionId)
