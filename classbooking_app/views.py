@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from .models import Activity, Session, Booking
 from datetime import datetime, date, timedelta
+import time
+from django.utils import timezone
+from itertools import chain
 
 
 def load_home_page(request):
@@ -194,16 +197,15 @@ def load_timetable(request):
     confirmed = ""
     cart = ""
     cancel_id = ""
-    range_strt = date.today()
-    range_end = (date.today() + timedelta(days=6))
-    time_rng = (datetime.now(), datetime.now() + timedelta(hours=144))
-    range = [range_strt, range_end]
-    weeks_sessions = Session.objects.filter(date__range=range).order_by(
-        "date",
-        "time")
-    dates = Session.objects.filter(date__range=range).values_list(
+    today = date.today()
+    tomorrow = date.today() + timedelta(days=1)
+    next_week = (date.today() + timedelta(days=6))
+    now = datetime.now()
+    weeks_sessions = Session.objects.filter(date__range=[tomorrow, next_week])
+    todays_sessions = Session.objects.filter(date=today, time__gte=now)
+    weeks_sessions = weeks_sessions.union(todays_sessions)
+    dates = Session.objects.filter(date__range=[today, next_week]).values_list(
         'date', flat=True).distinct().order_by("date")
-    now = datetime.now().strftime("%H:%M")
     existing_bookings = Booking.objects.filter(user=user)
     if request.method == "POST":
         cart = request.POST.get('cart')
@@ -223,9 +225,7 @@ def load_timetable(request):
         'confirmed': confirmed,
         'cart': cart,
         'cancel_id': cancel_id,
-        'range_strt': range_strt,
-        'range_end': range_end,
-        'now': now
+        'today': today
         }
     return render(request, 'classbooking_app/timetable.html', context)
 

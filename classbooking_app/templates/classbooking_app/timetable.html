@@ -6,7 +6,7 @@
 <nav class="beneath-header">
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     {% for date in dates %}
-    <a class="nav-item nav-link {% if date == range_strt %} active {% endif %}" id="nav-{{ date }}-tab" data-toggle="tab" href="#nav-{{ date }}" role="tab" aria-controls="nav-{{ date }}" aria-selected="true">{{ date |date:"D jS, M" }}</a>
+    <a class="nav-item nav-link {% if date == today %} active {% endif %}" id="nav-{{ date }}-tab" data-toggle="tab" href="#nav-{{ date }}" role="tab" aria-controls="nav-{{ date }}" aria-selected="true">{{ date |date:"D jS, M" }}</a>
     {% endfor %}
     <a class="nav-item nav-link" href="#">
       <button type="button" class="btn btn-primary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal" disabled>
@@ -18,10 +18,11 @@
 <form method="POST" id="timetable-form">
   {% csrf_token %}
 <!-- Date Navigation Content -->
-<div class="tab-content" id="timetable-tabContent">
-  {% for date in dates %}
-  <div class="tab-pane fade show {% if date == range_strt %} active {% endif %}" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
+<div class="tab-content" id="timetable-tabContent"> 
+{% for date in dates %}
+  <div class="tab-pane fade show {% if date == today %} active {% endif %}" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
   <div class="container">
+    
  {% for session in weeks_sessions %}
  {% if session.date == date %}
   <h2 id="{{ session.id }}-date-header" class="date-header invisible"></h2>
