@@ -15,11 +15,7 @@ header nav, footer{
     margin:0;
 }
 
-@media (min-width: 1600px){
-    .container, .container-lg, .container-md, .container-sm, .container-xl {
-        max-width: 1400px;
-    }
-}
+
 
 .container{
     --bs-gutter-x: 0;
@@ -109,6 +105,14 @@ margin-top: 100px;
     margin-bottom: 10px;
 }
 
+.vertical-margin-top{
+    margin-top: 10px;
+}
+
+.vertical-margin-bottom{
+    margin-bottom: 10px;
+}
+
 /*Sign up Page */
 #membership-options{
     margin-top: 200px;
@@ -177,8 +181,9 @@ border-width: 2px;
 }
 
 #admin-headers{
-    margin-top:20px;
+    margin-top:10px;
     font-weight: bold;
+    text-align: center;
 }
 
 .session-box{
@@ -200,7 +205,7 @@ border-width: 2px;
 #session-cont input, #session-cont select{
     font-size: 12px;
     border-radius: 0;
-    border: 1px solid transparent;
+    border: 1px solid
 }
 
 #session-box .row{
@@ -215,51 +220,35 @@ border-width: 2px;
 }
 
 #add-btn-section{
+    margin-top: 10px;
     width:30%;
-    margin:auto;
 }
 
-.action-icon{
+.action-icon, .header-icon{
     display:none;
 }
 
-@media (max-width: 567px){
-   .action-icon {
-        display:block;
+@media (max-width:576px){
+    #session-cont .row{
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: grey;
     }
-    .action-txt{
-        display:none;
-    }
-    #admin-headers{
-        font-size: small;
-        margin-top: 0px;
-    }
-    #admin-instructions{
-        font-size:small;
-    }
-    #admin-instructions input, #admin-instructions select{
-        margin-right:5px;
-        width:20%;
-    }
-    .session-box{
+    .sm-width{
         width:100%;
+        margin:2px;
+    }
+
+    .sm-font{
+        font-size: small;
     }
 }
 
-@media (max-wdith:320px){
-    #admin-instructions input, #admin-instructions select{
-        margin-right:1px;
-        width:10%;
-    }
-    #admin-headers{
-        font-size: xx-small;
-    }
-    #admin-instructions{
-        font-size:xx-small;
-    }
-
-    .session-box{
-        font-size:xx-small;
+@media (max-width:430px){
+    .sm-font, .sm-btn{
+        font-size: x-small;
+        font-weight: 500;
     }
 }
-
