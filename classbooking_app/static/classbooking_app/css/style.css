@@ -191,9 +191,10 @@ border-width: 2px;
     border-color: grey;
     border-width:1px;
     margin:auto;
-    width:95%;
+    width:100%;
     text-align: center;
     padding:15px;
+    padding-top: 5px;;
 }
 
 #session-cont{
@@ -220,7 +221,8 @@ border-width: 2px;
 }
 
 #add-btn-section{
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     width:30%;
 }
 
@@ -228,9 +230,43 @@ border-width: 2px;
     display:none;
 }
 
+.new-session{
+    background-color:rgba(227, 241, 244, 0.945)
+}
+
 @media (max-width:576px){
+    #admin-instructions{
+        font-size: small;
+        padding-left: 2px;
+        padding-right: 12px;
+        text-align: justify;
+    }
+
+    #admin-filter{
+        width:80%;
+    }
+
+    #admin-filter input, #admin-filter select, #admin-filter label{
+        height:20px;
+        width:100%;
+        margin-top:5px;
+    }
+
+    #admin-filter label{
+        float:right;
+        text-align: right;
+    }
+
+    #session-cont{
+        margin-right:0px;
+        margin-left:0px;
+    }
+    
+    #admin-headers{
+        display:none;
+    }
     #session-cont .row{
-        padding-top: 5px;
+        padding-top: 0px;
         padding-bottom: 5px;
         border-style: solid;
         border-width: 1px;

@@ -3,7 +3,7 @@
 {% block contentbody %}
 <form method="POST" id="session-form">
 <div  class="beneath-header" id="admin-instructions">
-<h4><i class="fa-solid fa-circle-exclamation"></i> This page is strcitly for admin to edit the Timetable:</h4>
+<h4><i class="fa-solid fa-circle-exclamation"></i> This page is strictly for admin to edit the Timetable:</h4>
 <ul>
  <li>Use the below filters to load sessions.</li>
  <li>Use the date, activity and location filters below to view sessions. By default, the timetable for the next month is shown. Press the filter icons that appear above to unfilter that field.</li>
@@ -18,30 +18,51 @@
     <input class="invisible" type="text" id="delete-field" name="delete-field">
     <input class="invisible" type="text" id="create-field" name="create-field">
     <input class="invisible" type="text" id="feedback-field" name="feedback-field" value="{{ feedback_field }}">
-    <label for="date-filter">Date:</label>
-    <input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}">
-    <label for="activity-filter">Activity: </label>
-    <select class="filter" id="act-filter" name="activity-filter" value="{{ activity_filter }}">
-        <option class="activity-option" value="All">All</option>
-        {% for activity in activities %}
-        {% if activity.name == activity_filter %}
-            <option value = "{{ activity.name }}" selected>{{ activity.name }}</option>
-        {% else %}
-        <option value="{{ activity.name }}">{{ activity.name }}</option>
-        {% endif %}
-        {% endfor %}
-    </select>
-    <label for="location-filter">Location:</label>
-    <select class="filter" id="loc-filter" name="location-filter" value="{{ location_filter }}">
-        <option value="All">All</option>
-        {% for location in locations %}
-        {% if location == location_filter %}
+
+    <div id="admin-filter" class="container">
+      <div class="row">
+        <div class="col-3"><label for="date-filter">Date:</label></div>
+        <div class="col-9"><input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}"></div>
+      </div>
+      <div class="row">
+        <div class="col-3"><label for="activity-filter">Activity: </label></div>
+        <div class="col-9"><select class="filter" id="act-filter" name="activity-filter" value="{{ activity_filter }}">
+          <option class="activity-option" value="All">All</option>
+          {% for activity in activities %}
+          {% if activity.name == activity_filter %}
+              <option value = "{{ activity.name }}" selected>{{ activity.name }}</option>
+          {% else %}
+          <option value="{{ activity.name }}">{{ activity.name }}</option>
+          {% endif %}
+          {% endfor %}
+      </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <label for="location-filter">Location:</label>
+        </div>
+        <div class="col-9">    
+          <select class="filter" id="loc-filter" name="location-filter" value="{{ location_filter }}">
+            <option value="All">All</option>
+            {% for location in locations %}
+            {% if location == location_filter %}
             <option value = "{{ location }}" selected>{{ location }}</option>
-        {% else %}
-        <option value="{{ location }}">{{ location }}</option>
-        {% endif %}
-        {% endfor %}
-    </select>
+            {% else %}
+            <option value="{{ location }}">{{ location }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+
+    
+
   </div>
   <div id="add-btn-section" class="container vertical-margin-top">
     <div class="row">
@@ -236,6 +257,6 @@
 
 {% block contentscript %}
 
-<script src="../../static/classbooking_app/js/admin.js"></script>
+<script src="../../static/classbooking_app/js/admin.js?2"></script>
 
 {% endblock %}

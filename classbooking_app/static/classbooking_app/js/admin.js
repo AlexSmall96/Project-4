@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
+    console.log("working 2")
     const filters = document.getElementsByClassName("filter")
     const sessionForm = document.getElementById("session-form")
     const addSession = document.getElementById("add-session")
@@ -55,32 +56,56 @@ document.addEventListener("DOMContentLoaded", function(){
         let sessionId = Number(maxId.innerHTML) + 1
         let newRow = document.createElement("div")
         newRow.classList.add("row")
+        newRow.classList.add("new-session")
         newRow.id = `${sessionId}-row`
         newRow.innerHTML=`
-        <div class="col-lg-2">
-        <select id="${sessionId}-activity" name="${sessionId}-activity" required></select>
+        <div class="col-2">
+          <label class="sm-font" for="${sessionId}-activity">Name</label>
         </div>
-        <div class="col-lg-1">
-        <input type="date" id="${sessionId}-date" name="${sessionId}-date" required value="${defaultDate}">
-        </div>
-        <div class="col-lg-1">
-        <input type="time" id="${sessionId}-time" name="${sessionId}-time" step="3600" required value="06:30">
-        </div>
-        <div class="col-lg-2">
-        <select id="${sessionId}-location" name="${sessionId}-location" required></select>       
-        </div>
-        <div class="col-lg-1">
-        <input type="number" id="${sessionId}-spaces" name="${sessionId}-spaces" min="0" max="25" step="1" value="20" required>
-        </div>
-        <div class="col-lg-1">
-        <input type="checkbox" id="${sessionId}-running" name="${sessionId}-running" checked>
-        </div>
-        <div class="col-lg-2">
-        <button class="create-btn admin-btn" type="button" id="${sessionId}-create" name="${sessionId}-create" data-toggle="modal" data-target="#confirm-create-modal">Create Session</button>
-        </div>
-        <div class="col-lg-2">
-        <button type="button" class="discard-btn admin-btn" id="${sessionId}-discard" name="${sessionId}-discard">Discard</button>
-        </div>
+          <div class="col-10">
+              <select class="sm-width" id="${sessionId}-activity" name="${sessionId}-activity">
+            </select>
+          </div>
+          <div class="col-2">
+            <label class="sm-font" for="${sessionId}-date">Date/Time</label>
+          </div>
+          <div class="col-5">
+              <input class="date-edit sm-width" type="date" id="${sessionId}-date" name="${sessionId}-date" value="${defaultDate}">
+          </div>
+          <div class="col-5">
+              <input class="sm-width" type="time" id="${sessionId}-time" name="${sessionId}-time" value="06:30" step="3660">
+          </div>
+          <div class="col-2">
+            <label class="sm-font" for="${sessionId}-location">Location</label>
+          </div>
+          <div class="col-10">
+              <select class="sm-width" id="${sessionId}-location" name="${sessionId}-location">
+              </select>
+          </div>
+          <div class="col-2">
+            <label class="sm-font" for="${sessionId}-spaces">Spaces</label>
+          </div>
+          <div class="col-5">
+              <input class="sm-width" type="number" id="${sessionId}-spaces" name="${sessionId}-spaces" value="25" min="0" max="25" step="1">
+          </div>
+          <div class="col-3">
+            <label class="sm-font" for="${sessionId}-running">Running</label>
+          </div>
+          <div class="col-2">
+              <input class="sm-width" type="checkbox" id="${sessionId}-running" name="${sessionId}-running" checked>  
+          </div>
+          <div class="col-5 offset-2">
+              <button class="create-btn admin-btn sm-width sm-btn" type="button" id="${sessionId}-create"  name="${sessionId}-create" data-toggle="modal" data-target="#confirm-create-modal-${sessionId}">
+                Create Session
+              </button>
+          </div>
+          
+          <div class="col-5">
+              <button class="discard-btn admin-btn sm-width sm-btn" type="button" id="${sessionId}-discard"  name="${sessionId}-discard">
+                Discard
+              </button>
+          </div>
+      </div>
         `
         sessionCont.insertBefore(newRow, sessionCont.firstChild)
         activitySelect = document.getElementById(`${sessionId}-activity`)
