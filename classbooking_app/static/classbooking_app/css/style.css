@@ -30,7 +30,7 @@ header nav, footer{
     width:100%;
     height:auto;
 }
-@media (min-width:320px) and (max-width:576px){
+@media (min-width:320px) and (max-width:575px){
     #time-table-instructions{
         margin-bottom: 0px;
     }
@@ -63,6 +63,32 @@ header nav, footer{
         padding-right: 0px;
     }
 }
+@media (min-width:460px) and (max-width:576px){
+    .session{
+        height:260px;
+    }
+}
+
+@media (min-width:576px){
+    .session{
+        height:180px;
+        font-size:small;
+    }
+}
+
+@media (min-width:768px){
+    .session{
+        height:150px;
+    }
+}
+
+@media (min-width:992px){
+    .session{
+        height:150px;
+        font-size:medium
+    }
+}
+
 
 #timetable-tabContent{
     margin-top: 10px;

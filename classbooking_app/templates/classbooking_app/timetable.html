@@ -55,14 +55,14 @@
  {% if session.date == date %}
   <h2 id="{{ session.id }}-date-header" class="date-header invisible"></h2>
  <div class="session row run-{{ session.running }}">
-  <div class="col-12 xs-font"><i class="fa-solid fa-clock"></i> {{ session.time | time:"G:i" }} {{ session.activity.duration }}</div>
-  <div class="col-6 has-bg-img img-div">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-1 xs-font"><i class="fa-solid fa-clock"></i> {{ session.time | time:"G:i" }} {{ session.activity.duration }}</div>
+  <div class="col-6 col-sm-4 col-md-3 has-bg-img img-div">
     <img class="bg-img my-image" src="../../static/classbooking_app/images/{{ session.activity.image }}">
   </div>
-  <div class="col-6"><strong>{{ session.activity.name }}</strong>
+  <div class="col-6 col-sm-6 col-md-3 col-lg-3"><strong>{{ session.activity.name }}</strong>
     <p>{{ session.activity.description }}</p>
   </div>
-  <div class="col-6 xs-font">
+  <div class="col-6 col-sm-2 col-md-1 col-lg-1 xs-font">
     {% if session.running == True %}
     <i class="fa-solid fa-users"></i>
     {{ session.spaces }} spaces
@@ -70,10 +70,10 @@
     <div> Apologies, the gym has had to cancel this class. </div>
     {% endif %}
   </div>
-  <div class="col-6 xs-font">
+  <div class="col-6 col-sm-6 col-md-2 col-lg-2 xs-font">
     {% if session.running == True %} <i class="fa-solid fa-location-dot"></i><span> {{ session.location }} </span>{% endif %}
   </div>
-  <div class="col-6 offset-6"> 
+  <div class="col-6 offset-6 col-sm-4 col-md-3 col-lg-2 offset-md-0 offset-sm-2 "> 
     {% if session.running == False %}
     <div></div>
     {% elif session.spaces > 0 %}
