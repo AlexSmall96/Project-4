@@ -4,11 +4,21 @@
 
 <!-- Date Navigation Tabs -->
 <div id="timetable-instructions" class="beneath-header">
-  <ul><i class="fa-solid fa-circle-question"></i>
-    <li> View the timetable for each day by clicking on the tabs below.</li>
-    <li> Click add to/remove from cart to select a class and confirm using the 'Confirm Bookings' button. </li>
-    <li> Your booked in classes can be cancelled via the cancel buttons. </li>
-  </ul>
+  <p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      <i class="fa-solid fa-circle-question"></i> Help
+    </a>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      <ul>
+        <li> View the timetable for each day by clicking on the tabs below.</li>
+        <li> Click add to/remove from cart to select a class and confirm using the 'Confirm Bookings' button. </li>
+        <li> Your booked in classes can be cancelled via the cancel buttons. </li>
+      </ul>
+    </div>
+  </div>
+
   {% if confirmed != "" %}
   <h3>Thanks for confirming, your classes have been booked. View all your bookings at <a href="/view_bookings.html">Members Area</a></h3>
   {% elif cancel_id != "" %}
@@ -41,20 +51,19 @@
 {% else %}
 <div class="tab-pane fade show" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
 {% endif %}
-  <div class="container">
-    
+  <div class="container" id="timetable-cont">
  {% for session in weeks_sessions %}
  {% if session.date == date %}
   <h2 id="{{ session.id }}-date-header" class="date-header invisible"></h2>
- <div class="session row vertical-margin run-{{ session.running }}">
-  <div class="col-1 col-sm-1 col-lg-1 align-self-center">{{ session.time | time:"G:i" }}<br>{{ session.activity.duration }}</div>
-  <div class="col-5 col-sm-5 col-lg-3 has-bg-img vertical-margin">
+ <div class="session row run-{{ session.running }}">
+  <div class="col-12 xs-font"><i class="fa-solid fa-clock"></i> {{ session.time | time:"G:i" }} {{ session.activity.duration }}</div>
+  <div class="col-6 has-bg-img img-div">
     <img class="bg-img my-image" src="../../static/classbooking_app/images/{{ session.activity.image }}">
   </div>
-  <div class="col-6 col-sm-3 col-lg-3 align-self-center"><strong>{{ session.activity.name }}</strong>
+  <div class="col-6"><strong>{{ session.activity.name }}</strong>
     <p>{{ session.activity.description }}</p>
   </div>
-  <div class="col-5 offset-1 col-sm-3 offset-sm-0 col-lg-2 offset-lg-0 align-self-center">
+  <div class="col-6 xs-font">
     {% if session.running == True %}
     <i class="fa-solid fa-users"></i>
     {{ session.spaces }} spaces
@@ -62,10 +71,10 @@
     <div> Apologies, the gym has had to cancel this class. </div>
     {% endif %}
   </div>
-  <div class="col-2 col-sm-5 offset-sm-1 col-lg-2 offset-lg-0 align-self-center">
-    {% if session.running == True %} <i class="fa-solid fa-location-dot"></i><span>{{ session.location }} </span>{% endif %}
+  <div class="col-6 xs-font">
+    {% if session.running == True %} <i class="fa-solid fa-location-dot"></i><span> {{ session.location }} </span>{% endif %}
   </div>
-  <div class="col-2 offset-2 col-sm-2 offset-sm-4 col-lg-1 offset-lg-0 align-self-center"> 
+  <div class="col-6 offset-6"> 
     {% if session.running == False %}
     <div></div>
     {% elif session.spaces > 0 %}

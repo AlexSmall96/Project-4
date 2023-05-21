@@ -16,9 +16,39 @@ header nav, footer{
 }
 
 
+.session{
+    border-style: solid;
+    border-width: 1px;
+    border-color:grey;
+    border-radius: 2%;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    text-align: justify;
+}
 
-.container{
-    --bs-gutter-x: 0;
+.my-image{
+    width:100%;
+    height:auto;
+}
+@media (min-width:320px) and (max-width:576px){
+    .session{
+        height:230px;
+        font-size:small;
+    }
+    
+    .session input{
+        font-weight: 500;
+    }
+    
+    .xs-font{
+        font-size:small;
+        font-weight: 500;
+    }
+
+    .img-div{
+        padding-left: 5px;
+        padding-right: 0px;
+    }
 }
 
 #timetable-tabContent{
@@ -54,13 +84,7 @@ header nav, footer{
     min-height: 500px;
 }
 
-.session{
-    border-style: solid;
-    border-width: 2px;
-    border-color:grey;
-    border-radius: 2%;
-    padding-bottom: 5px;
-}
+
 
 .invisible{
     display:none

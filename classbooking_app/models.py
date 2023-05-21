@@ -10,7 +10,7 @@ class Activity(models.Model):
         default="test_class"
         )
     description = models.CharField(
-        max_length=50,
+        max_length=200,
         null=False,
         blank=False,
         default="test_description"
