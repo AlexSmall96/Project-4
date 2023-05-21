@@ -25,7 +25,16 @@ header nav, footer{
     text-align: justify;
 }
 
+.description{
+    font-style: italic;
+    font-size:small
+}
 
+.icon-field{
+    font-size:small;
+    font-weight: 500;
+    text-align: left;
+}
 .my-image{
     width:100%;
     height:auto;
@@ -80,12 +89,31 @@ header nav, footer{
     .session{
         height:150px;
     }
+    .session input{
+        height:80%;
+        width:100%;
+    }
 }
 
 @media (min-width:992px){
     .session{
         height:150px;
         font-size:medium
+    }
+
+    .icon-field{
+        margin-top: 60px;
+    }
+
+    .session input{
+        width:100%;
+        margin-top: 15px;
+    }
+}
+@media (min-width:1200px){
+    .my-image{
+        width:auto;
+        height:140px;
     }
 }
 
