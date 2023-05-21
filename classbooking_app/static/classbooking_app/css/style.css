@@ -311,7 +311,7 @@ border-width: 2px;
     #session-cont select{
         width:85%;
     }
-    #session-cont button{
+    .admin-btn{
         width:90%;
     }
     .action-icon{
@@ -364,7 +364,7 @@ border-width: 2px;
     #session-cont input{
         width:90%;
     }
-    #session-cont button{
+    .admin-btn{
         width:100%;
         font-size: x-small;
         height:30px;
@@ -375,7 +375,7 @@ border-width: 2px;
     }
 }
 @media (min-width:940px){
-    #session-cont button{
+    .admin-btn{
         width:100%;
         font-size: x-small;
         height:20px;
@@ -384,7 +384,7 @@ border-width: 2px;
 }
 
 @media (min-width:1200px){
-    #session-cont button{
+    .admin-btn{
         width:80%;
  
     }

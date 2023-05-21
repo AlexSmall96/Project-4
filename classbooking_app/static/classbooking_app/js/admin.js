@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function(){
-    console.log("working 2")
     const filters = document.getElementsByClassName("filter")
     const sessionForm = document.getElementById("session-form")
     const addSession = document.getElementById("add-session")
@@ -95,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function(){
               <input class="sm-width" type="checkbox" id="${sessionId}-running" name="${sessionId}-running" checked>  
           </div>
           <div class="col-5 offset-2 col-sm-1 offset-sm-0">
-              <button class="create-btn admin-btn sm-width sm-btn" type="button" id="${sessionId}-create"  name="${sessionId}-create" data-toggle="modal" data-target="#confirm-create-modal-${sessionId}">
+              <button class="create-btn admin-btn sm-width sm-btn" type="button" id="${sessionId}-create"  name="${sessionId}-create" data-toggle="modal" data-target="#confirm-create-modal">
               <p class="action-icon"><i class="fa-solid fa-floppy-disk"></i></p>
               <p class="action-txt">Create Session</p>
               </button>
