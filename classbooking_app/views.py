@@ -178,6 +178,7 @@ def create_booking(user, id):
         spaces_taken = len(Booking.objects.filter(session=session))
         session.spaces = session.activity.capacity - spaces_taken
         session.save()
+        return f"Thanks for confirming, you're classes have been booked."
 
 
 def delete_booking(user, id):
@@ -186,6 +187,7 @@ def delete_booking(user, id):
     spaces_taken = len(Booking.objects.filter(session=session))
     session.spaces = session.activity.capacity - spaces_taken
     session.save()
+    return f"Thanks for confirming, your booking for {session.activity.name} at {session.time} on {session.date} has been cancelled."
 
 
 def checkout(request):
@@ -217,6 +219,7 @@ def load_timetable(request):
     confirmed = ""
     cart = ""
     cancel_id = ""
+    timtbl_feedback = ""
     today = date.today()
     tomorrow = date.today() + timedelta(days=1)
     next_week = (date.today() + timedelta(days=6))
@@ -238,10 +241,10 @@ def load_timetable(request):
         cart_ids = cart.split()
         confirmed = request.POST.get('confirmed')
         for session_id in cart_ids:
-            create_booking(user, session_id)
+            timtbl_feedback = create_booking(user, session_id)
         cancel_id = request.POST.get("cancel-timetable")
         if cancel_id != "":
-            delete_booking(user, cancel_id)
+            timtbl_feedback = delete_booking(user, cancel_id)
             cancel_id = int(cancel_id)
     existing_bookings = Booking.objects.filter(user=user)
     context = {
@@ -253,7 +256,8 @@ def load_timetable(request):
         'cart': cart,
         'cancel_id': cancel_id,
         'today': today,
-        'active_date': active_date
+        'active_date': active_date,
+        'timtbl_feedback': timtbl_feedback
         }
     return render(request, 'classbooking_app/timetable.html', context)
 

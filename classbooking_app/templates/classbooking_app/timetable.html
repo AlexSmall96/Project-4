@@ -19,10 +19,9 @@
     </div>
   </div>
 
-  {% if confirmed != "" %}
-  <h3>Thanks for confirming, your classes have been booked. View all your bookings at <a href="/view_bookings.html">Members Area</a></h3>
-  {% elif cancel_id != "" %}
-  <h3>Thanks for confirming, your booking has been cancelled. View your remaining bookings at <a href="/view_bookings.html">Members Area</a></h3>
+
+  {% if feedback != "" %}
+  {{ feedback }}
   {% endif %}
 </div>
 <nav>
@@ -147,10 +146,28 @@
   </div>
 </div>
 </form>
-
+<!-- Feedback Modal -->
+<button type="button" class="invisible" data-toggle="modal" data-target="#timetable-feedback-modal" id="feed-modal-btn"></button>
+<div class="modal fade" id="timetable-feedback-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ timtbl_feedback }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button id="checkout-dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Book more Classes</button>
+        <a class="nav-link" href="/view_bookings.html"><button id="confirm-btn" type="button" class="btn btn-primary">View My Bookings</button></a>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- 
   Hidden data on existing bookings, used by timetable.js to determine text on buttons
 -->
+<div id="feedback-div" class="invisible">{{ timtbl_feedback }}</div>
 <div class="invisible" id="existing-bookings">
   {% for booking in existing_bookings %}
       <p>{{ booking.session.id }}</p>
@@ -169,6 +186,6 @@
 
 {% block contentscript %}
 
-<script src="../../static/classbooking_app/js/timetable.js"></script>
+<script src="../../static/classbooking_app/js/timetable.js?2"></script>
 
 {% endblock %}

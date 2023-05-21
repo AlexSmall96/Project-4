@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
     // Declare const variables
+    console.log('working')
     const currentDate = document.getElementById("select-date")
     const timetableForm = document.getElementById("timetable-form")
     const submitBtn = document.getElementById("submit-timetable-form")
@@ -21,6 +22,15 @@ document.addEventListener("DOMContentLoaded", function(){
     const checkoutList = document.getElementById("checkout-list")
     const confirmCheckList = document.getElementById("confirm-checkout-list")
     const checkoutDismiss = document.getElementById("checkout-dismiss")
+    const feedbackFlag = document.getElementById("feedback-div")
+    const feedModalBtn = document.getElementById("feed-modal-btn")
+    const feedModal = document.getElementById("timetable-feedback-modal")
+
+    if (feedbackFlag.innerHTML != ""){
+        feedModal.classList.remove("fade")
+        feedModalBtn.click()
+        feedModal.classList.add("fade")
+    }
 
     // Check for users existing bookings to determine button text
     let existBookingsArr = []
