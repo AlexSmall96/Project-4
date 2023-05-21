@@ -1,5 +1,38 @@
-header nav, footer{
-    height:100px;
+
+.carousel-inner{
+   height:250px;
+}
+
+#about .col-12{
+    width:100%;
+    margin-top:10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+@media (min-width:440px){
+    .carousel-inner{
+        height:300px;
+     }
+}
+
+@media (min-width:530px){
+    .carousel-inner{
+        height:350px;
+     }
+}
+
+@media (min-width:670px){
+    .carousel-inner{
+        height:450px;
+     }
+}
+
+@media (min-width:900px){
+    .carousel-inner{
+        height:550px;
+     }
 }
 
 .beneath-header{
@@ -45,7 +78,7 @@ header nav, footer{
     }
     #timetable-help-card{
         font-size:small;
-        height:150px;
+        height:170px;
     }
     #nav-tab{
         font-size:small;
@@ -142,16 +175,6 @@ header nav, footer{
     height:500px;
     margin-top:50px ;
 }
-
-.carousel-item img {
-    position: absolute;
-    object-fit:cover;
-    bottom: -150px;
-    left: 0;
-    min-height: 500px;
-}
-
-
 
 .invisible{
     display:none
