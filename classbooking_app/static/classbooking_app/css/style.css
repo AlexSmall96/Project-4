@@ -20,7 +20,6 @@ header nav, footer{
     border-style: solid;
     border-width: 1px;
     border-color:grey;
-    border-radius: 2%;
     padding-bottom: 2px;
     padding-top: 2px;
     text-align: justify;
@@ -32,6 +31,8 @@ header nav, footer{
 }
 @media (min-width:320px) and (max-width:576px){
     .session{
+        border-left:none;
+        border-right:none;
         height:230px;
         font-size:small;
     }
