@@ -59,50 +59,52 @@ document.addEventListener("DOMContentLoaded", function(){
         newRow.classList.add("new-session")
         newRow.id = `${sessionId}-row`
         newRow.innerHTML=`
-        <div class="col-2">
+        <div class="col-2 d-sm-none">
           <label class="sm-font" for="${sessionId}-activity">Name</label>
         </div>
-          <div class="col-10">
+          <div class="col-10 col-sm-2">
               <select class="sm-width" id="${sessionId}-activity" name="${sessionId}-activity">
             </select>
           </div>
-          <div class="col-2">
+          <div class="col-2 d-sm-none">
             <label class="sm-font" for="${sessionId}-date">Date/Time</label>
           </div>
-          <div class="col-5">
+          <div class="col-5 col-sm-2">
               <input class="date-edit sm-width" type="date" id="${sessionId}-date" name="${sessionId}-date" value="${defaultDate}">
           </div>
-          <div class="col-5">
+          <div class="col-5 col-sm-2">
               <input class="sm-width" type="time" id="${sessionId}-time" name="${sessionId}-time" value="06:30" step="3660">
           </div>
-          <div class="col-2">
+          <div class="col-2 d-sm-none">
             <label class="sm-font" for="${sessionId}-location">Location</label>
           </div>
-          <div class="col-10">
+          <div class="col-10 col-sm-2">
               <select class="sm-width" id="${sessionId}-location" name="${sessionId}-location">
               </select>
           </div>
-          <div class="col-2">
+          <div class="col-2 d-sm-none">
             <label class="sm-font" for="${sessionId}-spaces">Spaces</label>
           </div>
-          <div class="col-5">
+          <div class="col-5 col-sm-1">
               <input class="sm-width" type="number" id="${sessionId}-spaces" name="${sessionId}-spaces" value="25" min="0" max="25" step="1">
           </div>
-          <div class="col-3">
+          <div class="col-2 offset-1 d-sm-none">
             <label class="sm-font" for="${sessionId}-running">Running</label>
           </div>
-          <div class="col-2">
+          <div class="col-2 col-sm-1">
               <input class="sm-width" type="checkbox" id="${sessionId}-running" name="${sessionId}-running" checked>  
           </div>
-          <div class="col-5 offset-2">
+          <div class="col-5 offset-2 col-sm-1 offset-sm-0">
               <button class="create-btn admin-btn sm-width sm-btn" type="button" id="${sessionId}-create"  name="${sessionId}-create" data-toggle="modal" data-target="#confirm-create-modal-${sessionId}">
-                Create Session
+              <p class="action-icon"><i class="fa-solid fa-floppy-disk"></i></p>
+              <p class="action-txt">Create Session</p>
               </button>
           </div>
           
-          <div class="col-5">
+          <div class="col-5 col-sm-1">
               <button class="discard-btn admin-btn sm-width sm-btn" type="button" id="${sessionId}-discard"  name="${sessionId}-discard">
-                Discard
+              <p class="action-icon"><i class="fa-solid fa-trash-can"></i></p>
+              <p class="action-txt">Discard</p>
               </button>
           </div>
       </div>

@@ -3,13 +3,15 @@
 {% block contentbody %}
 <form method="POST" id="session-form">
 <div  class="beneath-header" id="admin-instructions">
-<h4><i class="fa-solid fa-circle-exclamation"></i> This page is strictly for admin to edit the Timetable:</h4>
+<h4><i class="fa-solid fa-circle-exclamation"></i> For Admin use only:</h4>
 <ul>
- <li>Use the below filters to load sessions.</li>
- <li>Use the date, activity and location filters below to view sessions. By default, the timetable for the next month is shown. Press the filter icons that appear above to unfilter that field.</li>
+<li>Sessions are shown in the table below. By default, the timetable for the next month is shown.</li>
+ <li>Use the date, activity and location filters below to view sessions.</li>
  <li>For any session shown, alter the fields as required. To cancel a session, untick the 'running' box. Press 'Save Session Changes' and press confirm on the popup. Altering information without pressing save WILL NOT update the</li>
  <li>To delete a session, press the corresponding 'Delete Session' button and press confirm on the popup. The session WILL NOT be deleted without pressing confirm.</li>
-<li> Please ensure all members who are booked into a session are informed of any session changes or deletions. </li>
+ <li>To add a new session to the timetable, press the add session button. The new session will appear highlighted in yellow. Session details can then be chosen.</li>
+ <li> Please ensure all members who are booked into a session are informed of any session changes or deletions. </li>
+<li>Use the below filters to load sessions.</li>
 </ul>
 
 
@@ -75,42 +77,42 @@
     <div id="admin-headers" class="container session-box">
       <div class="row">
         <div id="session-headers" class="row">
-          <div class="col">Activity 
+          <div class="col-sm-2">Activity 
               {%if activity_filter != "All" %}
               <button type="button" id="act-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
               <button type="button" id="act-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}
           </div>
-          <div class="col">Date
+          <div class="col-sm-2">Date
               {%if date_filter != "" %}
               <button type="button" id="dat-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
               <button type="button" id="dat-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}
           </div>
-          <div class="col">Time</div>
-          <div class="col"><p class="header-icon"><i class="fa-solid fa-location-dot"></i></p><p class="header-txt">Location</p>
+          <div class="col-sm-2">Time</div>
+          <div class="col-sm-2"><p class="header-icon"><i class="fa-solid fa-location-dot"></i></p><p class="header-txt">Location</p>
               {%if location_filter != "All" %}
               <button type="button" id="loc-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
               <button type="button" id="loc-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}               
           </div>
-          <div class="col"><p class="header-icon"><i class="fa-solid fa-users"></i></p><p class="header-txt">Spaces</p></div>
-          <div class="col"><p class="header-icon"><i class="fa-solid fa-circle-play"></i></p><p class="header-txt">Running</p></div>
-          <div class="col"></div>
-          <div class="col"></div>
+          <div class="col-sm-1"><p class="header-icon"><i class="fa-solid fa-users"></i></p><p class="header-txt">Spaces</p></div>
+          <div class="col-sm-1"><p class="header-icon"><i class="fa-solid fa-circle-play"></i></p><p class="header-txt">Running</p></div>
+          <div class="col-sm-1"></div>
+          <div class="col-sm-1"></div>
       </div>
       </div>
     </div>
     <div id="session-cont" class="container session-box">
         {% for session in sessions %}
         <div class="row">
-          <div class="col-2">
+          <div class="col-2 d-sm-none">
             <label class="sm-font" for="{{ session.id }}-activity">Name</label>
           </div>
-            <div class="col-10">
+            <div class="col-10 col-sm-2">
                 <select class="sm-width" id="{{ session.id }}-activity" name="{{ session.id }}-activity">
                     {% for activity in activities %}
                     {% if activity == session.activity %}
@@ -121,19 +123,19 @@
                     {% endfor %}
                     </select>
             </div>
-            <div class="col-2">
+            <div class="col-2 d-sm-none">
               <label class="sm-font" for="{{ session.id }}-date">Date/Time</label>
             </div>
-            <div class="col-5">
+            <div class="col-5 col-sm-2">
                 <input class="date-edit sm-width" type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
             </div>
-            <div class="col-5">
+            <div class="col-5 col-sm-2">
                 <input class="sm-width" type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}" step="3660">
             </div>
-            <div class="col-2">
+            <div class="col-2 d-sm-none">
               <label class="sm-font" for="{{ session.id }}-location">Location</label>
             </div>
-            <div class="col-10">
+            <div class="col-10 col-sm-2">
                 <select class="sm-width" id="{{ session.id }}-location" name="{{ session.id }}-location">
                     {% for location in locations %}
                     {% if location == session.location %}
@@ -144,31 +146,33 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-2 d-sm-none">
               <label class="sm-font" for="{{ session.id }}-spaces">Spaces</label>
             </div>
-            <div class="col-5">
+            <div class="col-5 col-sm-1">
                 <input class="sm-width" type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}" min="0" max="25" step="1">
             </div>
-            <div class="col-3">
+            <div class="col-2 offset-1 d-sm-none">
               <label class="sm-font" for="{{ session.id }}-running">Running</label>
             </div>
-            <div class="col-2">
+            <div class="col-2 col-sm-1">
                 {% if session.running %}
                 <input class="sm-width" type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" checked>
                 {% else %}
                 <input class="sm-width" type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running">
                 {% endif %}                
             </div>
-            <div class="col-5 offset-2">
+            <div class="col-5 offset-2 col-sm-1 offset-sm-0">
                 <button class="admin-btn sm-width sm-btn" type="button"  name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
-                  Save Changes
+                  <p class="action-icon"><i class="fa-solid fa-floppy-disk"></i></p>
+                  <p class="action-txt">Save Changes</p>
                 </button>
             </div>
             
-            <div class="col-5">
+            <div class="col-5 col-sm-1">
                 <button class="admin-btn sm-width sm-btn" type="button"  name="{{ session.id }}-delete" data-toggle="modal" data-target="#confirm-delete-modal-{{ session.id }}">
-                  Delete
+                  <p class="action-icon"><i class="fa-solid fa-trash-can"></i></p>
+                  <p class="action-txt">Delete Session</p>
                 </button>
             </div>
         </div>

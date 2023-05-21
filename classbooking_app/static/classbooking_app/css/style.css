@@ -231,10 +231,10 @@ border-width: 2px;
 }
 
 .new-session{
-    background-color:rgba(227, 241, 244, 0.945)
+    background-color:yellow
 }
 
-@media (max-width:576px){
+@media (max-width:575px){
     #admin-instructions{
         font-size: small;
         padding-left: 2px;
@@ -261,7 +261,7 @@ border-width: 2px;
         margin-right:0px;
         margin-left:0px;
     }
-    
+
     #admin-headers{
         display:none;
     }
@@ -288,3 +288,51 @@ border-width: 2px;
         font-weight: 500;
     }
 }
+
+@media (min-width: 576px) and (max-width: 768px) {
+    #admin-headers{
+        height:30px;
+        font-size: small;
+    }
+    #session-cont .row{
+        --bs-gutter-x: 0px;
+    }
+
+    .session-box{
+        max-width:768px;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+    
+    #session-cont input{
+        width:90%;
+    }
+
+    #session-cont select{
+        width:85%;
+    }
+    #session-cont button{
+        width:90%;
+    }
+    .action-icon{
+        display:block
+    }
+    .action-txt{
+        display: none;
+    }
+    #admin-filter{
+        width:80%;
+    }
+
+    #admin-filter input, #admin-filter select, #admin-filter label{
+        height:20px;
+        width:100%;
+        margin-top:5px;
+    }
+
+    #admin-filter label{
+        float:right;
+        text-align: right;
+    }
+  }
+
