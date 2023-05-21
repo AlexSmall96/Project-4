@@ -175,6 +175,9 @@ def create_booking(user, id):
             user=user,
             )
         booking.save()
+        spaces_taken = len(Booking.objects.filter(session=session))
+        session.spaces = session.activity.capacity - spaces_taken
+        session.save()
 
 
 def delete_booking(user, id):
