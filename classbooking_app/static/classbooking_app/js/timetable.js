@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
     // Declare const variables
-    console.log('working')
     const currentDate = document.getElementById("select-date")
     const timetableForm = document.getElementById("timetable-form")
     const submitBtn = document.getElementById("submit-timetable-form")

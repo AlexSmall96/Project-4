@@ -25,11 +25,23 @@ header nav, footer{
     text-align: justify;
 }
 
+
 .my-image{
     width:100%;
     height:auto;
 }
 @media (min-width:320px) and (max-width:576px){
+    #time-table-instructions{
+        margin-bottom: 0px;
+    }
+    #timetable-help-card{
+        font-size:small;
+        height:150px;
+    }
+    #nav-tab{
+        font-size:small;
+        font-weight: 500;
+    }
     .session{
         border-left:none;
         border-right:none;
