@@ -247,10 +247,7 @@ body{
     height: 600px;
 }
 
-#sign-up{
-    height:500px;
-    margin-top:50px ;
-}
+
 
 .invisible{
     display:none
@@ -308,17 +305,80 @@ margin-top: 100px;
 }
 
 /*Sign up Page */
-#membership-options{
-    margin-top: 200px;
+#sign-up{
+    height:500px;
+    margin-top:88px ;
 }
-
-.card{
-    height:200px;
+#sign-up .card{
+    margin-top: 10px;
 }
 
 footer{
     height:150px;
 
+}
+#signup-btns{
+    width:100%;
+    margin-top: 10px;
+}
+
+#pers-btn{
+    float:right;
+    margin-top:30px;
+}
+
+
+#membership-btn{
+    float:right;
+    margin-top: 15px;
+}
+
+#pay-btn{
+    float:right;
+    margin-bottom:10px;
+}
+
+.tab-pane .center-section{
+    margin-top: 40px;
+}
+
+@media (max-width: 353px){
+    #pay-cont{
+        font-size:small
+    }
+}
+#pay-cont label{
+    float:right;
+    margin-top: 5px;
+}
+
+#pay-cont p{
+ font-size:x-small;
+ margin-top:150px;
+ float:right;
+}
+
+#pay-cont input{
+    float:left;
+    width:80%;
+    margin-top: 5px;
+}
+#signup-form{
+    height:500px;
+}
+
+#signup-btn{
+    width:10%;
+    margin:auto;
+    margin-top: 10px;
+}
+
+#membership-options{
+    height:700px;
+}
+
+#login-details{
+    height:500px;
 }
 
 #membership-footer{
@@ -326,6 +386,7 @@ footer{
     margin:auto;
     padding-top:10px;
 }
+
 
 #footer-btn{
     color:black;

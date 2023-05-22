@@ -3,137 +3,158 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block contentbody %}
-<div id="sign-up">
-  
-
- 
-  
+<div id="sign-up" class="light-background">
   <nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <div class="nav nav-tabs" id="nav-tab-signup" role="tablist">
       <a class="nav-item nav-link active" id="nav-membership-tab" data-toggle="tab" href="#nav-membership" role="tab" aria-controls="nav-membership" aria-selected="true">Membership Options</a>
       <a class="nav-item nav-link disabled" id="nav-personal-tab" data-toggle="tab" href="#nav-personal" role="tab" aria-controls="nav-personal" aria-selected="false">Personal Details</a>
       <a class="nav-item nav-link disabled" id="nav-payment-tab" data-toggle="tab" href="#nav-payment" role="tab" aria-controls="nav-payment" aria-selected="false">Payment</a>
       <a class="nav-item nav-link disabled" id="nav-login-tab" data-toggle="tab" href="#nav-login" role="tab" aria-controls="nav-login" aria-selected="false">Login Details</a>
     </div>
   </nav>
+
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-membership" role="tabpanel" aria-labelledby="nav-membership-tab">
-      {% if not user.is_authenticaed %}
-      <h3>Already a member? <a href="{% url 'login' %}"><button class="btn btn-primary">LOGIN</button></a></h3>
-      {% endif %}
+      <div id="signup-btns" class="container">
+        <div class="row align-items-center">
+          <div id="already-member" class="col-6">
+            {% if not user.is_authenticaed %}
+            Already a member?<br> <a href="{% url 'signup' %}"><button type="button" class="btn btn-light">Sign In</button></a>
+            {% endif %}
+          </div>
+          <div class="col-6" id="membership-btn-div">
+            <button id="membership-btn" class="btn btn-secondary">Next</button>
+          </div>
+        </div>  
+      </div>
   <div class="container" id="membership-options">
     <div class="row">
-      <div class="col-3">
-        <div class="form-check">
+      <div class="col-12 col-md-4">
           <div class="card">
           <div class="card-body">
             <h5 class="card-title">Standard Membership</h5>
             <h6 class="card-subtitle mb-2 text-muted">£59.99 / month</h6>
             <p class="card-text">Access to all our gym, pool and spa facilities and full timetable access.</p>
-            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+            <label for="gridRadios1">Select:</label>
+            <input type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
           </div>
         </div>
-        </div>
       </div>
-      <div class="col-3">
-        <div class="form-check">
+      <div class="col-12 col-md-4">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Off-Peak Membership</h5>
               <h6 class="card-subtitle mb-2 text-muted">£44.99 / month</h6>
               <p class="card-text">Access to all our gym, pool and spa facilities before 5pm. Full timetable access.</p>
-              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+              <label for="gridRadios2">Select:</label>
+              <input type="radio" name="gridRadios" id="gridRadios2" value="option2">
             </div>
           </div>
-        </div>
       </div>
-      <div class="col-4">
-        <div class="form-check">
+      <div class="col-12 col-md-4">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Family Membership</h5>
               <h6 class="card-subtitle mb-2 text-muted">£119.99 / month</h6>
               <p class="card-text">For 2 adults and up to 3 children. Adults have access to gym, pool and spa facilities and full timetable access. Children have pool and gym access while accompanied by an adult.</p>
-              <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+              <label for="gridRadios3">Select:</label>
+              <input type="radio" name="gridRadios" id="gridRadios3" value="option3">
             </div>
           </div>
-        </div>
       </div>
     </div>
-    <div class="row vertical-margin">
-      <div class="col-2 offset-4"><button id="membership-btn" class="btn btn-secondary">Next</button></div>
-    </div>
+
   </div>
-  </div>
+</div>
     <div class="tab-pane fade" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
+      <form id="personal-form">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12">
+            <button type="submit" id="pers-btn" class="btn btn-secondary">Next</button>
+          </div>
+        </div>  
+      </div>
       <div class="center-section">
         <div>
         </div>
         <div class="center-form">
-          <form id="personal-form">
+          
                 <div class="vertical-margin">
                     <label for="email">Email Address:</label>
                 </div>
                 <div class="vertical-margin">
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email">
                 </div>
                 <div class="vertical-margin">
                     <label for="dob">Date of Birth:</label>
                 </div>
                 <div class="vertical-margin">
-                    <input type="date" id="dob" name="dob" required>
+                    <input type="date" id="dob" name="dob">
                 </div>
                <div class="vertical-margin">
-                <input type="checkbox" id="declare-health" name="declare-health" required>
+                <input type="checkbox" id="declare-health" name="declare-health">
                 <label for="declare-health">
                   I confirm that I am fit and healthy and have no known health conditions that prevent me from taking part in physical excercise.
                 </label>
               
               </div>   
         </div>
-        <div class="vertical-margin"><button type="submit" id="pers-btn" class="btn btn-secondary">Next</button></div>
+        <div class="vertical-margin"></div>
       </form>
     </div>
     </div>
     <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab">
       <div class="center-section">
-        <form id="pay-form"><label for="payment"> Plese Enter Card Details:</label>
-          <input id="payment" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" required>
-          <div class="vertical-margin"><button type="submit" id="pay-btn" class="btn btn-secondary">Next</button></div>
+        <form id="pay-form">
+          <div class="container" id="pay-cont">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <button type="submit" id="pay-btn" class="btn btn-secondary">Next</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4 col-sm-3">
+                <label for="payment"> Card Number:</label>
+              </div>
+              <div class="col-8 col-sm-9">
+                <input id="payment" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+              </div>
+              <div class="col-4 col-sm-3"><label for="payment-name">Name:</label></div>
+              <div class="col-8 col-sm-9"><input type="text" id="payment-name"></div>
+              <div class="col-4 col-sm-3" ><label for="payment-date">Expiry Date:</label></div>
+              <div class="col-8 col-sm-9"><input type="text" id="payment-date"></div>
+              <div class="col-4 col-sm-3"><label for="payment-security">Security Code:</label></div>
+              <div class="col-8 col-sm-9"><input type="text" id="payment-security"></div>
+            </div>
+            <p>Note: Payment details are for visual purposes only, no card details will be saved.</p>
+          </div>
         </form>
       </div>
     </div>
     <div class="tab-pane fade" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
-      <div class="center-section">
-        <div class="center-form">
-          <form method="post">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class="vertical-margin">
-              {{ field.label_tag }}
-              {{ field }}
-              {% if field.help_text %}
-              <small>{{ field.help_text }}</small>
-            {% endif %}
-            </div>
-            <div class="vertical-margin">
-
-            </div>
-            <div class="vertical-margin">
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="container" id="login-details">
+            <div class="row">
+              <div class="col-12">{{ field.label_tag }}</div>
+              <div class="col-12">{{ field }}</div>
               {% for error in field.errors %}
-                {{ error }}
+              <div class="col-12"><small><strong>{{ error }}</strong></small></div>
               {% endfor %}
+              {% if field.help_text %}
+              <div class="col-12">{{ field.help_text }}</div>
+              {% endif %}
             </div>
-          {% endfor %}
-        <div class="vertical-margin">
-          <button class="btn btn-secondary" type="submit">Sign Up!</button>
-        </div>
+            {% endfor %}
+            <div class="row">
+              <div class="col-12"><button type="submit" class="btn btn-secondary">Sign Up!</button></div>
+            </div>
+          </div>
         </form>
-        </div>
-      </div>
+
     </div>
-  </div>
-</div>
 
 {% endblock %}
 
