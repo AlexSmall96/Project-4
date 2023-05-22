@@ -51,6 +51,61 @@
 <div class="tab-pane fade show" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
 {% endif %}
   <div class="container" id="timetable-cont">
+ {% for session in todays_sessions %}
+ {% if session.date == date %}
+  <h2 id="{{ session.id }}-date-header" class="date-header invisible"></h2>
+ <div class="session row run-{{ session.running }}">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-1 icon-field xs-font"><i class="fa-solid fa-clock"></i> {{ session.time | time:"G:i" }} {{ session.activity.duration }}</div>
+  <div class="col-6 col-sm-4 col-md-3 has-bg-img img-div">
+    <img class="bg-img my-image" src="../../static/classbooking_app/images/{{ session.activity.image }}">
+  </div>
+  <div class="col-6 col-sm-6 col-md-3 col-lg-3"><strong>{{ session.activity.name }}</strong>
+    <p class="description">{{ session.activity.description }}</p>
+  </div>
+  <div class="col-6 col-sm-2 col-md-1 col-lg-1 xs-font icon-field">
+    {% if session.running == True %}
+    <i class="fa-solid fa-users"></i>
+    {{ session.spaces }} spaces
+    {% else %}
+    <div> Apologies, the gym has had to cancel this class. </div>
+    {% endif %}
+  </div>
+  <div class="col-6 col-sm-6 col-md-2 col-lg-2 icon-field xs-font">
+    {% if session.running == True %} <i class="fa-solid fa-location-dot"></i><span> {{ session.location }} </span>{% endif %}
+  </div>
+  <div class="col-6 offset-6 col-sm-4 col-md-3 col-lg-2 offset-md-0 offset-sm-2 "> 
+    {% if session.running == False %}
+    <div></div>
+    {% elif session.spaces > 0 %}
+    <input class="add-to-cart run-{{ session.running }}-btn" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
+    
+    <!-- Cancel Class Modal-->
+    <button class="invisible" type="button" data-toggle="modal" data-target="#cancel-modal-{{ session.id }}" id="cancel-modal-btn-{{ session.id }}"></button>
+    <div class="modal fade" id="cancel-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h5 id="cancel-modal-header-{{ session.id }}" class="modal-title">
+              Are you sure you want to cancel 
+              {{session.activity.name}} 
+              at {{ session.time }}
+              on {{ session.date }}?
+            </h5>
+          </div>
+          <div class="modal-body">
+            <button id="{{ session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
+            <button id="{{ session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>                  
+    {% else %}
+    <div> Class Currently Full </div>
+    {% endif %}
+  </div>
+</div>
+ {% endif %}
+ {% endfor %}
  {% for session in weeks_sessions %}
  {% if session.date == date %}
   <h2 id="{{ session.id }}-date-header" class="date-header invisible"></h2>

@@ -224,9 +224,8 @@ def load_timetable(request):
     tomorrow = date.today() + timedelta(days=1)
     next_week = (date.today() + timedelta(days=6))
     now = datetime.now()
-    weeks_sessions = Session.objects.filter(date__range=[tomorrow, next_week])
-    todays_sessions = Session.objects.filter(date=today, time__gte=now)
-    weeks_sessions = weeks_sessions.union(todays_sessions)
+    weeks_sessions = Session.objects.filter(date__range=[tomorrow, next_week]).order_by("date", "time")
+    todays_sessions = Session.objects.filter(date=today, time__gte=now).order_by("date", "time")
     if len(todays_sessions) == 0:
         tab_range = [tomorrow, next_week]
         active_date = tomorrow
@@ -248,6 +247,7 @@ def load_timetable(request):
             cancel_id = int(cancel_id)
     existing_bookings = Booking.objects.filter(user=user)
     context = {
+        'todays_sessions': todays_sessions,
         'weeks_sessions': weeks_sessions,
         'todays_sessions': todays_sessions,
         'dates': dates,
