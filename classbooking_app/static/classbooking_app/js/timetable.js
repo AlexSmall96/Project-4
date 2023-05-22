@@ -58,13 +58,14 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 let newRow = document.createElement("div")
                 newRow.classList.add("row")
+                newRow.classList.add("checkout-row")
                 newRow.id = box.id.concat("-checkout")
                 newRow.innerHTML = `
                 <div class="col-3">${activity.children[0].innerHTML}</div>
-                <div class="col-2">${date.innerHTML}</div>
-                <div class="col-2">${time.innerHTML}</div>
+                <div class="col-3">${date.innerHTML}</div>
+                <div class="col-3">${time.innerHTML}</div>
                 <div class="col-3">${location.innerHTML}</div>
-                <div class="col-2">
+                <div class="col-12">
                 <input class="remove-from-cart" type="button" id="${box.id}-remove" value="Remove from Cart">
                 </div>
                 ` 

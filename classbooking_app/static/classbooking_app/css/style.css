@@ -229,13 +229,22 @@ body{
 #timetable-modal{
     text-align: center;
 }
+
+.checkout-row{
+    border-style:solid;
+    font-size: small;
+    border-width: 1px;
+    border-color: grey;
+}
+
+.checkout-row .col-12{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
     
 
-@media (max-width:550px){
-    #timetable-modal{
-        font-size: small;
-    }
-}
+        
+
 
 #timetable-tabContent{
     margin-top: 10px;
