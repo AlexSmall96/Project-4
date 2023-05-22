@@ -247,13 +247,17 @@ margin-top: 100px;
 
 /* Login Page */
 .center-section{
-    width:50%;
     margin:auto;
-    margin-top: 150px;
+    margin-top: 180px;
     text-align: center;
+    height:500px;
 }
 
 .center-form{
+    width:80%;
+    margin:auto;
+    min-width:220px;
+    max-width:400px;
     border-style: solid;
     border-width: 2px;
     border-color: grey;
