@@ -4,7 +4,7 @@
 
 <div id="members-area">
   <h1>Welcome to the Members Area, {{ user.username }}</h1>
-  <h2>Member Since {{ user.date_joined|date:"M d, Y" }}</h2>
+  <h4>Member Since {{ user.date_joined|date:"M d, Y" }}</h4>
 </div>
 <h2>Your Upcoming Bookings:</h2>
 <form method="POST" id="cancel-form">
@@ -14,20 +14,19 @@
     <input class="invisible" type="text" id="cancel" name="cancel">
 {% if no_tot_bookings > 0 %}
 <div class="container">
- <div class="row">
-   <div class="col">Activity</div>
-   <div class="col">Date</div>
-   <div class="col">Time</div>
-   <div class="col">Location</div>
-   <div class="col"></div>
+ <div id="members-headers" class="row">
+   <div class="col-3">Activity</div>
+   <div class="col-3">Date</div>
+   <div class="col-3">Time</div>
+   <div class="col-3">Location</div>
  </div>
  {% for booking in bookings %}
- <div class="row run-{{ booking.session.running }}">
-   <div class="col">{{ booking.session.activity.name }}</div>
-   <div class="col">{{ booking.session.date }}</div>
-   <div class="col">{{ booking.session.time | time:"G:i" }}</div>
-   <div class="col">{{ booking.session.location }}</div>
-   <div class="col">
+ <div class="row checkout-row run-{{ booking.session.running }}">
+   <div class="col-3">{{ booking.session.activity.name }}</div>
+   <div class="col-3">{{ booking.session.date }}</div>
+   <div class="col-3">{{ booking.session.time | time:"G:i" }}</div>
+   <div class="col-3">{{ booking.session.location }}</div>
+   <div class="col-5 offset-7">
     {% if booking.session.running == False %}
     <div>Apologies, the gym has had to cancel this class.</div>
     {% else %}
@@ -118,7 +117,7 @@
 
 <div class="container">
   <div class="row">
-  <div class="col-6">
+  <div class="col-12 col-sm-6">
     <div class="card" style="width: 18rem;">
       <h4>Have you tried our spa yet?</h4>
       <img class="card-img-top" src="../../static/classbooking_app/images/spa-ad.jpg" alt="Card image cap">
@@ -128,7 +127,7 @@
     </div>
   </div>
 
-  <div class="col-6">
+  <div class="col-12 col-sm-6">
     <div class="card" style="width: 18rem;">
       <h4>Get Social! <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a></h4>
       <img class="card-img-top" src="../../static/classbooking_app/images/social-ad.jpg" alt="Card image cap">

@@ -237,14 +237,11 @@ body{
     border-color: grey;
 }
 
-.checkout-row .col-12{
+.checkout-row .col-12, .checkout-row .col-5{
     margin-top: 3px;
     margin-bottom: 3px;
 }
     
-
-        
-
 
 #timetable-tabContent{
     margin-top: 10px;
