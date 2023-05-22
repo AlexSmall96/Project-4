@@ -1,4 +1,37 @@
+body{
+    background-color: rgb(84, 83, 83);
+    font-family: 'NTR', sans-serif;
+}
 
+#home-page nav{
+    background-color: rgb(84, 83, 83);
+}
+
+#navbarNav a, .navbar-toggler-icon{
+    color:white;
+}
+
+#home-page{
+    color:white;
+    background-color: rgb(84, 83, 83);
+    font-family: 'NTR', sans-serif;
+}
+#logo{
+    color:white;
+    text-align: center;
+    font-family: 'Mallanna', sans-serif;
+    font-weight: 500;
+    padding-left:10px;
+    padding-right:10px;
+    line-height: 0.1;
+}
+
+#logo h2{
+    letter-spacing: 3px;
+}
+#logo p{
+    font-size: medium;
+}
 .carousel-inner{
    height:250px;
 }
