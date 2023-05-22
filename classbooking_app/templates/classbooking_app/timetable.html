@@ -3,12 +3,14 @@
 {% block contentbody %}
 
 <!-- Date Navigation Tabs -->
+<div class="light-background">
 <div id="timetable-instructions" class="beneath-header">
-  <p>
-    <a class="btn btn-primary" data-toggle="collapse" href="#timetable-help" role="button" aria-expanded="false" aria-controls="timetable-help">
+    <a id="help-btn" class="btn btn-primary" data-toggle="collapse" href="#timetable-help" role="button" aria-expanded="false" aria-controls="timetable-help">
       <i class="fa-solid fa-circle-question"></i> Help
     </a>
-  </p>
+  <button type="button" class="btn btn-secondary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal" disabled>
+    Confirm Bookings
+    </button>
   <div class="collapse" id="timetable-help">
     <div class="card card-body" id="timetable-help-card">
       <ul>
@@ -34,9 +36,7 @@
     {% endif %}
     {% endfor %}
     <a class="nav-item nav-link" href="#">
-      <button type="button" class="btn btn-secondary" id="checkout-btn" data-toggle="modal" data-target="#timetable-modal" disabled>
-      Confirm Bookings
-      </button>
+
   </a>
   </div>
 </nav>
@@ -139,8 +139,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button id="checkout-dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Book more Classes</button>
-        <button id="confirm-btn" type="button" class="btn btn-primary">Confirm Bookings</button>
+        <button id="checkout-dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Add more Classes</button>
+        <button id="confirm-btn" type="button" class="btn btn-primary">Book me In!</button>
       </div>
     </div>
   </div>
@@ -181,7 +181,7 @@
     {% endif %}
   {% endfor %}
 </div>
-
+</div>
 {% endblock %}
 
 {% block contentscript %}

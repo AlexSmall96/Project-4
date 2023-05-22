@@ -12,11 +12,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=NTR&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../static/classbooking_app/css/style.css?2">
+    <link rel="stylesheet" href="../../static/classbooking_app/css/style.css">
     <title>classbooking</title>
 </head>
 <body>
-  <div id="home-page">
   <header>
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark justify-content-between">
         <a class="navbar-brand" href="/">
@@ -61,7 +60,6 @@
       </nav>
     </header>
 {% block contentbody %}
-</div>
 {% endblock %}
 <!--Font Awesome Link-->
 <script src="https://kit.fontawesome.com/19e39a1d6d.js" crossorigin="anonymous"></script>
@@ -74,7 +72,7 @@
 {% block contentscript %}  
 
 {% endblock %}
-<footer>
+<footer class="dark-background">
   <div id="membership-footer">
     <a class="nav-link" {% if user.is_authenticated %} href="/view_bookings.html" {%else %} href="{% url 'signup' %}" {% endif %}>
       <button id="footer-btn" type="button" class="btn btn-secondary">
