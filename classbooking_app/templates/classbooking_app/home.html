@@ -2,45 +2,8 @@
 
 {% block contentbody %}
 <div class="dark-background">
-<div id="carouselExampleIndicators" class="carousel slide">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100 hero" src="../../static/classbooking_app/images/hero-gym.jpg" alt="First slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h2>Work Up a Sweat</h2>
-        <div id="facilities-link" class="list-group">
-          <a class="list-group-item list-group-item-action" href="#facilities-target">View our Facilities</a>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="../../static/classbooking_app/images/hero-class.jpg" alt="Second slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h2>Get Involved</h2>
-        <p>View our class timetable</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="../../static/classbooking_app/images/hero-jac-2.jpg" alt="Third slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h2>Relax and Unwind</h2>
-        <p>View our spa facilities</p>
-      </div>
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
+<div id="hero-image">
+  
 </div>
 <div id="home-links" class="container">
 {% if user.is_authenticated %}
@@ -81,12 +44,12 @@
 </div>
 <div id="about" class="container">
   <div class="row no-gutters">
-    <div class="col-12 order-last has-bg-img">
+    <div class="col-12 col-sm-6 order-last order-sm-first has-bg-img">
       <img class="bg-img" id="about-pool-img" src="../../static/classbooking_app/images/pool.jpg">
     </div>
-    <div class="col-12 order-first">
+    <div class="col-12 col-sm-6 order-first order-sm-last">
       <div data-spy="scroll" data-target="#facilities-link" data-offset="0" class="scrollspy-example">
-        <h2 id="facilities-target">Our Facilities</h2>
+        <h2 id="facilities-target">Facilities</h2>
         <p>A state of the art gym and pool, class studios and a spin room. We've got your fitness needs covered.
            <a class="read-more" data-toggle="collapse" href="#facilities-text" role="button" aria-expanded="false" aria-controls="facilitiesText">
           Read More
@@ -102,8 +65,8 @@
     </div>
   </div>
   <div class="row no-gutters">
-    <div class="col-12">
-      <h2>Our Classes</h2>
+    <div class="col-12 col-sm-6">
+      <h2>Classes</h2>
       <p>Boxfit? No problem. Yoga or Mindfullness ? Come unwind with us. HIIT ? Book now and test your limits!
       </p>
       {% if user.is_authenticated %}
@@ -113,16 +76,16 @@
       <p>You are not logged in. Please <a href="{% url 'login' %}">Log In</a> to view timetable and book classes.</p>
     {% endif %}
     </div>
-    <div class="col-12 has-bg-img">
+    <div class="col-12 col-sm-6 has-bg-img">
       <img class="bg-img" id="about-class-img" src="../../static/classbooking_app/images/about-class-4.jpg">
     </div>
   </div>
   <div class="row no-gutters">
-    <div class="col-12 order-last has-bg-img">
-      <img class="bg-img" id="about-class-img" src="../../static/classbooking_app/images/sauna.jpg">
+    <div class="col-12 col-sm-6 order-last order-sm-first has-bg-img">
+      <img class="bg-img" id="about-class-img" src="../../static/classbooking_app/images/hero-jacuzzi.jpg">
     </div>
-    <div class="col-12 order-first">
-      <h2>Our Spa</h2>
+    <div class="col-12 col-sm-6 order-first order-sm-last">
+      <h2>Spa</h2>
       <p>Relax and unwind after your workout in our luxurious sauna, steam room or jacuzzi, or even a pampering session.
         <a class="read-more" data-toggle="collapse" href="#spa-text" role="button" aria-expanded="false" aria-controls="spaText">
           Read More
