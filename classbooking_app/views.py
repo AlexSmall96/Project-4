@@ -269,6 +269,7 @@ def view_bookings(request):
     now = datetime.now()
     date_min = current_date + timedelta(days=1)
     cancel_id = ""
+    member_feedback = ""
     bookings = Booking.objects.filter(
         user=user,
         session__date__gte=date_min
@@ -287,7 +288,7 @@ def view_bookings(request):
     # If form is submitted delete the relevant booking
     if request.method == "POST":
         cancel_id = request.POST.get('cancel')
-        delete_booking(user, cancel_id)
+        member_feedback = delete_booking(user, cancel_id)
         session = get_object_or_404(Session, id=cancel_id)
         cancel_name = session.activity.name
         cancel_date = session.date
@@ -303,6 +304,7 @@ def view_bookings(request):
         no_tot_bookings = len(todays_bookings) + len(bookings)
         cancelled_session = get_object_or_404(Session, id=cancel_id)
         context = {
+            'member_feedback': member_feedback,
             'bookings': bookings,
             'cancel_id': cancel_id,
             'cancel_name': cancel_name,

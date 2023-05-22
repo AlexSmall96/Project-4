@@ -5,9 +5,6 @@
 <div id="members-area">
   <h1>Welcome to the Members Area, {{ user.username }}</h1>
   <h2>Member Since {{ user.date_joined|date:"M d, Y" }}</h2>
-  {% if cancel_id != "" %}
-  <h3>Thanks for confirming, your booking for {{ cancel_name }} on {{ cancel_date }} at {{ cancel_time }} has been cancelled.</h3>
-  {% endif %}
 </div>
 <h2>Your Upcoming Bookings:</h2>
 <form method="POST" id="cancel-form">
@@ -95,8 +92,28 @@
     </div>
   </div>
 </div>
+
 {% endfor %}
 {% endif %}
+
+<!-- Feedback Modal -->
+<button type="button" class="invisible" id="members-feedback-btn" data-toggle="modal" data-target="#members-feedback-modal"></button>
+<div class="modal fade" id="members-feedback-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{ member_feedback }}
+        </h5>
+      </div>
+      <div class="modal-body">
+        <a class="nav-link" href="/timetable.html" id="timetable-link"><button type="button" class="confirm-cancel btn btn-secondary">Book more classes</button></a>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">View remaining bookings</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="members-feedback-div" class="invisible">{{ member_feedback }}</div>
 <div id="cards">
 
 <div class="container">
@@ -135,6 +152,6 @@
 {% endblock %}
 
 {% block contentscript %}  
-<script src="../../static/classbooking_app/js/view_bookings.js?2"></script>
+<script src="../../static/classbooking_app/js/view_bookings.js"></script>
 {% endblock %}
 
