@@ -44,9 +44,14 @@ body{
     background-color: rgb(84, 83, 83);
 }
 
+.light-grey-background{
+    color:white;
+    background-color: rgb(134, 133, 133);
+}
+
 .light-background{
     color:black;
-    background-color: rgb(227, 226, 226);
+    background-color: rgba(156, 199, 213, 0.983);
 }
 #navbarNav a{
     color:white;

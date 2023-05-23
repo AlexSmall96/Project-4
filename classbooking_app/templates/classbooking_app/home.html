@@ -1,7 +1,7 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block contentbody %}
-<div class="dark-background">
+<div class="light-grey-background">
 <div id="hero-image">
   
 </div>
@@ -69,7 +69,7 @@
       View the <a class="" href="/timetable.html" id="timetable-link"><button class="btn btn-secondary">Timetable</button></a> to book classes, 
       or head to the <a class="" href="/view_bookings.html"><button class="btn btn-secondary">Members Area</button></a> to review your bookings.
     {% else %}
-      <p>You are not logged in. Please <a href="{% url 'login' %}">Log In</a> to view timetable and book classes.</p>
+      <p>Please <a href="{% url 'login' %}"><button class="btn btn-secondary">Login in</button></a> to view timetable and book classes.</p>
     {% endif %}
     </div>
     <div class="col-12 col-sm-6 has-bg-img">
