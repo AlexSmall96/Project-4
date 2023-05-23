@@ -53,6 +53,11 @@ body{
     color:black;
     background-color: rgba(156, 199, 213, 0.983);
 }
+
+.session{
+    font-family: 'Red Hat Text', sans-serif;
+}
+
 #navbarNav a{
     color:white;
 }
