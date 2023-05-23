@@ -17,6 +17,11 @@ body{
     }
 }
 
+@media (min-width:320px) and (max-width:375px){
+    #home-links button{
+        height:80px;
+    }
+}
 #home-links{
     margin-top: 15px;
     margin-bottom: 15px;
@@ -113,6 +118,9 @@ body{
         padding-left: 0px;
         padding-right: 0px;
         margin-top: 10px;
+        
+    }
+    .img-margin{
         margin-bottom: 10px;
     }
 }
@@ -379,7 +387,7 @@ body{
     float:right;
 }
 
-#about-class-img{
+#about img{
     width:100%;
     float:left;
 }

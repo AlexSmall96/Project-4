@@ -18,7 +18,7 @@
   <div class="col-6">
     <a class="nav-link" href="/timetable.html" id="timetable-link">
       <button type="button" class="btn btn-secondary">
-        <h4>View our Timetable</h4>
+        <h4>View Timetable</h4>
       </button>
     </a>
   </div>
@@ -44,8 +44,8 @@
 </div>
 <div id="about" class="container">
   <div class="row no-gutters">
-    <div class="col-12 col-sm-6 order-last order-sm-first has-bg-img">
-      <img class="bg-img" id="about-pool-img" src="../../static/classbooking_app/images/pool.jpg">
+    <div class="col-12 col-sm-6 order-last order-sm-first has-bg-img img-margin">
+      <img class="bg-img" src="../../static/classbooking_app/images/pool.jpg">
     </div>
     <div id="facilities-div" class="col-12 col-sm-6 order-first order-sm-last">
         <h2>Facilities</h2>
@@ -72,17 +72,17 @@
       <p>Please <a href="{% url 'login' %}"><button class="btn btn-secondary">Login in</button></a> to view timetable and book classes.</p>
     {% endif %}
     </div>
-    <div class="col-12 col-sm-6 has-bg-img">
-      <img class="bg-img" id="about-class-img" src="../../static/classbooking_app/images/about-class-4.jpg">
+    <div class="col-12 col-sm-6 has-bg-img img-margin">
+      <img class="bg-img" src="../../static/classbooking_app/images/about-class-4.jpg">
     </div>
   </div>
   <div class="row no-gutters">
-    <div class="col-12 col-sm-6 order-last order-sm-first has-bg-img">
-      <img class="bg-img" id="about-class-img" src="../../static/classbooking_app/images/hero-jacuzzi.jpg">
+    <div class="col-12 col-sm-6 order-last order-sm-first has-bg-img" id="jacuzzi-div">
+      <img class="bg-img" src="../../static/classbooking_app/images/hero-jacuzzi.jpg">
     </div>
     <div id="spa-div" class="col-12 col-sm-6 order-first order-sm-last">
       <h2>Spa</h2>
-      <p>Relax and unwind after your workout in our luxurious sauna, steam room or jacuzzi, or even a pampering session.
+      <p>Relax and unwind after your workout in our luxurious sauna, jacuzzi and spa.
         <a class="read-more" data-toggle="collapse" href="#spa-text" role="button" aria-expanded="false" aria-controls="spaText">
           Read More
         </a><p>
@@ -90,8 +90,7 @@
         </p>
         <div class="collapse" id="spa-text">
           <div class="">
-            Kick your feet up and begin your post-workout recovery with us in our premium oak sauna, with temperatures ranging from 70 to 100 degrees celcius.
-            If you're feeling brave, take a cold plunge in one our ice baths, or if you're looking for total relaxation, book yourself in for a massage or facial with our expert spa team.
+            Begin your post-workout recovery with us in our premium oak sauna, or if you're looking for total relaxation, book yourself in for a massage or facial with our expert spa team.
           </div>
         </div>
       </p>
