@@ -75,20 +75,6 @@
 {% block contentscript %}  
 
 {% endblock %}
-<footer class="dark-background">
-  <div id="membership-footer">
-    <a class="nav-link" {% if user.is_authenticated %} href="/view_bookings.html" {%else %} href="{% url 'signup' %}" {% endif %}>
-      <button id="footer-btn" type="button" class="btn btn-secondary">
-      {% if user.is_authenticated %} Members Area {%else %} View our Membership Options {% endif %}
-      </button>
-    </a>
-  </div>
-  <div id="contact">
-    <i class="fa-brands fa-facebook fa-2xl"></i>
-    <i class="fa-brands fa-instagram fa-2xl"></i>
-    <i class="fa-brands fa-linkedin fa-2xl"></i>
-    <i class="fa-brands fa-github fa-2xl"></i>
-  </div>
-</body>
-</footer>
-</html>
+{% block contentfooter %}
+
+{% endblock %}

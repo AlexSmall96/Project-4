@@ -55,7 +55,7 @@
         </a></p>
           <div class="collapse" id="facilities-text">
             <div class="">
-              4 power/squat racks an extensive dumbell collection. Along with weight and cardio machines, a cool off/stretch area. 25m long pool with 6 lanes plus an open swimming area, perfect for those wanting a serious workout or just a quick dip.            
+              4 power/squat racks an extensive dumbell collection. Along with weight and cardio machines, and a cool off/stretch area. 25m long pool with 6 lanes plus an open swimming area, perfect for those wanting a serious workout or just a quick dip.            
             </div>
           </div>
     </div>
@@ -98,23 +98,28 @@
   </div>
 </div>
 </div>
-
-
-
-  
-
-
-
-
-
-
-
-  
 {% endblock %}
 
 {% block contentscript %}  
-
 <script src="../../static/classbooking_app/js/home.js"></script>
+{% endblock %}
 
-
+{% block contentfooter %}
+<footer class="dark-background">
+  <div id="membership-footer">
+    <a class="nav-link" {% if user.is_authenticated %} href="/view_bookings.html" {%else %} href="{% url 'signup' %}" {% endif %}>
+      <button id="footer-btn" type="button" class="btn btn-secondary">
+      {% if user.is_authenticated %} Members Area {%else %} View our Membership Options {% endif %}
+      </button>
+    </a>
+  </div>
+  <div id="contact">
+    <i class="fa-brands fa-facebook fa-2xl"></i>
+    <i class="fa-brands fa-instagram fa-2xl"></i>
+    <i class="fa-brands fa-linkedin fa-2xl"></i>
+    <i class="fa-brands fa-github fa-2xl"></i>
+  </div>
+</body>
+</footer>
+</html>
 {% endblock %}
