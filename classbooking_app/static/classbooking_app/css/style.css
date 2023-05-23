@@ -809,6 +809,9 @@ border-width: 2px;
 }
 
 /* Members Area */
+#members-area{
+    text-align: center;
+}
 #ads{
     text-align: center;
     max-width: 2000px;
@@ -820,10 +823,19 @@ border-width: 2px;
     margin-bottom: 0px;
 }
 
+#ads img{
+    width:100%;
+    height:auto;
+}
+
 #ads p{
     padding-bottom: 0px;
 }
 
+#my-bookings .row{
+    height:70px;
+    font-size: medium;
+}
 #my-bookings .row{
     background-color: white;
 }
@@ -870,3 +882,12 @@ border-width: 2px;
         padding-top: 100px;;
     }
   }
+
+@media (max-width:470px){
+    #my-bookings .row{
+        font-size: small;
+    }
+}
+
+
+

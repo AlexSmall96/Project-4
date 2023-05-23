@@ -3,7 +3,7 @@
 {% block contentbody %}
 <div id="members-area" class="light-background beneath-header">
 <div>
-  <h1>Welcome to the Members Area, {{ user.username }}</h1>
+  <h1 class=>Welcome to the Members Area, {{ user.username }}</h1>
   <h4>Member Since {{ user.date_joined|date:"M d, Y" }}</h4>
 </div>
 <p class="invisible" id="bookings-count">{{ no_tot_bookings }}</p>
@@ -99,7 +99,8 @@
 </form>
   
 {% else %}
-<h2>You're not booked into any classes yet. Visit the <a class="nav-link" href="/timetable.html" id="timetable-link">Timetable</a> to get involved!</h2> 
+<h2>You're not booked into any classes yet. Visit the <a class="nav-link" href="/timetable.html" id="timetable-link"><button type="button" class="btn btn-secondary">Timetable</button></a> to get involved!</h2>
+<p id="my-bookings" class="invisible"></p>
 {% endif %} 
 
 
@@ -126,18 +127,18 @@
 
 <div id="ads" class="container light-background">
   <div class="row">
-    <div class="col-12 col-sm-6 order-first order-sm-2"><h3 class="ad-header">Get Social!</h3></div>
-    <div class="col-12 col-sm-6 order-2 order-sm-first has-bg-img contains-text-box">
-        <img class="bg-img my-image" src="../../static/classbooking_app/images/social-ad.jpg">
+    <div class="col-12 col-sm-6 col-lg-3 order-first order-sm-2 order-lg-first"><h3 class="ad-header">Get Social!</h3></div>
+    <div class="col-12 col-sm-6 col-lg-3 order-2 order-sm-first order-lg-2 has-bg-img contains-text-box">
+        <img class="bg-img" src="../../static/classbooking_app/images/social-ad.jpg">
           <a href="https://www.facebook.com/" target="_blank" id="text-button">Join our online Facebook community <i class="fa-brands fa-facebook"></i></button></a>
     </div>
-    <div class="col-12 col-sm-6 order-last order-sm-last has-bg-img contains-text-box">
-      <img class="bg-img my-image" src="../../static/classbooking_app/images/spa-ad.jpg">
+    <div class="col-12 col-sm-6 col-lg-3 order-last order-sm-last order-lg-last has-bg-img contains-text-box">
+      <img class="bg-img" src="../../static/classbooking_app/images/spa-ad.jpg">
       <div id="text-block">
         <p>Enquire at the front desk and book yourself in for a pampering session!</p>
       </div>
     </div>
-    <div class="col-12 col-sm-6 order-3 order-sm-3"><h3 class="ad-header">Have you tried our spa yet?</h3></div>
+    <div class="col-12 col-sm-6 col-lg-3 order-3 order-sm-3 order-lg-3"><h3 class="ad-header">Have you tried our spa yet?</h3></div>
   </div>
 </div>
 
