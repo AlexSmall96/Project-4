@@ -81,6 +81,23 @@ body{
 #about h2, #about p{
     margin-bottom: 0px;
 }
+
+#about a{
+    color:aqua;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+#about button{
+    color:aqua;
+    font-weight: 700;
+    height:25px;
+    padding:1px;
+    border-style: ridge;
+    border-width: 1px;
+    border-color:darkgoldenrod;
+
+}
 @media (min-width:320px) and (max-width:575px){
     #about .has-bg-img{
         padding-left: 0px;
