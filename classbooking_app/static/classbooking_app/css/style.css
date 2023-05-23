@@ -10,11 +10,24 @@ body{
     background: url('../images/hero-gym.jpg') no-repeat center center;
 }
 
-@media (max-width:680px){
+@media (max-width:540px){
     #hero-image{
-        height:300px;
+        height:250px;
         background-size: 100% auto;
     }
+}
+
+#home-links{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#home-links button{
+    margin:auto;
+    width:100%;
+    border-style: ridge;
+    border-color: darkgoldenrod;
+    border-width: 2px;
 }
 
 .navbar{
@@ -65,6 +78,9 @@ body{
     font-size: medium;
 }
 
+#about h2, #about p{
+    margin-bottom: 0px;
+}
 @media (min-width:320px) and (max-width:575px){
     #about .has-bg-img{
         padding-left: 0px;
@@ -75,17 +91,17 @@ body{
 }
 
 @media (min-width:576px){
+
+    #facilities-text{
+        margin-top: 5px;
+    }
     #about .has-bg-img{
         padding-left: 0px;
         padding-right: 0px;
     }
     
-    #about-pool-image{
-        height:500px;
-        background-size: 100% auto;
-    }
     #about{
-        max-width: 1000px;
+        max-width: 2000px;
     }
 
     #about p, #about h2{
@@ -97,6 +113,81 @@ body{
     }
 }
 
+@media (min-width:815px){
+    #about .collapse{
+        font-size: medium;
+    }
+}
+
+@media (min-width:875px){
+    #about h2, #about p{
+        margin-bottom: 10px;
+    }
+
+    #facilities-div{
+        padding-top: 40px;
+        padding-left:40px;
+        padding-right: 40px;
+        text-align: center;
+    }
+
+    #classes-div{
+        padding-top: 60px;
+        padding-left:60px;
+        padding-right: 60px;
+        text-align: center;
+    }
+    #spa-div{
+        padding-top: 10px;
+        padding-left:20px;
+        padding-right: 20px;
+        text-align: center;
+    }
+}
+
+@media(min-width:1000px){
+    #facilities-div{
+        padding-top: 60px;
+        padding-left:60px;
+        padding-right: 60px;
+    }
+    #classes-div{
+        padding-top: 80px;
+        padding-left:80px;
+        padding-right: 80px;
+    }
+    #spa-div{
+        padding-top: 50px;
+        padding-left:50px;
+        padding-right: 50px;
+    }
+}
+@media(min-width:1200px){
+    #facilities-div{
+        padding-top: 80px;
+        padding-left:80px;
+        padding-right: 80px;
+    }
+}
+@media (min-width:1280px){
+    #about, #about .collapse{
+        font-size: large;
+    }
+    #hero-image{
+        height: 600px;
+        background-size: 100% auto;
+    }
+    #classes-div{
+        padding-top: 100px;
+        padding-left:100px;
+        padding-right: 100px;
+    }
+    #spa-div{
+        padding-top: 70px;
+        padding-left:70px;
+        padding-right: 70px;
+    }
+}
 
 .beneath-header{
     margin-top:88px;
