@@ -104,7 +104,6 @@
 <script src="../../static/classbooking_app/js/home.js"></script>
 {% endblock %}
 
-{% block contentfooter %}
 <footer class="dark-background">
   <div id="membership-footer">
     <a class="nav-link" {% if user.is_authenticated %} href="/view_bookings.html" {%else %} href="{% url 'signup' %}" {% endif %}>
@@ -122,4 +121,3 @@
 </body>
 </footer>
 </html>
-{% endblock %}

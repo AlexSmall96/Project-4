@@ -2,11 +2,11 @@
 
 {% block contentbody %}
 <div class="light-background" id="login-page">
-<div class="center-section">
+<div class="center-section height-class">
     <div>
         <h2>LOGIN</h2> 
     </div>
-    <div class="center-form">
+    <div class="center-form light-box">
         <form method="POST" >
         {% csrf_token %}
             <div class="vertical-margin">
@@ -34,4 +34,21 @@
     </div>
 </div>
 </div>
+<footer class="dark-background">
+    <div id="membership-footer">
+      <a class="nav-link" {% if user.is_authenticated %} href="/view_bookings.html" {%else %} href="{% url 'signup' %}" {% endif %}>
+        <button id="footer-btn" type="button" class="btn btn-secondary">
+        {% if user.is_authenticated %} Members Area {%else %} View our Membership Options {% endif %}
+        </button>
+      </a>
+    </div>
+    <div id="contact">
+      <i class="fa-brands fa-facebook fa-2xl"></i>
+      <i class="fa-brands fa-instagram fa-2xl"></i>
+      <i class="fa-brands fa-linkedin fa-2xl"></i>
+      <i class="fa-brands fa-github fa-2xl"></i>
+    </div>
+  </body>
+  </footer>
+  </html>
 {% endblock %}

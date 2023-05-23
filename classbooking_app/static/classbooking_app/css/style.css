@@ -59,6 +59,10 @@ body{
     background-color: rgba(156, 199, 213, 0.983);
 }
 
+.light-box{
+    background-color: white;
+}
+
 .session{
     font-family: 'Red Hat Text', sans-serif;
 }
@@ -462,6 +466,7 @@ margin-top: 100px;
 }
 
 /*Sign up Page */
+
 #sign-up{
     margin-top:88px;
 }
