@@ -809,10 +809,27 @@ border-width: 2px;
 }
 
 /* Members Area */
+#ads{
+    text-align: center;
+    max-width: 2000px;
+}
 
-#my-bookings{
-    height:300px;
-    overflow:scroll;
+#ads .has-bg-img{
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 0px;
+}
+
+#ads p{
+    padding-bottom: 0px;
+}
+
+#my-bookings .row{
+    background-color: white;
+}
+
+#booking-headers{
+    font-weight: 1000;
 }
 
 .contains-text-box {

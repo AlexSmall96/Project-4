@@ -1,15 +1,28 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block contentbody %}
-<div class="height-class light-background beneath-header">
+<div id="members-area" class="light-background beneath-header">
 <div>
   <h1>Welcome to the Members Area, {{ user.username }}</h1>
   <h4>Member Since {{ user.date_joined|date:"M d, Y" }}</h4>
 </div>
+<p class="invisible" id="bookings-count">{{ no_tot_bookings }}</p>
 {% if no_tot_bookings > 0 %}
 <h2>Your Upcoming Bookings:</h2>
 <form method="POST" id="cancel-form">
 {% csrf_token %}
+<!-- Hidden inputs to communicate with python-->
+<label class="invisible" for="cancel">Cancel Booking:</label>
+<input class="invisible" id="cancel" name="cancel">
+<div class="container">
+  <div class="row" id="booking-headers">
+   <div class="col-3">Name</div>
+   <div class="col-3">Date</div>
+   <div class="col-3">Time</div>
+   <div class="col-3">Location</div>
+ </div>
+</div>
+
 <div class="container" id="my-bookings">
 {% for booking in todays_bookings %}
 <div class="row checkout-row run-{{ booking.session.running }}">
@@ -17,13 +30,14 @@
   <div class="col-3">{{ booking.session.date }}</div>
   <div class="col-3">{{ booking.session.time | time:"G:i" }}</div>
   <div class="col-3">{{ booking.session.location }}</div>
-  <div class="col-5 offset-7">
   {% if booking.session.running == False %}
-  <div>Apologies, the gym has had to cancel this class.
+  <div class="col-6 offset-6">Apologies, the gym has had to cancel this class.
   </div>
   {% else %}
+  <div class="col-3 offset-9"></div>
     <input class="cancel-button run-{{ booking.session.running }}-btn" type="button" value="Cancel Booking" id="{{ booking.session.id }}-view" data-toggle="modal" data-target="#modal-{{ booking.session.id }}">
-  {% endif %}
+  </div>
+    {% endif %}
   </div>
 </div>
 <!-- Modal -->
@@ -88,9 +102,7 @@
 <h2>You're not booked into any classes yet. Visit the <a class="nav-link" href="/timetable.html" id="timetable-link">Timetable</a> to get involved!</h2> 
 {% endif %} 
 
-  <!-- Hidden inputs to communicate with python-->
-  <label class="invisible" for="cancel">Cancel Booking:</label>
-  <input class="invisible" type="text" id="cancel" name="cancel">
+
 
 <!-- Feedback Modal -->
 <button type="button" class="invisible" id="members-feedback-btn" data-toggle="modal" data-target="#members-feedback-modal"></button>
@@ -112,20 +124,20 @@
 <p id="members-feedback-div" class="invisible">{{ member_feedback }}</p>
 </div>
 
-<div class="container">
+<div id="ads" class="container light-background">
   <div class="row">
-    <div class="col-12 col-sm-6 order-sm-first"><h3 class="ad-header">Get Social!</h3></div>
-    <div class="col-12 col-sm-6 has-bg-img order-sm-last contains-text-box">
+    <div class="col-12 col-sm-6 order-first order-sm-2"><h3 class="ad-header">Get Social!</h3></div>
+    <div class="col-12 col-sm-6 order-2 order-sm-first has-bg-img contains-text-box">
         <img class="bg-img my-image" src="../../static/classbooking_app/images/social-ad.jpg">
           <a href="https://www.facebook.com/" target="_blank" id="text-button">Join our online Facebook community <i class="fa-brands fa-facebook"></i></button></a>
     </div>
-    <div class="col-12 col-sm-6 order-sm-last"><h3 class="ad-header">Have you tried our spa yet?</h3></div>
-    <div class="col-12 col-sm-6 has-bg-img order-sm-first contains-text-box">
+    <div class="col-12 col-sm-6 order-last order-sm-last has-bg-img contains-text-box">
       <img class="bg-img my-image" src="../../static/classbooking_app/images/spa-ad.jpg">
       <div id="text-block">
         <p>Enquire at the front desk and book yourself in for a pampering session!</p>
       </div>
     </div>
+    <div class="col-12 col-sm-6 order-3 order-sm-3"><h3 class="ad-header">Have you tried our spa yet?</h3></div>
   </div>
 </div>
 
@@ -133,6 +145,6 @@
 {% endblock %}
 
 {% block contentscript %}  
-<script src="../../static/classbooking_app/js/view_bookings.js"></script>
+<script src="../../static/classbooking_app/js/view_bookings.js?2"></script>
 {% endblock %}
 
