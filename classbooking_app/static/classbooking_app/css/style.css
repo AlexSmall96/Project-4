@@ -623,16 +623,10 @@ border-width: 2px;
     padding-top: 5px;;
 }
 
-#session-cont{
-    height:400px;
-    overflow:scroll;
-    margin-top:0px;
-}
-
-#session-cont input, #session-cont select{
-    font-size: 12px;
-    border-radius: 0;
-    border: 1px solid
+.timetable-cont{
+    height:700px;
+    margin-bottom:60px;
+    overflow: scroll;
 }
 
 #session-box .row{

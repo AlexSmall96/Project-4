@@ -80,11 +80,6 @@
       </ul>
     </div>
   </div>
-
-
-  {% if feedback != "" %}
-  {{ feedback }}
-  {% endif %}
 </div>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -110,7 +105,7 @@
 {% else %}
 <div class="tab-pane fade show" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
 {% endif %}
-  <div class="container" id="timetable-cont">
+  <div class="container height-class timetable-cont">
  {% for session in todays_sessions %}
  {% if session.date == date %}
   <h2 id="{{ session.id }}-date-header" class="date-header invisible">{{ date }}</h2>
@@ -264,7 +259,7 @@
       </div>
       <div class="modal-body">
         <div id="checkout-list" class="container">
-          
+          <div class="row invisible"></div>
         </div>
       </div>
       <div class="modal-footer">

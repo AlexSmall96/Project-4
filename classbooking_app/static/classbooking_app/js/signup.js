@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const payTab = document.getElementById("nav-payment-tab")
     const loginTab = document.getElementById("nav-login-tab")
     const payForm = document.getElementById("pay-form")
+    const finalForm = document.getElementById("signup-form-final")
 
     memberBtn.addEventListener("click", () => {
         persTab.classList.remove("disabled")
@@ -25,6 +26,10 @@ document.addEventListener("DOMContentLoaded", function(){
         loginTab.classList.remove("disabled")
         payTab.classList.add("disabled")
         loginTab.click()
+    })
+
+    finalForm.addEventListener("submit", (event) => {
+        event.preventDefault()
     })
 
 
