@@ -1,99 +1,96 @@
 {% extends 'classbooking_app/base.html' %}
 
 {% block contentbody %}
-
-<div id="members-area">
+<div class="height-class light-background beneath-header">
+<div>
   <h1>Welcome to the Members Area, {{ user.username }}</h1>
   <h4>Member Since {{ user.date_joined|date:"M d, Y" }}</h4>
 </div>
+{% if no_tot_bookings > 0 %}
 <h2>Your Upcoming Bookings:</h2>
 <form method="POST" id="cancel-form">
-    {% csrf_token %}
-    <!-- Hidden inputs to communicate with python-->
-    <label class="invisible" for="cancel">Cancel Booking:</label>
-    <input class="invisible" type="text" id="cancel" name="cancel">
-{% if no_tot_bookings > 0 %}
-<div class="container">
- <div id="members-headers" class="row">
-   <div class="col-3">Activity</div>
-   <div class="col-3">Date</div>
-   <div class="col-3">Time</div>
-   <div class="col-3">Location</div>
- </div>
- {% for booking in bookings %}
- <div class="row checkout-row run-{{ booking.session.running }}">
-   <div class="col-3">{{ booking.session.activity.name }}</div>
-   <div class="col-3">{{ booking.session.date }}</div>
-   <div class="col-3">{{ booking.session.time | time:"G:i" }}</div>
-   <div class="col-3">{{ booking.session.location }}</div>
-   <div class="col-5 offset-7">
-    {% if booking.session.running == False %}
-    <div>Apologies, the gym has had to cancel this class.</div>
-    {% else %}
-     <input class="cancel-button run-{{ booking.session.running }}-btn" type="button" value="Cancel Booking" id="{{ booking.session.id }}-view" data-toggle="modal" data-target="#modal-{{ booking.session.id }}">
-    {% endif %}
-    </div>
- </div>
-</div>
-</form>  
-<!-- Modal -->
-<div class="modal fade" id="modal-{{ booking.session.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 id="modal-header-{{ booking.session.id }}" class="modal-title"
-        >Are you sure you want to cancel 
-        {{booking.session.activity.name}} 
-        at {{ booking.session.time }}
-        on {{ booking.session.date }}?
-      </h5>
-      </div>
-      <div class="modal-body">
-        <button id="{{ booking.session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
-        <button id="{{ booking.session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-      </div>
-    </div>
-  </div>
-</div>
-{% endfor %}
+{% csrf_token %}
+<div class="container" id="my-bookings">
 {% for booking in todays_bookings %}
- <div class="row run-{{ booking.session.running }}">
-   <div class="col">{{ booking.session.activity.name }}</div>
-   <div class="col">{{ booking.session.date }}</div>
-   <div class="col">{{ booking.session.time | time:"G:i" }}</div>
-   <div class="col">{{ booking.session.location }}</div>
-   <div class="col">
-    {% if booking.session.running == False %}
-    <div>Apologies, the gym has had to cancel this class.</div>
-    {% else %}
-     <input class="cancel-button run-{{ booking.session.running }}-btn" type="button" value="Cancel Booking" id="{{ booking.session.id }}-view" data-toggle="modal" data-target="#modal-{{ booking.session.id }}">
-    {% endif %}
-    </div>
- </div>
-</div>
-</form>  
-<!-- Modal -->
-<div class="modal fade" id="modal-{{ booking.session.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 id="modal-header-{{ booking.session.id }}" class="modal-title"
-        >Are you sure you want to cancel 
-        {{booking.session.activity.name}} 
-        at {{ booking.session.time }}
-        on {{ booking.session.date }}?
-      </h5>
-      </div>
-      <div class="modal-body">
-        <button id="{{ booking.session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
-        <button id="{{ booking.session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-      </div>
-    </div>
+<div class="row checkout-row run-{{ booking.session.running }}">
+  <div class="col-3">{{ booking.session.activity.name }}</div>
+  <div class="col-3">{{ booking.session.date }}</div>
+  <div class="col-3">{{ booking.session.time | time:"G:i" }}</div>
+  <div class="col-3">{{ booking.session.location }}</div>
+  <div class="col-5 offset-7">
+  {% if booking.session.running == False %}
+  <div>Apologies, the gym has had to cancel this class.
+  </div>
+  {% else %}
+    <input class="cancel-button run-{{ booking.session.running }}-btn" type="button" value="Cancel Booking" id="{{ booking.session.id }}-view" data-toggle="modal" data-target="#modal-{{ booking.session.id }}">
+  {% endif %}
   </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="modal-{{ booking.session.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 id="modal-header-{{ booking.session.id }}" class="modal-title"
+    >Are you sure you want to cancel
+    {{booking.session.activity.name}}
+    at {{ booking.session.time }}
+    on {{ booking.session.date }}?
+  </h5>
+  </div>
+  <div class="modal-body">
+    <button id="{{ booking.session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
+    <button id="{{ booking.session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+  </div>
+</div>
+</div>
+</div>
 {% endfor %}
-{% endif %}
+{% for booking in bookings %}
+<div class="row checkout-row run-{{ booking.session.running }}">
+  <div class="col-3">{{ booking.session.activity.name }}</div>
+  <div class="col-3">{{ booking.session.date }}</div>
+  <div class="col-3">{{ booking.session.time | time:"G:i" }}</div>
+  <div class="col-3">{{ booking.session.location }}</div>
+  <div class="col-5 offset-7">
+  {% if booking.session.running == False %}
+  <div>Apologies, the gym has had to cancel this class.
+  </div>
+  {% else %}
+    <input class="cancel-button run-{{ booking.session.running }}-btn" type="button" value="Cancel Booking" id="{{ booking.session.id }}-view" data-toggle="modal" data-target="#modal-{{ booking.session.id }}">
+  {% endif %}
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal-{{ booking.session.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 id="modal-header-{{ booking.session.id }}" class="modal-title"
+    >Are you sure you want to cancel
+    {{booking.session.activity.name}}
+    at {{ booking.session.time }}
+    on {{ booking.session.date }}?
+  </h5>
+  </div>
+  <div class="modal-body">
+    <button id="{{ booking.session.id }}-yes" type="button" class="confirm-cancel btn btn-secondary">Yes</button>
+    <button id="{{ booking.session.id }}-no" type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+  </div>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</form>
+  
+{% else %}
+<h2>You're not booked into any classes yet. Visit the <a class="nav-link" href="/timetable.html" id="timetable-link">Timetable</a> to get involved!</h2> 
+{% endif %} 
+
+  <!-- Hidden inputs to communicate with python-->
+  <label class="invisible" for="cancel">Cancel Booking:</label>
+  <input class="invisible" type="text" id="cancel" name="cancel">
 
 <!-- Feedback Modal -->
 <button type="button" class="invisible" id="members-feedback-btn" data-toggle="modal" data-target="#members-feedback-modal"></button>
@@ -112,40 +109,25 @@
     </div>
   </div>
 </div>
-<div id="members-feedback-div" class="invisible">{{ member_feedback }}</div>
-<div id="cards">
+<p id="members-feedback-div" class="invisible">{{ member_feedback }}</p>
+</div>
 
 <div class="container">
   <div class="row">
-  <div class="col-12 col-sm-6">
-    <div class="card" style="width: 18rem;">
-      <h4>Have you tried our spa yet?</h4>
-      <img class="card-img-top" src="../../static/classbooking_app/images/spa-ad.jpg" alt="Card image cap">
-      <div class="card-body">
-        <p class="card-text">Enquire at the front desk to book your pampering session!</p>
-      </div>
+    <div class="col-12 col-sm-6 order-sm-first"><h3 class="ad-header">Get Social!</h3></div>
+    <div class="col-12 col-sm-6 has-bg-img order-sm-last contains-text-box">
+        <img class="bg-img my-image" src="../../static/classbooking_app/images/social-ad.jpg">
+          <a href="https://www.facebook.com/" target="_blank" id="text-button">Join our online Facebook community <i class="fa-brands fa-facebook"></i></button></a>
     </div>
-  </div>
-
-  <div class="col-12 col-sm-6">
-    <div class="card" style="width: 18rem;">
-      <h4>Get Social! <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a></h4>
-      <img class="card-img-top" src="../../static/classbooking_app/images/social-ad.jpg" alt="Card image cap">
-      <div class="card-body">
-        <p class="card-text"><a href="https://www.facebook.com/" target="_blank">
-          <button class="btn btn-secondary">
-            <small>Visit our online Facebook communicty to connect with other members and share your fitness goals!</small>
-          </button>
-        </a>
-        </p>
+    <div class="col-12 col-sm-6 order-sm-last"><h3 class="ad-header">Have you tried our spa yet?</h3></div>
+    <div class="col-12 col-sm-6 has-bg-img order-sm-first contains-text-box">
+      <img class="bg-img my-image" src="../../static/classbooking_app/images/spa-ad.jpg">
+      <div id="text-block">
+        <p>Enquire at the front desk and book yourself in for a pampering session!</p>
       </div>
     </div>
   </div>
 </div>
-</div>
-
-
-
 
 
 {% endblock %}
