@@ -6,7 +6,7 @@
 <h4>Edit Timetable:</h4>
 <h5><i class="fa-solid fa-circle-exclamation"></i> For Admin use only:</h5>
 <ul>
-<li>Sessions are shown in the table below. By default, the timetable for the next month is shown.</li>
+<li>Sessions are shown in the table below. By default, the timetable for the next month is shown, but all sessions are available to view and edit.</li>
  <li>Use the date, activity and location filters below to view sessions.</li>
  <li>For any session shown, alter the fields as required. To cancel a session, untick the 'running' box. Press 'Save Session Changes' and press confirm on the popup. 
   Altering information without pressing save WILL NOT update the Timetable.</li>
@@ -81,24 +81,24 @@
         <div id="session-headers" class="row">
           <div class="col-sm-2">Activity 
               {%if activity_filter != "All" %}
-              <button type="button" id="act-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              <button type="button" id="act-filter-icon" class="filter-icon filter-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
-              <button type="button" id="act-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              <button type="button" id="act-filter-icon" class="filter-icon filter-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}
           </div>
           <div class="col-sm-2">Date
               {%if date_filter != "" %}
-              <button type="button" id="dat-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              <button type="button" id="dat-filter-icon" class="filter-icon filter-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
-              <button type="button" id="dat-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              <button type="button" id="dat-filter-icon" class="filter-icon invisible filter-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}
           </div>
           <div class="col-sm-2">Time</div>
-          <div class="col-sm-2"><p class="header-icon"><i class="fa-solid fa-location-dot"></i></p><p class="header-txt">Location</p>
+          <div class="col-sm-2">Location
               {%if location_filter != "All" %}
-              <button type="button" id="loc-filter-icon" class="filter-icon admin-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              <button type="button" id="loc-filter-icon" class="filter-icon filter-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% else %}
-              <button type="button" id="loc-filter-icon" class="filter-icon admin-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              <button type="button" id="loc-filter-icon" class="filter-icon filter-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
               {% endif %}               
           </div>
           <div class="col-sm-1"><p class="header-icon"><i class="fa-solid fa-users"></i></p><p class="header-txt">Spaces</p></div>
@@ -112,10 +112,10 @@
         {% for session in sessions %}
         <div class="row">
           <div class="col-2 d-sm-none">
-            <label class="sm-font" for="{{ session.id }}-activity">Name</label>
+            <label class="sm-font admin-height" for="{{ session.id }}-activity">Name</label>
           </div>
             <div class="col-10 col-sm-2">
-                <select class="sm-width" id="{{ session.id }}-activity" name="{{ session.id }}-activity">
+                <select class="sm-width admin-height" id="{{ session.id }}-activity" name="{{ session.id }}-activity">
                     {% for activity in activities %}
                     {% if activity == session.activity %}
                     <option value="{{ activity.name }}" selected>{{ activity.name }}</option>
@@ -126,19 +126,19 @@
                     </select>
             </div>
             <div class="col-2 d-sm-none">
-              <label class="sm-font" for="{{ session.id }}-date">Date/Time</label>
+              <label class="sm-font admin-height" for="{{ session.id }}-date">Date/Time</label>
             </div>
             <div class="col-5 col-sm-2">
-                <input class="date-edit sm-width" type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
+                <input class="date-edit sm-width admin-height" type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
             </div>
             <div class="col-5 col-sm-2">
-                <input class="sm-width" type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}" step="3660">
+                <input class="sm-width admin-height" type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}" step="3660">
             </div>
             <div class="col-2 d-sm-none">
-              <label class="sm-font" for="{{ session.id }}-location">Location</label>
+              <label class="sm-font admin-height" for="{{ session.id }}-location">Location</label>
             </div>
             <div class="col-10 col-sm-2">
-                <select class="sm-width" id="{{ session.id }}-location" name="{{ session.id }}-location">
+                <select class="sm-width admin-height" id="{{ session.id }}-location" name="{{ session.id }}-location">
                     {% for location in locations %}
                     {% if location == session.location %}
                     <option value="{{ location }}" selected>{{ location }}</option>
@@ -149,30 +149,30 @@
                 </select>
             </div>
             <div class="col-2 d-sm-none">
-              <label class="sm-font" for="{{ session.id }}-spaces">Spaces</label>
+              <label class="sm-font admin-height" for="{{ session.id }}-spaces">Spaces</label>
             </div>
             <div class="col-5 col-sm-1">
-                <input class="sm-width" type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}" min="0" max="25" step="1">
+                <input class="sm-width admin-height" type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}" min="0" max="25" step="1">
             </div>
             <div class="col-2 offset-1 d-sm-none">
-              <label class="sm-font" for="{{ session.id }}-running">Running</label>
+              <label class="sm-font admin-height" for="{{ session.id }}-running">Running</label>
             </div>
             <div class="col-2 col-sm-1">
                 {% if session.running %}
-                <input class="sm-width" type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" checked>
+                <input class="sm-width admin-checkbox" type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" checked>
                 {% else %}
-                <input class="sm-width" type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running">
+                <input class="sm-width admin-checkbox" type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running">
                 {% endif %}                
             </div>
             <div class="col-5 offset-2 col-sm-1 offset-sm-0">
-                <button class="admin-btn sm-width sm-btn" type="button"  name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
+                <button class="admin-btn sm-width sm-btn admin-height" type="button"  name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
                   <p class="action-icon"><i class="fa-solid fa-floppy-disk"></i></p>
                   <p class="action-txt">Save Changes</p>
                 </button>
             </div>
             
             <div class="col-5 col-sm-1">
-                <button class="admin-btn sm-width sm-btn" type="button"  name="{{ session.id }}-delete" data-toggle="modal" data-target="#confirm-delete-modal-{{ session.id }}">
+                <button class="admin-btn sm-width sm-btn admin-height" type="button"  name="{{ session.id }}-delete" data-toggle="modal" data-target="#confirm-delete-modal-{{ session.id }}">
                   <p class="action-icon"><i class="fa-solid fa-trash-can"></i></p>
                   <p class="action-txt">Delete Session</p>
                 </button>
