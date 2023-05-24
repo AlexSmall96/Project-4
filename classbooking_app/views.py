@@ -9,7 +9,7 @@ from itertools import chain
 
 
 def load_home_page(request):
-    return render(request, 'classbooking_app/home.html')
+    return render(request, '../templates/classbooking_app/home.html')
 
 
 def name_to_id(activity):
@@ -162,7 +162,7 @@ def admin_page(request):
         'feedback': feedback,
         'max_id': max_id
     }
-    return render(request, 'classbooking_app/admin.html', context)
+    return render(request, '../templates/classbooking_app/admin.html', context)
 
 
 def create_booking(user, id):
@@ -188,30 +188,6 @@ def delete_booking(user, id):
     session.spaces = session.activity.capacity - spaces_taken
     session.save()
     return f"Thanks for confirming, your booking for {session.activity.name} at {session.time} on {session.date} has been cancelled."
-
-
-def checkout(request):
-    user = request.user
-    confirm_btn_class = "visible"
-    confirm_msg_class = "invisible"
-    if request.method == "POST":
-        remove = request.POST.get('remove')
-        if remove != "":
-            delete_booking(user, remove)
-        form_ready = request.POST.get('form-ready') == "y"
-        if form_ready:
-            confirm_bookings(user)
-            confirm_btn_class = "invisible"
-            confirm_msg_class = "visible"
-    existing_bookings = Booking.objects.filter(user=user)
-    form_value = "y"
-    context = {
-        'existing_bookings': existing_bookings,
-        'confirm_btn_class': confirm_btn_class,
-        'confirm_msg_class': confirm_msg_class,
-        'form_value': form_value
-        }
-    return render(request, 'classbooking_app/checkout.html', context)
 
 
 def load_timetable(request):
@@ -259,7 +235,7 @@ def load_timetable(request):
         'active_date': active_date,
         'timtbl_feedback': timtbl_feedback
         }
-    return render(request, 'classbooking_app/timetable.html', context)
+    return render(request, '../templates/classbooking_app/timetable.html', context)
 
 
 def view_bookings(request):
@@ -315,4 +291,4 @@ def view_bookings(request):
             'no_tot_bookings': no_tot_bookings
             }
     # Pass through the remaining users bookings
-    return render(request, 'classbooking_app/view_bookings.html', context)
+    return render(request, '../templates/classbooking_app/view_bookings.html', context)
