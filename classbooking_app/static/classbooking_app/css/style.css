@@ -380,10 +380,12 @@ body{
 #timetable-modal{
     text-align: center;
 }
-
-.modal button{
-    margin-top: 5px;
+   
+#members-area .modal button{
+        margin-top: 5px;
 }
+
+
 @media (min-width:992px) and (max-width:1199px){
     .session input{
         font-size:small
