@@ -17,14 +17,30 @@ body{
     }
 }
 
-@media (min-width:320px) and (max-width:375px){
+@media (max-width:370px){
+    #hero-image{
+        height:250px;
+        background-size: auto 100%;
+    }
+}
+
+@media (min-width:300px) and (max-width:477px){
     #home-links button{
         height:80px;
     }
 }
+#home-links-background{
+    width:100%;
+}
+
 #home-links{
-    margin-top: 15px;
-    margin-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#home-links h4{
+    margin-top:2px;
+    margin-bottom: 2px;
 }
 
 .link-btn{
@@ -102,18 +118,18 @@ body{
 }
 
 #about a{
-    color:aqua;
+    color:rgb(153, 238, 238);
     font-weight: 700;
     text-decoration: none;
 }
 
 #about button{
-    color:aqua;
     font-weight: 700;
     height:25px;
-    padding:1px;
+    padding-top: 0px;
+    padding-bottom:4px;
     border-style: ridge;
-    border-width: 1px;
+    border-width: 2px;
     border-color:darkgoldenrod;
 
 }
@@ -157,6 +173,7 @@ body{
         font-size: medium;
     }
 }
+
 
 @media (min-width:875px){
     #about h2, #about p{
@@ -556,6 +573,12 @@ footer{
     font-size: small;
     text-align: center;
 }
+
+@media (min-width:700px){
+    footer{
+        font-size:medium
+    }
+}
 #footer-btn-section{
     width:50%;
     margin:auto;
@@ -563,7 +586,6 @@ footer{
 }
 
 #footer-btn{
-    height:40px;
     font-size: medium
 }
 
