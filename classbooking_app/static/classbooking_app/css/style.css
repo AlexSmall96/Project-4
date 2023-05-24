@@ -381,6 +381,11 @@ body{
     text-align: center;
 }
 
+@media (min-width:992px) and (max-width:1199px){
+    .session input{
+        font-size:small
+    }
+}
 .checkout-row{
     border-style:solid;
     font-size: small;
@@ -409,12 +414,6 @@ body{
     width:100%;
     float:left;
 }
-
-.carousel-item{
-    height: 600px;
-}
-
-
 
 .invisible{
     display:none
@@ -586,7 +585,8 @@ footer{
 }
 
 #footer-btn{
-    font-size: medium
+    font-size: medium;
+    max-width:373px;
 }
 
 #footer-contact-links{
