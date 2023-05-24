@@ -1,0 +1,1 @@
+web: gunicorn rural-fitness.wsgi
