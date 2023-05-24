@@ -76,18 +76,32 @@
 
 {% endblock %}
 <footer class="dark-background">
-  <div id="membership-footer">
-    <a class="nav-link" {% if user.is_authenticated %} href="/view_bookings.html" {%else %} href="{% url 'signup' %}" {% endif %}>
-      <button id="footer-btn" type="button" class="btn btn-secondary">
-      {% if user.is_authenticated %} Members Area {%else %} View our Membership Options {% endif %}
-      </button>
-    </a>
-  </div>
-  <div id="contact">
-    <i class="fa-brands fa-facebook fa-2xl"></i>
-    <i class="fa-brands fa-instagram fa-2xl"></i>
-    <i class="fa-brands fa-linkedin fa-2xl"></i>
-    <i class="fa-brands fa-github fa-2xl"></i>
+  <div id="footer-btn-section">
+    {% if user.is_authenticated %}
+        <a class="nav-link" href="/view_bookings.html">
+          <button id="footer-btn" type="button" class="btn btn-secondary link-btn">
+            Members Area
+            </button>
+        </a>
+    {% else %}
+        <a class="nav-link" href="{% url 'signup' %}" id="timetable-link">
+          <button id="footer-btn" type="button" class="btn btn-secondary link-btn">
+            Membership Options
+          </button>
+        </a>
+    {%endif %}
+    </div>
+  <div id="contact" class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-6"><i class="fa-solid fa-envelope"></i> ruralfitness@gmail.com</div>
+      <div class="col-12 col-sm-6"><i class="fa-solid fa-phone"></i> 0131 123 4567</div>
+    </div>
+    <div id="footer-contact-links" class="row">
+      <div class="col-6 col-sm-3"><i class="fa-brands fa-facebook"></i></div>
+      <div class="col-6 col-sm-3"><i class="fa-brands fa-instagram"></i></div>
+      <div class="col-6 col-sm-3"><i class="fa-brands fa-linkedin"></i></div>
+      <div class="col-6 col-sm-3"><i class="fa-brands fa-github"></i></div>
+    </div>
   </div>
 </body>
 </footer>

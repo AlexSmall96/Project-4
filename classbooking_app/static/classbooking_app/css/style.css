@@ -27,7 +27,7 @@ body{
     margin-bottom: 15px;
 }
 
-#home-links button{
+.link-btn{
     margin:auto;
     width:100%;
     border-style: ridge;
@@ -480,10 +480,6 @@ margin-top: 88px;
     margin-top: 10px;
 }
 
-footer{
-    height:150px;
-
-}
 #signup-btn-div{
     width:100%;
     margin-top: 10px;
@@ -556,26 +552,25 @@ footer{
     margin-top: 10px;
 }
 
-#membership-footer{
-    width:25%;
-    margin:auto;
-    padding-top:10px;
+footer{
+    font-size: small;
+    text-align: center;
 }
-
+#footer-btn-section{
+    width:50%;
+    margin:auto;
+    padding: 10px;
+}
 
 #footer-btn{
-    color:black;
-    background-color:lightgray;
-    border-style: solid;
-    border-width: 2px;
-    border-color: goldenrod
+    height:40px;
+    font-size: medium
 }
 
-#contact{
-    width:25%;
-    margin:auto;
-    padding-top:10px;
-
+#footer-contact-links{
+    width:20%;
+    margin: auto;
+    margin-top:10px;
 }
 
 /* Admin Page */
