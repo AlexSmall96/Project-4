@@ -381,6 +381,9 @@ body{
     text-align: center;
 }
 
+.modal button{
+    margin-top: 5px;
+}
 @media (min-width:992px) and (max-width:1199px){
     .session input{
         font-size:small
@@ -401,8 +404,6 @@ body{
 
 #timetable-tabContent{
     margin-top: 10px;
-    height:700px;
-    overflow: scroll;
 }
 
 #about-pool-img{
@@ -439,10 +440,6 @@ body{
 margin-top: 88px;
 }
 
-#my-bookings{
-    height:500px;
-    overflow: scroll;
-}
 
 /* Login Page */
 
@@ -845,7 +842,12 @@ border-width: 2px;
 
 /* Members Area */
 #members-area{
+    min-height: 800px;
     text-align: center;
+}
+
+#members-area h2{
+    margin-bottom: 0px;
 }
 #ads{
     text-align: center;
@@ -868,7 +870,6 @@ border-width: 2px;
 }
 
 #my-bookings .row{
-    height:70px;
     font-size: medium;
 }
 #my-bookings .row{

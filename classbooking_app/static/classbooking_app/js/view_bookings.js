@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function(){
         const membersArea = document.getElementById("members-area")
         const adsArea = document.getElementById("ads")
 
-        myBookings.style.height =  `${70*bookCount}px`
-        membersArea.style.height = `${70*bookCount+200+70*Math.max(4-bookCount)}px`
+        //myBookings.style.height =  `${70*bookCount}px`
+       // membersArea.style.height = `${70*bookCount+200+70*Math.max(4-bookCount)}px`
 
         for (let button of yesButtons){
             let sessionId = button.id.substring(0,6)
