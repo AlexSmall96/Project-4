@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function(){
-    console.log("in the new folder")
         const cancelForm = document.getElementById("cancel-form")
         const cancelledBookBtns = document.getElementsByClassName("run-False-btn")
         const feedbackBtn = document.getElementById("members-feedback-btn")
