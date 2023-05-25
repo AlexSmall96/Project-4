@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import date, datetime
+from cloudinary.models import CloudinaryField
+
 
 class Activity(models.Model):
     name = models.CharField(
@@ -14,11 +16,7 @@ class Activity(models.Model):
         blank=False,
         default="test_description"
         )
-    image = models.CharField(
-        max_length=20,
-        null=False,
-        blank=False,
-        default="test_image")
+    image = CloudinaryField('image', default='placeholder')
     capacity = models.IntegerField(
         null=False,
         blank=False,
