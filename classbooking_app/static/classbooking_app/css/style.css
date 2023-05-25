@@ -1,4 +1,11 @@
 /* Home Page */
+#yoga-img{
+    height: 400px;
+    width: auto;
+    margin:auto;
+    background: url('../images/hero-gym.jpg') no-repeat center center;
+}
+
 body{
     font-family: 'Mallanna', sans-serif;
 }
@@ -436,6 +443,7 @@ body{
 
 #session-cont{
     margin-top: 20px;
+    margin-bottom: 100px;
 }
 
 /* Login Page */
@@ -564,6 +572,7 @@ body{
 
 footer{
     font-size: small;
+    min-height:150px;
     text-align: center;
 }
 
@@ -583,9 +592,15 @@ footer{
     max-width:373px;
 }
 
+#footer-contact-links{
+    margin-top:30px;
+}
 
 /* Admin Page */
 
+#admin-list-section{
+    min-height: 400px;
+}
 #admin-instructions{
 padding:20px;
 border-style: groove;

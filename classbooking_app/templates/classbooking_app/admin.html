@@ -76,6 +76,7 @@
       </button>  
     </div>
   </div>
+   <div id="admin-list-section">
     <div id="admin-headers" class="container session-box">
       <div class="row">
         <div id="session-headers" class="row">
@@ -109,6 +110,7 @@
       </div>
     </div>
     <div id="session-cont" class="container session-box">
+      {% if sessions|length > 0 %}
         {% for session in sessions %}
         <div class="row">
           <div class="col-2 d-sm-none">
@@ -207,6 +209,9 @@
     </div>
   </div>
         {% endfor %}
+        {% else %}
+        <p>No Sessions matching criteria.</p>
+        {% endif %}
 </div>
 
 
@@ -243,7 +248,7 @@
       </div>
     </div>
   </div>
-
+</div>
 <div id="activity-list" class="invisible">
     {% for activity in activities %}
     <p>{{ activity }}</p>
