@@ -105,7 +105,7 @@
 {% else %}
 <div class="tab-pane fade show" id="nav-{{ date }}" role="tabpanel" aria-labelledby="nav-{{ date }}-tab">
 {% endif %}
-  <div class="container height-class timetable-cont">
+  <div class="container timetable-cont">
  {% for session in todays_sessions %}
  {% if session.date == date %}
   <h2 id="{{ session.id }}-date-header" class="date-header invisible">{{ date }}</h2>
@@ -172,20 +172,21 @@
   <div class="col-6 col-sm-6 col-md-3 col-lg-3"><strong>{{ session.activity.name }}</strong>
     <p class="description">{{ session.activity.description }}</p>
   </div>
+  {% if session.running == True %}
   <div class="col-6 col-sm-2 col-md-1 col-lg-1 xs-font icon-field">
-    {% if session.running == True %}
     <i class="fa-solid fa-users"></i>
     {{ session.spaces }} spaces
-    {% else %}
-    <div> Apologies, the gym has had to cancel this class. </div>
-    {% endif %}
   </div>
+    {% else %}
+    <div class="col-12 col-sm-6 col-md-6 col-lg-2 xs-font icon-field">
+     <strong>Apologies, the gym has had to cancel this class.</strong> 
+    </div>
+  {% endif %}
   <div class="col-6 col-sm-6 col-md-2 col-lg-2 icon-field xs-font">
     {% if session.running == True %} <i class="fa-solid fa-location-dot"></i><span> {{ session.location }} </span>{% endif %}
   </div>
   <div class="col-6 offset-6 col-sm-4 col-md-3 col-lg-2 offset-md-0 offset-sm-2 "> 
     {% if session.running == False %}
-    <div></div>
     {% elif session.spaces > 0 %}
     <input class="add-to-cart run-{{ session.running }}-btn" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
     
