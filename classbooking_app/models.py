@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import date, datetime
 from cloudinary.models import CloudinaryField
-
+from django.utils import timezone
 
 class Activity(models.Model):
     name = models.CharField(
@@ -38,8 +38,8 @@ class Activity(models.Model):
 
 class Session(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    date = models.DateField(default=date.today())
-    time = models.TimeField(default=datetime.now())
+    date = models.DateField()
+    time = models.TimeField()
     spaces = models.IntegerField(default=25)
     location = models.CharField(max_length=50, default='Studio A')
     running = models.BooleanField(default=True)
