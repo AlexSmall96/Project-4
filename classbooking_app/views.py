@@ -95,13 +95,17 @@ def update_session(request, id):
 
 
 def delete_session(id):
-    session = get_object_or_404(Session, id=id)
-    name = session.activity.name
-    date = session.date
-    time = session.time
-    location = session.location
-    session.delete()
-    return f"Thank you, your {name} session on {date} at {time} in {location} has been deleted."
+    session = Session.objects.filter(id=id)
+    if len(session) > 0:
+        session = session[0]
+        name = session.activity.name
+        date = session.date
+        time = session.time
+        location = session.location
+        session.delete()
+        return f"Thank you, your {name} session on {date} at {time} in {location} has been deleted."
+    else:
+        return ""
 
 
 def admin_page(request):

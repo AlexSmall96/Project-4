@@ -18,10 +18,12 @@
 
 
     {% csrf_token %}
+    <!--Hidden Inputs to commmunicate with python-->
     <input class="invisible" type="text" id="update-field" name="update-field">
     <input class="invisible" type="text" id="delete-field" name="delete-field">
     <input class="invisible" type="text" id="create-field" name="create-field">
     <input class="invisible" type="text" id="feedback-field" name="feedback-field" value="{{ feedback_field }}">
+    <p class="invisible" id="admin-feedback">{{ feedback }}</p>
 
     <div id="admin-filter" class="container">
       <div class="row">
@@ -112,7 +114,7 @@
     <div id="session-cont" class="container session-box">
       {% if sessions|length > 0 %}
         {% for session in sessions %}
-        <div class="row">
+        <div id="{{ session.id }}-admin-list" class="row">
           <div class="col-2 d-sm-none">
             <label class="sm-font admin-height" for="{{ session.id }}-activity">Name</label>
           </div>
@@ -268,6 +270,6 @@
 
 {% block contentscript %}
 
-<script src="../../static/classbooking_app/js/admin.js"></script>
+<script src="../../static/classbooking_app/js/admin.js?"></script>
 
 {% endblock %}

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const createBtnModal = document.getElementById("create-btn-modal")
     const updateField = document.getElementById("update-field")
     const createField = document.getElementById("create-field")
-    const FeedField = document.getElementById("feedback-field")
+    const feedback = document.getElementById("admin-feedback").innerHTML
     const delFeedField = document.getElementById("delete-feedback-field")
     const createFeedField = document.getElementById("create-feedback-field")
     const deleteField = document.getElementById("delete-field")
@@ -23,11 +23,11 @@ document.addEventListener("DOMContentLoaded", function(){
     const feedbackModalTitle = document.getElementById("feedback-modal-title")
     const defaultDate = document.getElementById("default-date").innerHTML
  
-    if (FeedField.value === "y"){
+    if (feedback != ""){
         feedbackModal.classList.remove("fade")
         feedbackModalBtn.click()
         feedbackModal.classList.add("fade")
-        FeedField.value = ""
+        feedback.value = ""
     }
     
 
@@ -163,6 +163,8 @@ document.addEventListener("DOMContentLoaded", function(){
         btn.addEventListener("click", () => {
             sessionId = btn.id.substring(0,6)
             deleteField.value = sessionId
+            let sessionRow = document.getElementById(sessionId.concat("-admin-list"))
+            sessionRow.remove()
             sessionForm.submit()
         })
     }
