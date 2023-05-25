@@ -136,7 +136,7 @@
                 <input class="date-edit sm-width admin-height" type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
             </div>
             <div class="col-5 col-sm-2">
-                <input class="sm-width admin-height" type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}" step="3660">
+                <input class="sm-width admin-height" type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}" step="3600000">
             </div>
             <div class="col-2 d-sm-none">
               <label class="sm-font admin-height" for="{{ session.id }}-location">Location</label>
@@ -241,7 +241,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="feedback-modal-title">
+            {% if feedback == None %}
+            Session times must be on the hour.
+            {% else %}
             {{ feedback }}
+            {% endif %}
           </h5>
         </div>
         <div class="modal-footer">

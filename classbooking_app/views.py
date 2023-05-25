@@ -102,7 +102,6 @@ def admin_page(request):
     # Default location and activity filters to all
     location_filter = 'All'
     activity_filter = 'All'
-    feedback_field = ""
     feedback = ""
     # Load todays sessions
     sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
@@ -117,15 +116,12 @@ def admin_page(request):
         update_id = request.POST.get('update-field')
         if update_id != "":
             feedback = create_or_update_session(request, update_id, "update")
-            feedback_field = "y"
         delete_id = request.POST.get('delete-field')
         if delete_id != "":
             feedback = delete_session(delete_id)
-            feedback_field = "y"
         create_id = request.POST.get('create-field')
         if create_id != "":
             feedback = create_or_update_session(request, create_id, "create")
-            feedback_field = "y"
         date_filter = request.POST.get("date-filter")
         activity_filter = request.POST.get('activity-filter')
         location_filter = request.POST.get('location-filter')
@@ -147,7 +143,6 @@ def admin_page(request):
         'sessions': sessions,
         'activities': activities,
         'locations': locations,
-        'feedback_field': feedback_field,
         'feedback': feedback,
         'max_id': max_id
     }
