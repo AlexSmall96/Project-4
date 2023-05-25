@@ -9,7 +9,7 @@ from itertools import chain
 
 
 def load_home_page(request):
-    return render(request, '../templates/classbooking_app/home.html')
+    return render(request, 'classbooking_app/home.html')
 
 
 def name_to_id(activity):
@@ -162,7 +162,7 @@ def admin_page(request):
         'feedback': feedback,
         'max_id': max_id
     }
-    return render(request, '../templates/classbooking_app/admin.html', context)
+    return render(request, 'classbooking_app/admin.html', context)
 
 
 def create_booking(user, id):
@@ -235,7 +235,7 @@ def load_timetable(request):
         'active_date': active_date,
         'timtbl_feedback': timtbl_feedback
         }
-    return render(request, '../templates/classbooking_app/timetable.html', context)
+    return render(request, 'classbooking_app/timetable.html', context)
 
 
 def view_bookings(request):
@@ -291,4 +291,4 @@ def view_bookings(request):
             'no_tot_bookings': no_tot_bookings
             }
     # Pass through the remaining users bookings
-    return render(request, '../templates/classbooking_app/view_bookings.html', context)
+    return render(request, 'classbooking_app/view_bookings.html', context)

@@ -16,7 +16,11 @@ class Activity(models.Model):
         blank=False,
         default="test_description"
         )
-    image = CloudinaryField('image', default='placeholder')
+    image = models.CharField(
+        max_length=5000,
+        null=False,
+        blank=False,
+        default="test_image")
     capacity = models.IntegerField(
         null=False,
         blank=False,

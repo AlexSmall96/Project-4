@@ -947,11 +947,11 @@ border-width: 2px;
     }
   }
 
-@media (max-width:470px){
+  @media (max-width:470px){
     #my-bookings .row{
         font-size: small;
     }
-}
-
+ }
+ 
 
 
