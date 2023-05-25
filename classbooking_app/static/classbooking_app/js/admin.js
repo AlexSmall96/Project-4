@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function(){
               <input class="date-edit sm-width" type="date" id="${sessionId}-date" name="${sessionId}-date" value="${defaultDate}">
           </div>
           <div class="col-5 col-sm-2">
-              <input class="sm-width" type="time" id="${sessionId}-time" name="${sessionId}-time" value="06:30" step="3660">
+              <input class="sm-width" type="time" id="${sessionId}-time" name="${sessionId}-time" value="07:00" step="3600000">
           </div>
           <div class="col-2 d-sm-none">
             <label class="sm-font" for="${sessionId}-location">Location</label>
