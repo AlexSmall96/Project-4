@@ -105,7 +105,10 @@ def admin_page(request):
     feedback = ""
     # Load todays sessions
     sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
-    max_id = Session.objects.all().values_list('id', flat=True).order_by('-id')[0]
+    if len(Session.objects.all()) > 0:
+        max_id = list(Session.objects.all().values_list('id', flat=True).order_by('-id'))[0]
+    else:
+        max_id = 444444
     # Get all activities and locations to use as dropdown for filters
     activities = Activity.objects.all()
     locations = Session.objects.all().values_list(
