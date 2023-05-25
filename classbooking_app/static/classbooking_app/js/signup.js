@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
+    console.log("working")
     const memberBtn = document.getElementById("membership-btn")
     const memberTab = document.getElementById("nav-membership-tab")
     const persTab = document.getElementById("nav-personal-tab")
@@ -27,18 +28,5 @@ document.addEventListener("DOMContentLoaded", function(){
         payTab.classList.add("disabled")
         loginTab.click()
     })
-
-    finalForm.addEventListener("submit", (event) => {
-        event.preventDefault()
-    })
-
-
-
-
-
-
-
-
-
 
 })
