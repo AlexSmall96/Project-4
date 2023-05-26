@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../static/classbooking_app/css/style.css">
+    <link rel="stylesheet" href="../../static/classbooking_app/css/style.css?2">
     <title>classbooking</title>
 </head>
 <body>
@@ -77,9 +77,9 @@
   <div class="tab-pane fade" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab"></div>
   <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab"></div>
   <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
-  <form method="post" id="signup-form-final">
-    {% csrf_token %}
-    <div class="container height-class">
+      <form method="post" id="signup-form-final">
+      {% csrf_token %}
+      <div class="container height-class">
       {% for field in form %}
       <div class="row">
         <div class="col-12">{{ field.label_tag }}</div>
@@ -88,13 +88,14 @@
         <div class="col-12"><small><strong>{{ error }}</strong></small></div>
         {% endfor %}
         {% if field.help_text %}
-        <div class="col-12">{{ field.help_text }}</div>
+        <div class="col-12 help-text">{{ field.help_text }}</div>
         {% endif %}
       </div>
       {% endfor %}
       <div class="row">
         <div class="col-12"><button type="submit" class="btn btn-secondary">Sign Up!</button></div>
       </div>
+    </div>
     </form>
   </div>
 </div>
