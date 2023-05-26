@@ -117,20 +117,21 @@
   <div class="col-6 col-sm-6 col-md-3 col-lg-3"><strong>{{ session.activity.name }}</strong>
     <p class="description">{{ session.activity.description }}</p>
   </div>
+  {% if session.running == True %}
   <div class="col-6 col-sm-2 col-md-1 col-lg-1 xs-font icon-field">
-    {% if session.running == True %}
     <i class="fa-solid fa-users"></i>
     {{ session.spaces }} spaces
-    {% else %}
-    <div> Apologies, the gym has had to cancel this class. </div>
-    {% endif %}
   </div>
+    {% else %}
+    <div class="col-12 col-sm-6 col-md-6 col-lg-2 xs-font icon-field">
+     <strong>Apologies, the gym has had to cancel this class.</strong> 
+    </div>
+  {% endif %}
   <div class="col-6 col-sm-6 col-md-2 col-lg-2 icon-field xs-font">
     {% if session.running == True %} <i class="fa-solid fa-location-dot"></i><span> {{ session.location }} </span>{% endif %}
   </div>
   <div class="col-6 offset-6 col-sm-4 col-md-3 col-lg-2 offset-md-0 offset-sm-2 "> 
     {% if session.running == False %}
-    <div></div>
     {% elif session.spaces > 0 %}
     <input class="add-to-cart run-{{ session.running }}-btn" type="button" id="{{ session.id }}" name="{{ session.id }}" value="Add to Cart">
     
@@ -251,10 +252,10 @@
       <div id="footer-contact-links" class="row">
         <div class="col-12 col-sm-6 col-md-4 order-md-first"><i class="fa-solid fa-envelope"></i> ruralfitness@gmail.com</div>
         <div class="col-12 col-sm-6 col-md-4 order-md-last"><i class="fa-solid fa-phone"></i> 0131 123 4567</div>
-        <div class="col-4 col-sm-3 col-md-1"><i class="fa-brands fa-facebook"></i></div>
-        <div class="col-2 col-sm-3 col-md-1"><i class="fa-brands fa-instagram"></i></div>
-        <div class="col-2 col-sm-3 col-md-1"><i class="fa-brands fa-linkedin"></i></div>
-        <div class="col-4 col-sm-3 col-md-1"><i class="fa-brands fa-github"></i></div>
+        <div class="col-4 col-sm-3 col-md-1"><a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a></div>
+        <div class="col-2 col-sm-3 col-md-1"><a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a></div>
+        <div class="col-2 col-sm-3 col-md-1"><a href="https://www.linkedin.com/in/alex-small-a8977116b/" target="_blank"><i class="fa-brands fa-linkedin"></i></a></div>
+        <div class="col-4 col-sm-3 col-md-1"><a href="https://github.com/AlexSmall96/Rural-Fitness" target="_blank"><i class="fa-brands fa-github"></i></a></div>
       </div>
     </div>
   </body>

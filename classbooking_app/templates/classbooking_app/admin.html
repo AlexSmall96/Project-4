@@ -27,11 +27,11 @@
 
     <div id="admin-filter" class="container">
       <div class="row">
-        <div class="col-3"><label for="date-filter">Date:</label></div>
+        <div class="col-3"><label for="dat-filter">Date:</label></div>
         <div class="col-9"><input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}"></div>
       </div>
       <div class="row">
-        <div class="col-3"><label for="activity-filter">Activity: </label></div>
+        <div class="col-3"><label for="act-filter">Activity: </label></div>
         <div class="col-9"><select class="filter" id="act-filter" name="activity-filter" value="{{ activity_filter }}">
           <option class="activity-option" value="All">All</option>
           {% for activity in activities %}
@@ -46,7 +46,7 @@
       </div>
       <div class="row">
         <div class="col-3">
-          <label for="location-filter">Location:</label>
+          <label for="loc-filter">Location:</label>
         </div>
         <div class="col-9">    
           <select class="filter" id="loc-filter" name="location-filter" value="{{ location_filter }}">

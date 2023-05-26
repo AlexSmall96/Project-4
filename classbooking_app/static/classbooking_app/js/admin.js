@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const activityList = document.getElementById("activity-list").children
     const filterIcons = document.getElementsByClassName("filter-icon")
     const locationFilterIcon = document.getElementById("location-filter-icon")
-    const locationFilter = document.getElementById("location-filter")
+    const locationFilter = document.getElementById("loc-filter")
     const updateBtns = document.getElementsByClassName("update-btn")
     const deleteBtns = document.getElementsByClassName("delete-btn")
     const createBtnModal = document.getElementById("create-btn-modal")
