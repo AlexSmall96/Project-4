@@ -24,5 +24,6 @@ urlpatterns = [
     path('', views.load_home_page, name='load_home_page'),
     path('timetable.html', views.load_timetable, name='load_timetable'),
     path('members_area.html', views.load_members_area, name='load_members_area'),
+    path('signup_details.html', views.load_signup_details_page, name='load_signup_details_page'),
     path('admin.html', views.admin_page, name='admin_page'),
 ]

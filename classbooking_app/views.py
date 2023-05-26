@@ -12,6 +12,10 @@ def load_home_page(request):
     return render(request, 'classbooking_app/home.html')
 
 
+def load_signup_details_page(request):
+    return render(request, 'classbooking_app/signup_details.html')
+
+
 def name_to_id(activity):
     names = {
         'Boxfit':	1,
