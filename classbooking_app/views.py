@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages  
 from django.contrib.auth import authenticate
 from .models import Activity, Session, Booking
 from datetime import datetime, date, timedelta
@@ -14,6 +16,19 @@ def load_home_page(request):
 
 def load_signup_details_page(request):
     return render(request, 'classbooking_app/signup_details.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully')
+            return redirect('register')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'classbooking_app/register.html', {'form': form})  
 
 
 def name_to_id(activity):

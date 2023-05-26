@@ -77,26 +77,42 @@
   <div class="tab-pane fade" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab"></div>
   <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab"></div>
   <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
+    {% if messages %}
+    <div class="register-success height-class">
+    <h3>{% for message in messages %}{{ message }}!{% endfor %}</h3>
+    <a class="nav-link" href="{% url 'login' %}">
+      <button type="button" class="btn btn-secondary link-btn">
+        <h5>Click here to Login with your details</h5>
+      </button>
+    </a>
+    <a class="nav-link" href="signup_details.html">
+      <button type="button" class="btn btn-secondary link-btn">
+        <h5>Click here to Register another account</h5>
+      </button>
+    </a>
+  </div>     
+    {% else %}
       <form method="post" id="signup-form-final">
-      {% csrf_token %}
-      <div class="container height-class">
-      {% for field in form %}
-      <div class="row">
-        <div class="col-12">{{ field.label_tag }}</div>
-        <div class="col-12">{{ field }}</div>
-        {% for error in field.errors %}
-        <div class="col-12"><small><strong>{{ error }}</strong></small></div>
-        {% endfor %}
-        {% if field.help_text %}
-        <div class="col-12 help-text">{{ field.help_text }}</div>
-        {% endif %}
-      </div>
-      {% endfor %}
-      <div class="row">
-        <div class="col-12"><button type="submit" class="btn btn-secondary">Sign Up!</button></div>
-      </div>
-    </div>
+        {% csrf_token %}
+        <div class="container height-class">
+          {% for field in form %}
+          <div class="row">
+            <div class="col-12">{{ field.label_tag }}</div>
+            <div class="col-12">{{ field }}</div>
+            {% for error in field.errors %}
+            <div class="col-12"><small><strong>{{ error }}</strong></small></div>
+            {% endfor %}
+            {% if field.help_text %}
+            <div class="col-12 help-text">{{ field.help_text }}</div>
+            {% endif %}
+          </div>
+          {% endfor %}
+          <div class="row">
+            <div class="col-12"><button type="submit" class="btn btn-secondary">Sign Up!</button></div>
+          </div>
+        </div>
     </form>
+    {% endif %}
   </div>
 </div>
 </div>

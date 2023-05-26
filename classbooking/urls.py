@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from classbooking_app import views
 
+
 urlpatterns = [
+    path('register.html', views.register, name='register'),
     path('admin/', admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
