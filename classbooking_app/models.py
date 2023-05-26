@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import date, datetime
-from cloudinary.models import CloudinaryField
 from django.utils import timezone
+
 
 class Activity(models.Model):
     name = models.CharField(

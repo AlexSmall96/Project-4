@@ -8,4 +8,3 @@ class SignUpView(generic.CreateView):
     form_class = UserCreationForm
     success_url = "/"
     template_name = "registration/signup.html"
-
