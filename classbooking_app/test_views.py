@@ -1,5 +1,6 @@
 from django.test import TestCase
-
+from django.shortcuts import get_object_or_404
+from .models import Activity, Session, Booking
 # Create your tests here.
 
 
@@ -33,8 +34,6 @@ class TestViews(TestCase):
 
     # def test_can_login(self):
 
-    # def test_can_create_booking(self):
-
     # def test_can_cancel_booking(self):
 
     # def test_can_create_session(self):
@@ -42,3 +41,12 @@ class TestViews(TestCase):
     # def test_can_update_session(self):
 
     # def test_can_delete_session(self):
+
+
+class TestViewActions(TestCase):
+
+    def test_can_create_booking(self):
+        session = get_object_or_404(Session, id="145054")
+        booking = Booking.objects.create(session=session, user="test_user")
+        self.assertEqual(booking.session, session)
+        self.assertEqual(booking.session.id, id)

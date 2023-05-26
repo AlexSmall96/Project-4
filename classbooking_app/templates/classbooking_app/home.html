@@ -10,7 +10,7 @@
 {% if user.is_authenticated %}
 <div class="row">
   <div class="col-6">
-    <a class="nav-link" href="/view_bookings.html">
+    <a class="nav-link" href="/members_area.html">
       <button type="button" class="btn btn-secondary link-btn">
         <h4>Members Area</h4>
         </button>
@@ -69,7 +69,7 @@
       </p>
       {% if user.is_authenticated %}
       View the <a class="" href="/timetable.html" id="timetable-link"><button class="btn btn-secondary link-btn-style">Timetable</button></a> to book classes, 
-      or head to the <a class="" href="/view_bookings.html"><button class="btn btn-secondary link-btn-style">Members Area</button></a> to review your bookings.
+      or head to the <a class="" href="/members_area.html"><button class="btn btn-secondary link-btn-style">Members Area</button></a> to review your bookings.
     {% else %}
       <p>Please <a href="{% url 'login' %}"><button class="btn btn-secondary link-btn-style">Login in</button></a> to view timetable and book classes.</p>
     {% endif %}

@@ -225,37 +225,34 @@ def load_timetable(request):
     return render(request, 'classbooking_app/timetable.html', context)
 
 
-def view_bookings(request):
+def load_members_area(request):
+    # Set the feedback message to empty as no form has been submitted yet
+    member_feedback = ""
     # Save current user
     user = request.user
+    # Get current date and time
     current_date = date.today()
     now = datetime.now()
+    # Get bookings for next week starting from tomorrow
     date_min = current_date + timedelta(days=1)
-    cancel_id = ""
-    member_feedback = ""
     bookings = Booking.objects.filter(
         user=user,
         session__date__gte=date_min
         ).order_by("session__date", "session__time")
+    # Get todays bookings where the class is still to occur
     todays_bookings = Booking.objects.filter(
         user=user,
         session__date=current_date,
         session__time__gte=now).order_by("session__date","session__time")
+    # Count the total number of users bookings
     no_tot_bookings = len(todays_bookings) + len(bookings)
-    context = {
-        'bookings': bookings,
-        'no_tot_bookings': no_tot_bookings,
-        'cancel_id': cancel_id,
-        'todays_bookings': todays_bookings
-        }
-    # If form is submitted delete the relevant booking
+    # Check if form has been submitted
     if request.method == "POST":
+        # Get id of session associated with booking the user wishes to cancel
         cancel_id = request.POST.get('cancel')
+        # Delete booking and return feedback message
         member_feedback = delete_booking(user, cancel_id)
-        session = get_object_or_404(Session, id=cancel_id)
-        cancel_name = session.activity.name
-        cancel_date = session.date
-        cancel_time = session.time
+        # Update the users bookings list
         bookings = Booking.objects.filter(
             user=user,
             session__date__gte=date_min
@@ -264,18 +261,15 @@ def view_bookings(request):
             user=user,
             session__date=current_date,
             session__time__gte=now).order_by("session__date", "session__time")
+        # Update count of total bookings
         no_tot_bookings = len(todays_bookings) + len(bookings)
-        cancelled_session = get_object_or_404(Session, id=cancel_id)
-        context = {
-            'member_feedback': member_feedback,
-            'bookings': bookings,
-            'cancel_id': cancel_id,
-            'cancel_name': cancel_name,
-            'cancel_date': cancel_date,
-            'cancel_time': cancel_time,
-            'cancelled_session': cancelled_session,
-            'current_date': current_date,
-            'no_tot_bookings': no_tot_bookings
-            }
+    # Save variables as context to pass through to browswer
+    context = {
+        'member_feedback': member_feedback,
+        'todays_bookings': todays_bookings,
+        'bookings': bookings,
+        'current_date': current_date,
+        'no_tot_bookings': no_tot_bookings,
+        }
     # Pass through the remaining users bookings
-    return render(request, 'classbooking_app/view_bookings.html', context)
+    return render(request, 'classbooking_app/members_area.html', context)

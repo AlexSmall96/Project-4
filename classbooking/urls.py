@@ -23,6 +23,6 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path('', views.load_home_page, name='load_home_page'),
     path('timetable.html', views.load_timetable, name='load_timetable'),
-    path('view_bookings.html', views.view_bookings, name='view_bookings'),
+    path('members_area.html', views.load_members_area, name='load_members_area'),
     path('admin.html', views.admin_page, name='admin_page'),
 ]
