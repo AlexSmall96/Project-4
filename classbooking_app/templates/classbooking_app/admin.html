@@ -186,7 +186,7 @@
               <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to make changes to this session?</h5>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, discard changes.</button>
+              <button id="data-dismiss-{{ session.id }}" type="button" class="btn btn-secondary" data-dismiss="modal">No, discard changes.</button>
               <button type="button" class="btn btn-primary update-btn" id="{{ session.id }}-update">Yes, save changes.</button>
             </div>
           </div>
@@ -220,7 +220,7 @@
                   <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to create this session?</h5>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="data-dismiss-create">No</button>
                   <button type="button" class="btn btn-primary" id="create-btn-modal">Yes</button>
                 </div>
               </div>
@@ -234,11 +234,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="feedback-modal-title">
-                {% if feedback == None %}
-                Session times must be on the hour.
-                {% else %}
                 {{ feedback }}
-                {% endif %}
               </h5>
             </div>
             <div class="modal-footer">
@@ -270,6 +266,6 @@
 {% block contentscript %}
 
 <!-- Link to js file-->
-<script src="../../static/classbooking_app/js/admin.js?2"></script>
+<script src="../../static/classbooking_app/js/admin.js"></script>
 
 {% endblock %}

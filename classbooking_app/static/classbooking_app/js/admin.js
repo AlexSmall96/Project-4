@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const deleteField = document.getElementById("delete-field");
     const feedback = document.getElementById("admin-feedback").innerHTML;
     const feedbackModal = document.getElementById("feedback-modal");
+    const feedbackModalTitle = document.getElementById("feedback-modal-title");
     const feedbackModalBtn = document.getElementById("feedback-modal-btn");
     const defaultDate = document.getElementById("default-date").innerHTML;
    
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function(){
     addSession.addEventListener("click", () => {
         // Ensure id is unqiue my finding the current maxiumum of all session ids
         let maxId = document.getElementById("max-id");
-        let sessionId = Number(maxId.innerHTML) + 1;
+        let sessionId = (Number(maxId.innerHTML) + 1).toString();
         // Create new row for sessions
         let newRow = document.createElement("div");
         newRow.classList.add("row");
@@ -135,12 +136,30 @@ document.addEventListener("DOMContentLoaded", function(){
         let createBtns = document.getElementsByClassName("create-btn");
         for (let btn of createBtns){
             btn.addEventListener("click", () => {
-                // Feed session id into form input to communicate with python
-                createField.value = sessionId;
-                createBtnModal.addEventListener("click", () => {
-                    // If confirmation modal is clicked then submit form to create session
-                    sessionForm.submit();
-                });
+                    createBtnModal.addEventListener("click", () => {
+                    // Get time selected
+                    let time = document.getElementById(sessionId.concat("-time")).value
+                    // Check if time is on the hour
+                    if (time.substring(3,5) != "00"){
+                    let dismissBtn = document.getElementById("data-dismiss-create")
+                    let modal = document.getElementById("confirm-create-modal")
+                    modal.classList.remove("fade")
+                    // Hide confirmation modal
+                    dismissBtn.click()
+                    modal.classList.add("fade")
+                    // Show feedback modal
+                    feedbackModalTitle.innerHTML = "Session times must be on the hour"
+                    feedbackModal.classList.remove("fade");
+                    feedbackModalBtn.click();
+                    feedbackModal.classList.add("fade");
+                    } else {
+                        // Feed session id to into form
+                        createField.value = sessionId;
+                        // Submit form to create session
+                        sessionForm.submit();
+                    }
+                    });                    
+                
             });
         }
         
@@ -166,10 +185,27 @@ document.addEventListener("DOMContentLoaded", function(){
         btn.addEventListener("click", () => {
             // Get sesssion id user wishes to update
             let sessionId = btn.id.substring(0,6);
+            // Get time chosen
+            let time = document.getElementById(sessionId.concat("-time")).value
+            // Check if time is on the hour
+            if (time.substring(3,5) != "00"){
+                let dismissBtn = document.getElementById("data-dismiss-".concat(sessionId))
+                let modal = document.getElementById("confirm-update-modal-".concat(sessionId))
+                modal.classList.remove("fade")
+                // Hide confirmation modal
+                dismissBtn.click()
+                modal.classList.add("fade")
+                // Show feedback modal
+                feedbackModalTitle.innerHTML = "Session times must be on the hour"
+                feedbackModal.classList.remove("fade");
+                feedbackModalBtn.click();
+                feedbackModal.classList.add("fade");
+            } else {
             // Feed session id into form input
             updateField.value = sessionId;
             // Submit form to update session details
             sessionForm.submit();
+            }
         });
     }
 
