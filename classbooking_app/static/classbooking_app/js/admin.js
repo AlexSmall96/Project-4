@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const createBtnModal = document.getElementById("create-btn-modal")
     const updateField = document.getElementById("update-field")
     const createField = document.getElementById("create-field")
+    const deleteField = document.getElementById("delete-field")
     const feedback = document.getElementById("admin-feedback").innerHTML
     const feedbackModal = document.getElementById("feedback-modal")
     const feedbackModalBtn = document.getElementById("feedback-modal-btn")

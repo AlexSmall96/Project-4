@@ -46,7 +46,7 @@ def name_to_id(activity):
     return names[activity]
 
 
-def create_or_update_session(request, id, action):
+def create_session(request, id):
     name = request.POST.get(id + '-activity')
     activity = get_object_or_404(Activity, id=name_to_id(name))
     date = request.POST.get(id + '-date')
@@ -63,40 +63,55 @@ def create_or_update_session(request, id, action):
         location=location,
         running=True
         )) > 0
-    if action == "create":
-        if clash:
-            return f"Session not created. Another session is already taking place in {location} on {date} at {time}."
-        else:
-            session = Session(
-                activity=activity,
-                date=date,
-                time=time,
-                spaces=spaces,
-                location=location,
-                running=running
-            )
-            session.save()
-            return f"Thank you a session for {name} on {date} at {time} in {location} has been created."
-    elif action == "update":
-        if clash:
-            same_session = len(Session.objects.filter(
-                activity=activity,
-                date=date,
-                time=time,
-                location=location)) > 0
-            if not same_session:
-                return f"Session details not updated. Another session is already taking place in {location} on {date} at {time}."
-            else:
-                session = get_object_or_404(Session, id=id)
-                session.activity = activity
-                session.date = date
-                session.time = time
-                session.location = location
-                session.running = running
-                session.spaces = request.POST.get(id + '-spaces')
-                session.save()
-                return f"Thank you, your {name} session details have been updated."
+    if clash:
+        return f"Session not created. Another session is already taking place in {location} on {date} at {time}."
+    else:
+        session = Session(
+            activity=activity,
+            date=date,
+            time=time,
+            spaces=spaces,
+            location=location,
+            running=running
+        )
+        session.save()
+        return f"Thank you a session for {name} on {date} at {time} in {location} has been created."
 
+
+def update_session(request, id):
+    session = get_object_or_404(Session, id=id)
+    name = request.POST.get(id + '-activity')
+    activity = get_object_or_404(Activity, id=name_to_id(name))
+    date = request.POST.get(id + '-date')
+    time = request.POST.get(id + '-time')
+    location = request.POST.get(id + '-location')
+    running = request.POST.get(id + '-running') == "on"
+    same_session = len(Session.objects.filter(
+        activity=activity,
+        date=date,
+        time=time,
+        location=location)) > 0
+    clashes = Session.objects.filter(
+        date=date,
+        time=time,
+        location=location,
+        running=True
+    )
+    clash = len(clashes) > 0
+    if clash:
+        same_session = int(clashes[0].id) == int(id)
+    if clash and not same_session:
+        return f"Changes not saved. Another session is already taking place in {location} on {date} at {time}."
+    else:
+        session.activity = activity
+        session.date = date
+        session.time = time
+        session.location = location
+        session.running = running
+        session.spaces = request.POST.get(id + '-spaces')
+        session.save()
+        return f"Thank you, your {name} session details have been updated."
+   
 
 def delete_session(id):
     session = Session.objects.filter(id=id)
@@ -137,13 +152,13 @@ def admin_page(request):
         # Update filters for date, activity and location
         update_id = request.POST.get('update-field')
         if update_id != "":
-            feedback = create_or_update_session(request, update_id, "update")
+            feedback = update_session(request, update_id)
         delete_id = request.POST.get('delete-field')
         if delete_id != "":
             feedback = delete_session(delete_id)
         create_id = request.POST.get('create-field')
         if create_id != "":
-            feedback = create_or_update_session(request, create_id, "create")
+            feedback = create_session(request, create_id)
         date_filter = request.POST.get("date-filter")
         activity_filter = request.POST.get('activity-filter')
         location_filter = request.POST.get('location-filter')
