@@ -2,6 +2,8 @@
 
 {% block contentbody %}
 <form method="POST" id="session-form">
+{% csrf_token %}
+<!-- Instructions -->
 <div  class="beneath-header" id="admin-instructions">
 <h4>Edit Timetable:</h4>
 <h5><i class="fa-solid fa-circle-exclamation"></i> For Admin use only:</h5>
@@ -16,16 +18,14 @@
  <li> Please ensure all members who are booked into a session are informed of any session changes or deletions. </li>
 <li>Use the below filters to load sessions.</li>
 </ul>
-
-
-    {% csrf_token %}
     <!--Hidden Inputs to commmunicate with python-->
     <input class="invisible" type="text" id="update-field" name="update-field">
     <input class="invisible" type="text" id="delete-field" name="delete-field">
     <input class="invisible" type="text" id="create-field" name="create-field">
     <input class="invisible" type="text" id="feedback-field" name="feedback-field" value="{{ feedback_field }}">
     <p class="invisible" id="admin-feedback">{{ feedback }}</p>
-
+    
+    <!-- Form to Filter Sessions-->
     <div id="admin-filter" class="container">
       <div class="row">
         <div class="col-3"><label for="dat-filter">Date:</label></div>
@@ -63,14 +63,8 @@
         </div>
       </div>
     </div>
-    
-    
-    
-    
-
-    
-
   </div>
+  <!-- Button to add a session -->
   <div id="add-btn-section" class="container vertical-margin-top">
     <div class="row">
       <button class="admin-btn" type="button" id="add-session">
@@ -112,6 +106,7 @@
       </div>
       </div>
     </div>
+    <!-- List of chosen sessions -->
     <div id="session-cont" class="container session-box">
       {% if sessions|length > 0 %}
         {% for session in sessions %}
@@ -183,43 +178,40 @@
                 </button>
             </div>
         </div>
-        <!-- Confirm Update Modal -->
-<div class="modal fade" id="confirm-update-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to make changes to this session?</h5>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">No, discard changes.</button>
-          <button type="button" class="btn btn-primary update-btn" id="{{ session.id }}-update">Yes, save changes.</button>
+    <!-- Confirm Update Modal -->
+    <div class="modal fade" id="confirm-update-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to make changes to this session?</h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, discard changes.</button>
+              <button type="button" class="btn btn-primary update-btn" id="{{ session.id }}-update">Yes, save changes.</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
           <!-- Confirm Delete Modal -->
-<div class="modal fade" id="confirm-delete-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this session from the timetable?</h5>
+      <div class="modal fade" id="confirm-delete-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this session from the timetable?</h5>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, keep the session.</button>
+                <button type="button" class="btn btn-primary delete-btn" id="{{ session.id }}-delete">Yes, delete.</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">No, keep the session.</button>
-          <button type="button" class="btn btn-primary delete-btn" id="{{ session.id }}-delete">Yes, delete.</button>
-        </div>
-      </div>
-    </div>
-  </div>
         {% endfor %}
         {% else %}
         <p>No Sessions matching criteria.</p>
         {% endif %}
-</div>
-
-
-
-</form>
+    </div>
+    </form>
           <!-- Confirm Create Modal -->
           <div class="modal fade" id="confirm-create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -235,46 +227,49 @@
             </div>
           </div>
 
-<!-- Feedback modal -->
-<button type="button" data-toggle="modal" data-target="#feedback-modal" id="feedback-modal-btn" class="invisible"></button>
-<div class="modal fade" id="feedback-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="feedback-modal-title">
-            {% if feedback == None %}
-            Session times must be on the hour.
-            {% else %}
-            {{ feedback }}
-            {% endif %}
-          </h5>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">View Sessions</button>
+    <!-- Feedback modal -->
+    <button type="button" data-toggle="modal" data-target="#feedback-modal" id="feedback-modal-btn" class="invisible"></button>
+    <div class="modal fade" id="feedback-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="feedback-modal-title">
+                {% if feedback == None %}
+                Session times must be on the hour.
+                {% else %}
+                {{ feedback }}
+                {% endif %}
+              </h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">View Sessions</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<div id="activity-list" class="invisible">
-    {% for activity in activities %}
-    <p>{{ activity }}</p>
-    {% endfor %}
-</div>
+    <!-- Hidden data for javascript to load select options-->
+    <div id="activity-list" class="invisible">
+        {% for activity in activities %}
+        <p>{{ activity }}</p>
+        {% endfor %}
+    </div>
 
-<div id="location-list" class="invisible">
-    {% for location in locations %}
-    <p>{{ location }}</p>
-    {% endfor %}
-</div>
-
-<p class="invisible" id="max-id">{{ max_id }}</p>
-<p class="invisible" id="default-date">{{ date_filter }}</p>
-{% endblock %}
+    <div id="location-list" class="invisible">
+        {% for location in locations %}
+        <p>{{ location }}</p>
+        {% endfor %}
+    </div>
+      <!-- Max id to ensure new session is unique -->
+      <p class="invisible" id="max-id">{{ max_id }}</p>
+      <!-- Default date to filter  -->
+      <p class="invisible" id="default-date">{{ date_filter }}</p>
+      {% endblock %}
 
 
 {% block contentscript %}
 
+<!-- Link to js file-->
 <script src="../../static/classbooking_app/js/admin.js?2"></script>
 
 {% endblock %}
