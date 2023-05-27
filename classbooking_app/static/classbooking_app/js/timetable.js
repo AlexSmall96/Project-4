@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
     // For each input button determine the text that appears
     for (let box of addBoxes){
-        if (box.value != "Class Cancelled"){
+        if (box.value != "Class Cancelled" && box.value != "Class Full"){
             if (existBookingsArr.includes(box.id)){
                 // If user is already booked in set text to cancel
                 box.value = "Booked in. Cancel?";
