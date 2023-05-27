@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
+    // Declare constant variables
     const cancelForm = document.getElementById("cancel-form");
     const feedbackBtn = document.getElementById("members-feedback-btn");
     const feedbackModal = document.getElementById("members-feedback-modal");

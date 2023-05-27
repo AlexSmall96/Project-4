@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     dismissBtn.click()
                     modal.classList.add("fade")
                     // Show feedback modal
-                    feedbackModalTitle.innerHTML = "Session times must be on the hour"
+                    feedbackModalTitle.innerHTML = "Session times must be on the hour, session not created."
                     feedbackModal.classList.remove("fade");
                     feedbackModalBtn.click();
                     feedbackModal.classList.add("fade");
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 dismissBtn.click()
                 modal.classList.add("fade")
                 // Show feedback modal
-                feedbackModalTitle.innerHTML = "Session times must be on the hour"
+                feedbackModalTitle.innerHTML = "Session times must be on the hour, details not saved."
                 feedbackModal.classList.remove("fade");
                 feedbackModalBtn.click();
                 feedbackModal.classList.add("fade");
