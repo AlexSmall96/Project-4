@@ -40,15 +40,6 @@ body{
     display:block
 }
 
-.navbar{
-    height:88px;
-    background-color: rgb(84, 83, 83);
-}
-
-#nav-buttons{
-    float:right;
-}
-
 .run-False, .run-False-btn{
     background-color: darkgrey;
 }
@@ -84,6 +75,15 @@ body{
     border-style: solid;
     border-color: white;
     color:white;
+}
+
+.navbar{
+    height:88px;
+    background-color: rgb(84, 83, 83);
+}
+
+#nav-buttons{
+    float:right;
 }
 
 #logo{

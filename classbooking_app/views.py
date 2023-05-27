@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages  
+from django.contrib import messages
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from .models import Activity, Session, Booking
 from datetime import datetime, date, timedelta
 import time
@@ -128,62 +129,66 @@ def delete_session(id):
 
 
 def admin_page(request):
-    # Default date filter to today
-    date_filter = date.today().strftime("%Y-%m-%d")
-    range_strt = date.today()
-    range_end = (date.today() + timedelta(days=27))
-    range = [range_strt, range_end]
-    # Default location and activity filters to all
-    location_filter = 'All'
-    activity_filter = 'All'
-    feedback = ""
-    # Load todays sessions
-    sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
-    if len(Session.objects.all()) > 0:
-        max_id = list(Session.objects.all().values_list('id', flat=True).order_by('-id'))[0]
+    if not request.user.is_superuser:
+        messages.error(request, 'This page for admin access only.')
+        return redirect(reverse('/'))
     else:
-        max_id = 444444
-    # Get all activities and locations to use as dropdown for filters
-    activities = Activity.objects.all()
-    locations = Session.objects.all().values_list(
-        'location', flat=True).distinct()
-    # If data has been sent through form
-    if request.method == "POST":
-        # Update filters for date, activity and location
-        update_id = request.POST.get('update-field')
-        if update_id != "":
-            feedback = update_session(request, update_id)
-        delete_id = request.POST.get('delete-field')
-        if delete_id != "":
-            feedback = delete_session(delete_id)
-        create_id = request.POST.get('create-field')
-        if create_id != "":
-            feedback = create_session(request, create_id)
-        date_filter = request.POST.get("date-filter")
-        activity_filter = request.POST.get('activity-filter')
-        location_filter = request.POST.get('location-filter')
-        if date_filter != "":
-            sessions = Session.objects.filter(
-                date=date_filter).order_by("date", "time")
+        # Default date filter to today
+        date_filter = date.today().strftime("%Y-%m-%d")
+        range_strt = date.today()
+        range_end = (date.today() + timedelta(days=27))
+        range = [range_strt, range_end]
+        # Default location and activity filters to all
+        location_filter = 'All'
+        activity_filter = 'All'
+        feedback = ""
+        # Load todays sessions
+        sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
+        if len(Session.objects.all()) > 0:
+            max_id = list(Session.objects.all().values_list('id', flat=True).order_by('-id'))[0]
         else:
-            sessions = Session.objects.filter(
-                date__range=range).order_by("date", "time")
-        if activity_filter != "All":
-            activity_id = name_to_id(activity_filter)
-            sessions = sessions.filter(activity=activity_id)
-        if location_filter != "All":
-            sessions = sessions.filter(location=location_filter)
-    context = {
-        'date_filter': date_filter,
-        'location_filter': location_filter,
-        'activity_filter': activity_filter,
-        'sessions': sessions,
-        'activities': activities,
-        'locations': locations,
-        'feedback': feedback,
-        'max_id': max_id
-    }
-    return render(request, 'classbooking_app/admin.html', context)
+            max_id = 999000
+        # Get all activities and locations to use as dropdown for filters
+        activities = Activity.objects.all()
+        locations = Session.objects.all().values_list(
+            'location', flat=True).distinct()
+        # If data has been sent through form
+        if request.method == "POST":
+            # Update filters for date, activity and location
+            update_id = request.POST.get('update-field')
+            if update_id != "":
+                feedback = update_session(request, update_id)
+            delete_id = request.POST.get('delete-field')
+            if delete_id != "":
+                feedback = delete_session(delete_id)
+            create_id = request.POST.get('create-field')
+            if create_id != "":
+                feedback = create_session(request, create_id)
+            date_filter = request.POST.get("date-filter")
+            activity_filter = request.POST.get('activity-filter')
+            location_filter = request.POST.get('location-filter')
+            if date_filter != "":
+                sessions = Session.objects.filter(
+                    date=date_filter).order_by("date", "time")
+            else:
+                sessions = Session.objects.filter(
+                    date__range=range).order_by("date", "time")
+            if activity_filter != "All":
+                activity_id = name_to_id(activity_filter)
+                sessions = sessions.filter(activity=activity_id)
+            if location_filter != "All":
+                sessions = sessions.filter(location=location_filter)
+        context = {
+            'date_filter': date_filter,
+            'location_filter': location_filter,
+            'activity_filter': activity_filter,
+            'sessions': sessions,
+            'activities': activities,
+            'locations': locations,
+            'feedback': feedback,
+            'max_id': max_id
+        }
+        return render(request, 'classbooking_app/admin.html', context)
 
 
 def create_booking(user, id):
@@ -211,6 +216,7 @@ def delete_booking(user, id):
     return f"Thanks for confirming, your booking for {session.activity.name} at {session.time} on {session.date} has been cancelled."
 
 
+@login_required(login_url="/login.html")
 def load_timetable(request):
     user = request.user
     confirmed = ""
@@ -259,6 +265,7 @@ def load_timetable(request):
     return render(request, 'classbooking_app/timetable.html', context)
 
 
+@login_required(login_url="/login.html")
 def load_members_area(request):
     # Set the feedback message to empty as no form has been submitted yet
     member_feedback = ""
