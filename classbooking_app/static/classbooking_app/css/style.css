@@ -986,6 +986,10 @@ footer{
     position: relative;
   }
 
+/* The styling for #text-block and #text-button were taken from the below tutorial:
+https://www.w3schools.com/howto/howto_css_image_text_blocks.asp
+*/
+
 #text-block {
     position: absolute;
     bottom: 20px;
