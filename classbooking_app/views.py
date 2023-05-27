@@ -204,7 +204,7 @@ def create_booking(user, id):
         spaces_taken = len(Booking.objects.filter(session=session))
         session.spaces = session.activity.capacity - spaces_taken
         session.save()
-        return f"Thanks for confirming, you're classes have been booked."
+        return f"Thanks for confirming, your classes have been booked."
 
 
 def delete_booking(user, id):
