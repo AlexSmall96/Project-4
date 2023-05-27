@@ -1,26 +1,24 @@
+<!-- Create template from scratch as footer is different to base -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mallanna&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=NTR&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../static/classbooking_app/css/style.css?2">
-    <title>classbooking</title>
+    <link rel="stylesheet" href="../../static/classbooking_app/css/style.css">
+    <title>Rural Fitness</title>
 </head>
 <body>
   <header>
+    <!-- Nav Bar -->
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark justify-content-between">
         <a class="navbar-brand" href="/">
+          <!-- Logo -->
           <div id="logo">
               <h2>RURAL <i class="fa-solid fa-tree"></i> FITNESS</h2>
               <p>Health Club & Spa</p>
@@ -29,6 +27,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Nav Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
@@ -61,7 +60,9 @@
         </div>
       </nav>
     </header>
+<!-- Sign up Section -->
 <div id="sign-up" class="light-background">
+  <!-- Include nav bar from signup_details.html for visual consistency -->
   <nav>
     <div class="nav nav-tabs" id="nav-tab-signup" role="tablist">
       <a class="nav-item nav-link disabled" id="nav-membership-tab" data-toggle="tab" href="#nav-membership" role="tab" aria-controls="nav-membership" aria-selected="true">Membership Options</a>
@@ -70,13 +71,14 @@
       <a class="nav-item nav-link active" id="nav-login-tab" data-toggle="tab" href="#nav-login" role="tab" aria-controls="nav-login" aria-selected="false">Login Details</a>
     </div>
   </nav>
-<!--All Tab Contet-->
+  <!-- Create empty tab content from previous pages -->
 <div class="tab-content" id="nav-tabContent">
-  <!--Memerhip Options Tab Content-->
   <div class="tab-pane fade" id="nav-membership" role="tabpanel" aria-labelledby="nav-membership-tab"></div>
   <div class="tab-pane fade" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab"></div>
   <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab"></div>
+  <!-- Registration Section -->
   <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
+    <!-- Success message if user successfully registers -->
     {% if messages %}
     <div class="register-success height-class">
     <h3>{% for message in messages %}{{ message }}!{% endfor %}</h3>
@@ -90,8 +92,9 @@
         <h5>Click here to Register another account</h5>
       </button>
     </a>
-  </div>     
+  </div>
     {% else %}
+    <!-- Form to sigup with details -->
       <form method="post" id="signup-form-final">
         {% csrf_token %}
         <div class="container height-class">
@@ -116,14 +119,14 @@
   </div>
 </div>
 </div>
-    <script src="https://kit.fontawesome.com/19e39a1d6d.js" crossorigin="anonymous"></script>
-    <!--Link to Bootstrap JS-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!--Link to script.js-->
-    <script src="../../static/classbooking_app/js/signup.js"></script>
-    <footer class="dark-background">
+<script src="https://kit.fontawesome.com/19e39a1d6d.js" crossorigin="anonymous"></script>
+<!--Link to Bootstrap JS-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!--Link to script.js-->
+<script src="../../static/classbooking_app/js/signup.js"></script>
+<footer class="dark-background">
       <div class="footer-btn-section">
         {% if user.is_authenticated %}
            {% if request.path == '/members_area.html' %}
@@ -146,7 +149,7 @@
               </button>
             </a>
         {%endif %}
-        </div>
+      </div>
   <div class="container">
         <div class="row footer-contact-links">
           <div class="col-12 col-sm-6 col-md-4 order-md-first"><i class="fa-solid fa-envelope"></i> ruralfitness@gmail.com</div>
@@ -157,6 +160,6 @@
           <div class="col-4 col-sm-3 col-md-1"><a href="https://github.com/AlexSmall96/Rural-Fitness" target="_blank"><i class="fa-brands fa-github"></i></a></div>
         </div>
       </div>
-    </footer>
-  </body>
+</footer>
+</body>
 </html>
