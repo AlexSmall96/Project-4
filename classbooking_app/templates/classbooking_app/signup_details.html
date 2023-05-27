@@ -1,6 +1,7 @@
+<!-- Create template from scratch as multiple footers are required is different to base -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,19 +9,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mallanna&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=NTR&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../static/classbooking_app/css/style.css">
-    <title>classbooking</title>
+    <title>Rural Fitness</title>
 </head>
 <body>
   <header>
+    <!-- Nav Bar -->
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark justify-content-between">
         <a class="navbar-brand" href="/">
+          <!-- Logo -->
           <div id="logo">
               <h2>RURAL <i class="fa-solid fa-tree"></i> FITNESS</h2>
               <p>Health Club & Spa</p>
@@ -29,6 +26,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Nav Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
@@ -61,7 +59,7 @@
         </div>
       </nav>
     </header>
-  
+<!-- Sign up Section-->
 <div id="sign-up" class="light-background">
   <nav>
     <div class="nav nav-tabs" id="nav-tab-signup" role="tablist">
@@ -71,27 +69,23 @@
       <a class="nav-item nav-link disabled" id="nav-login-tab" data-toggle="tab" href="#nav-login" role="tab" aria-controls="nav-login" aria-selected="false">Login Details</a>
     </div>
   </nav>
-<!--All Tab Contet-->
-<div class="tab-content" id="nav-tabContent">
-  <!--Memerhip Options Tab Content-->
-  <div class="tab-pane fade show active" id="nav-membership" role="tabpanel" aria-labelledby="nav-membership-tab">
-    <!--Container-->
-    <div id="signup-btn-div" class="container">
-      <!--Row-->
-      <div class="row align-items-center">
-          <div id="already-member" class="col-6">
-            {% if not user.is_authenticaed %}
-            Already a member?<br> <a href="{% url 'signup' %}"><button type="button" class="btn btn-light">Sign In</button></a>
-            {% endif %}
-          </div>
-          <div class="col-6" id="membership-btn-div">
-            <button id="membership-btn" class="btn btn-secondary">Next</button>
-          </div>
-      </div>  
-    </div>
-    <!--Container-->
+    <!--All Tab Contet-->
+    <div class="tab-content" id="nav-tabContent">
+      <!--Memerhip Options Tab Content-->
+      <div class="tab-pane fade show active" id="nav-membership" role="tabpanel" aria-labelledby="nav-membership-tab">
+        <div id="signup-btn-div" class="container">
+          <div class="row align-items-center">
+              <div id="already-member" class="col-6">
+                {% if not user.is_authenticaed %}
+                Already a member?<br> <a href="{% url 'signup' %}"><button type="button" class="btn btn-light">Sign In</button></a>
+                {% endif %}
+              </div>
+              <div class="col-6" id="membership-btn-div">
+                <button id="membership-btn" class="btn btn-secondary">Next</button>
+              </div>
+          </div>  
+        </div>
     <div class="container height-class" id="membership-options">
-      <!--Row-->
       <div class="row">
         <div class="col-12 col-md-4">
           <div class="card">
@@ -160,7 +154,7 @@
           </a>
       {%endif %}
       </div>
-<div class="container">
+    <div class="container">
       <div class="row footer-contact-links">
         <div class="col-12 col-sm-6 col-md-4 order-md-first"><i class="fa-solid fa-envelope"></i> ruralfitness@gmail.com</div>
         <div class="col-12 col-sm-6 col-md-4 order-md-last"><i class="fa-solid fa-phone"></i> 0131 123 4567</div>
@@ -173,8 +167,8 @@
   </footer>
 </div>
 
+<!-- Personal Details -->
 <div class="tab-pane fade" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
-  <!--Container-->
   <form id="personal-form">
     <div id="pers-cont" class="container height-class">
       <div class="row align-items-center">
@@ -242,7 +236,7 @@
           </a>
       {%endif %}
       </div>
-<div class="container">
+    <div class="container">
       <div class="row footer-contact-links">
         <div class="col-12 col-sm-6 col-md-4 order-md-first"><i class="fa-solid fa-envelope"></i> ruralfitness@gmail.com</div>
         <div class="col-12 col-sm-6 col-md-4 order-md-last"><i class="fa-solid fa-phone"></i> 0131 123 4567</div>
@@ -255,6 +249,7 @@
   </footer>
 </div>
 
+<!-- Payment Details -->
 <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab">
   <form id="pay-form">
     <div class="container height-class" id="pay-cont">
@@ -307,7 +302,7 @@
           </a>
       {%endif %}
       </div>
-<div class="container">
+    <div class="container">
       <div class="row footer-contact-links">
         <div class="col-12 col-sm-6 col-md-4 order-md-first"><i class="fa-solid fa-envelope"></i> ruralfitness@gmail.com</div>
         <div class="col-12 col-sm-6 col-md-4 order-md-last"><i class="fa-solid fa-phone"></i> 0131 123 4567</div>
