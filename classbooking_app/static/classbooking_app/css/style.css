@@ -132,18 +132,18 @@ footer{
     }
 }
 
-#footer-btn-section{
+.footer-btn-section{
     width:50%;
     margin:auto;
     padding: 10px;
 }
 
-#footer-btn{
+.footer-btn{
     font-size: medium;
     max-width:373px;
 }
 
-#footer-contact-links{
+.footer-contact-links{
     margin-top:30px;
 }
 

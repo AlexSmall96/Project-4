@@ -124,34 +124,31 @@
     <!--Link to script.js-->
     <script src="../../static/classbooking_app/js/signup.js"></script>
     <footer class="dark-background">
-      <div id="footer-btn-section">
+      <div class="footer-btn-section">
         {% if user.is_authenticated %}
            {% if request.path == '/members_area.html' %}
            <a href="{% url 'logout' %}">
-            <button id="footer-btn" type="button" class="btn btn-secondary link-btn">
+            <button type="button" class="btn btn-secondary link-btn footer-btn">
               Logout
               </button>
             </a>
            {% else %}
            <a href="/members_area.html">
-              <button id="footer-btn" type="button" class="btn btn-secondary link-btn">
+              <button type="button" class="btn btn-secondary link-btn footer-btn">
                 Members Area
                 </button>
             </a>
             {% endif %}
         {% else %}
             <a href="/">
-              <button id="footer-btn" type="button" class="btn btn-secondary link-btn">
+              <button type="button" class="btn btn-secondary link-btn footer-btn">
                 Home
               </button>
             </a>
         {%endif %}
         </div>
-      <div id="contact" class="container">
-        <div class="row justify-content-center">
-    
-        </div>
-        <div id="footer-contact-links" class="row">
+  <div class="container">
+        <div class="row footer-contact-links">
           <div class="col-12 col-sm-6 col-md-4 order-md-first"><i class="fa-solid fa-envelope"></i> ruralfitness@gmail.com</div>
           <div class="col-12 col-sm-6 col-md-4 order-md-last"><i class="fa-solid fa-phone"></i> 0131 123 4567</div>
           <div class="col-4 col-sm-3 col-md-1"><a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a></div>

@@ -1,60 +1,66 @@
 document.addEventListener("DOMContentLoaded", function(){
-    const filters = document.getElementsByClassName("filter")
-    const sessionForm = document.getElementById("session-form")
-    const addSession = document.getElementById("add-session")
-    const sessionCont = document.getElementById("session-cont")
-    let containerLength = sessionCont.children.length
-    const locationList = document.getElementById("location-list").children
-    const activityList = document.getElementById("activity-list").children
-    const filterIcons = document.getElementsByClassName("filter-icon")
-    const locationFilterIcon = document.getElementById("location-filter-icon")
-    const locationFilter = document.getElementById("loc-filter")
-    const updateBtns = document.getElementsByClassName("update-btn")
-    const deleteBtns = document.getElementsByClassName("delete-btn")
-    const createBtnModal = document.getElementById("create-btn-modal")
-    const updateField = document.getElementById("update-field")
-    const createField = document.getElementById("create-field")
-    const deleteField = document.getElementById("delete-field")
-    const feedback = document.getElementById("admin-feedback").innerHTML
-    const feedbackModal = document.getElementById("feedback-modal")
-    const feedbackModalBtn = document.getElementById("feedback-modal-btn")
-    const feedbackModalTitle = document.getElementById("feedback-modal-title")
-    const defaultDate = document.getElementById("default-date").innerHTML
- 
+    // Declare constant variables
+    const filters = document.getElementsByClassName("filter");
+    const sessionForm = document.getElementById("session-form");
+    const addSession = document.getElementById("add-session");
+    const sessionCont = document.getElementById("session-cont");
+    const locationList = document.getElementById("location-list").children;
+    const activityList = document.getElementById("activity-list").children;
+    const filterIcons = document.getElementsByClassName("filter-icon");
+    const updateBtns = document.getElementsByClassName("update-btn");
+    const deleteBtns = document.getElementsByClassName("delete-btn");
+    const createBtnModal = document.getElementById("create-btn-modal");
+    const updateField = document.getElementById("update-field");
+    const createField = document.getElementById("create-field");
+    const deleteField = document.getElementById("delete-field");
+    const feedback = document.getElementById("admin-feedback").innerHTML;
+    const feedbackModal = document.getElementById("feedback-modal");
+    const feedbackModalBtn = document.getElementById("feedback-modal-btn");
+    const defaultDate = document.getElementById("default-date").innerHTML;
+   
+    // If feedback message has been sent then display it in modal
     if (feedback != ""){
-        feedbackModal.classList.remove("fade")
-        feedbackModalBtn.click()
-        feedbackModal.classList.add("fade")
-        feedback.value = ""
+        feedbackModal.classList.remove("fade");
+        feedbackModalBtn.click();
+        feedbackModal.classList.add("fade");
+        feedback.value = "";
     }
     
-
+    // Setup filter icons next to headers to remove date, location or activity filters
     for (let icon of filterIcons){
         icon.addEventListener("click", () => {
-            filterId = icon.id.substring(0,10)
-            let filter = document.getElementById(filterId)
+            // Get filter icon id
+            let filterId = icon.id.substring(0,10);
+            let filter = document.getElementById(filterId);
+            // Remove filter from sessions when filter icon is clicked
             if (filterId === "dat-filter"){
-                filter.value = ""
+                filter.value = "";
             } else {
-                filter.value= "All"
+                filter.value= "All";
             }
-            sessionForm.submit()
-        })
+            // Submit the form to reload the list of sessions
+            sessionForm.submit();
+        });
     }
-
+   
+    // When filter is applied submit the form to reload the list of sessions
     for (let filter of filters){
         filter.addEventListener("change", () => {
-            sessionForm.submit()
-        })
+            sessionForm.submit();
+        });
     }
     
+    // Add session button to add new session to list
     addSession.addEventListener("click", () => {
-        let maxId = document.getElementById("max-id")
-        let sessionId = Number(maxId.innerHTML) + 1
-        let newRow = document.createElement("div")
-        newRow.classList.add("row")
-        newRow.classList.add("new-session")
-        newRow.id = `${sessionId}-row`
+        // Ensure id is unqiue my finding the current maxiumum of all session ids
+        let maxId = document.getElementById("max-id");
+        let sessionId = Number(maxId.innerHTML) + 1;
+        // Create new row for sessions
+        let newRow = document.createElement("div");
+        newRow.classList.add("row");
+        newRow.classList.add("new-session");
+        newRow.id = `${sessionId}-row`;
+        // Setup default values
         newRow.innerHTML=`
         <div class="col-2 d-sm-none">
           <label class="sm-font" for="${sessionId}-activity">Name</label>
@@ -105,66 +111,80 @@ document.addEventListener("DOMContentLoaded", function(){
               </button>
           </div>
       </div>
-        `
-        sessionCont.insertBefore(newRow, sessionCont.firstChild)
-        activitySelect = document.getElementById(`${sessionId}-activity`)
+        `;
+        // Add new session to list
+        sessionCont.insertBefore(newRow, sessionCont.firstChild);
+        // Set options for select elements
+        let activitySelect = document.getElementById(`${sessionId}-activity`);
         for (let act of activityList){
-            let newOption = document.createElement("option")
-            newOption.value = act.innerHTML
-            newOption.innerHTML = act.innerHTML
-            activitySelect.appendChild(newOption)
+            let newOption = document.createElement("option");
+            newOption.value = act.innerHTML;
+            newOption.innerHTML = act.innerHTML;
+            activitySelect.appendChild(newOption);
         }
 
-        locationSelect = document.getElementById(`${sessionId}-location`)
+        let locationSelect = document.getElementById(`${sessionId}-location`);
         for (let loc of locationList){
-            let newOption = document.createElement("option")
-            newOption.value = loc.innerHTML
-            newOption.innerHTML = loc.innerHTML
-            locationSelect.appendChild(newOption)
+            let newOption = document.createElement("option");
+            newOption.value = loc.innerHTML;
+            newOption.innerHTML = loc.innerHTML;
+            locationSelect.appendChild(newOption);
         }
 
-
-        let createBtns = document.getElementsByClassName("create-btn")
+        // Redefine list of create buttons once new session has been added
+        let createBtns = document.getElementsByClassName("create-btn");
         for (let btn of createBtns){
             btn.addEventListener("click", () => {
-                createField.value = sessionId
+                // Feed session id into form input to communicate with python
+                createField.value = sessionId;
                 createBtnModal.addEventListener("click", () => {
-                    sessionForm.submit()
-                })
-            })
+                    // If confirmation modal is clicked then submit form to create session
+                    sessionForm.submit();
+                });
+            });
         }
-
-        let discardBtns = document.getElementsByClassName("discard-btn")
+        
+        // Redefine discard buttons once new session has been added
+        let discardBtns = document.getElementsByClassName("discard-btn");
         for (let btn of discardBtns){
+            // If user clicks discard then new session is removed from list
             btn.addEventListener("click", () => {
-                let newId = btn.id.substring(0,6)
-                let newRow = document.getElementById(`${newId}-row`)
+                let newId = btn.id.substring(0,6);
+                let newRow = document.getElementById(`${newId}-row`);
                 if (newRow){
-                    newRow.remove()
+                    newRow.remove();
                 }
-            })
+            });
         }
+        
+        // Redefine max id so new session id is always unique
+        maxId.innerHTML = sessionId;
 
-        maxId.innerHTML = sessionId
-
-    })
-
+    });
+    
     for (let btn of updateBtns){
         btn.addEventListener("click", () => {
-            sessionId = btn.id.substring(0,6)
-            updateField.value = sessionId
-            sessionForm.submit()
-        })
+            // Get sesssion id user wishes to update
+            let sessionId = btn.id.substring(0,6);
+            // Feed session id into form input
+            updateField.value = sessionId;
+            // Submit form to update session details
+            sessionForm.submit();
+        });
     }
 
     for (let btn of deleteBtns){
         btn.addEventListener("click", () => {
-            sessionId = btn.id.substring(0,6)
-            deleteField.value = sessionId
-            let sessionRow = document.getElementById(sessionId.concat("-admin-list"))
-            sessionRow.remove()
-            sessionForm.submit()
-        })
+            // Get sesssion id user wishes to delete
+            let sessionId = btn.id.substring(0,6);
+            // Feed session id into form input
+            deleteField.value = sessionId;
+            // Remove session from list
+            let sessionRow = document.getElementById(sessionId.concat("-admin-list"));
+            sessionRow.remove();
+            // Submit form to delete session
+            sessionForm.submit();
+        });
     }
-    
-})
+
+});
