@@ -131,7 +131,7 @@ def delete_session(id):
 def admin_page(request):
     if not request.user.is_superuser:
         messages.error(request, 'This page for admin access only.')
-        return redirect(reverse('/'))
+        return redirect('/')
     else:
         # Default date filter to today
         date_filter = date.today().strftime("%Y-%m-%d")
