@@ -262,3 +262,82 @@ class TestBooking(TestCase):
             ).exists(), False
         )
         self.assertEqual(feedback, "Thanks for confirming, your booking for test_activity at 07:00:00 on 2023-05-07 has been cancelled.")
+
+
+class TestCascades(TestCase):
+
+    def test_activity_cascades(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        user = 'username1'
+        booking = Booking.objects.create(
+            user=user,
+            session=session
+        )
+        self.assertEqual(session.activity.name, 'test_activity')
+        self.assertEqual(session.activity.description, 'test_description')
+        self.assertEqual(session.activity.capacity, 20)
+        self.assertEqual(session.activity.duration, '1hr')
+        self.assertEqual(booking.session.activity.name, 'test_activity')
+        self.assertEqual(booking.session.activity.description, 'test_description')
+        self.assertEqual(booking.session.activity.capacity, 20)
+        self.assertEqual(booking.session.activity.duration, '1hr')
+        activity.name = 'test_activity_2'
+        activity.description = 'test_description_2'
+        activity.capacity = 15
+        activity.duration = '30m'
+        self.assertEqual(session.activity.name, 'test_activity_2')
+        self.assertEqual(session.activity.description, 'test_description_2')
+        self.assertEqual(session.activity.capacity, 15)
+        self.assertEqual(session.activity.duration, '30m')
+        self.assertEqual(booking.session.activity.name, 'test_activity_2')
+        self.assertEqual(booking.session.activity.description, 'test_description_2')
+        self.assertEqual(booking.session.activity.capacity, 15)
+        self.assertEqual(booking.session.activity.duration, '30m')
+
+    def test_session_cascades(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        user = 'username1'
+        booking = Booking.objects.create(
+            user=user,
+            session=session
+        )
+        self.assertEqual(booking.session.date, "2023-05-07")
+        self.assertEqual(booking.session.time, "07:00")
+        self.assertEqual(booking.session.spaces, 25)
+        self.assertEqual(booking.session.location, 'Studio A')
+        self.assertEqual(booking.session.running, True)
+        session.date = "2023-05-08"
+        session.time = "08:00"
+        session.spaces = 20
+        session.location = 'Studio B'
+        session.running = False
+        session.save()
+        self.assertEqual(booking.session.date, "2023-05-08")
+        self.assertEqual(booking.session.time, "08:00")
+        self.assertEqual(booking.session.spaces, 20)
+        self.assertEqual(booking.session.location, 'Studio B')
+        self.assertEqual(booking.session.running, False)
