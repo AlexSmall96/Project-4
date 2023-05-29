@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mallanna&display=swap" rel="stylesheet">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'classbooking_app/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Rural Fitness</title>
 </head>
 <body>
@@ -108,15 +108,15 @@
       <div class="col-12 col-sm-12 col-md-12 col-lg-1 icon-field xs-font"><i class="fa-solid fa-clock"></i> {{ session.time | time:"G:i" }} {{ session.activity.duration }}</div>
       <div class="col-6 col-sm-4 col-md-3 has-bg-img img-div">
         {% load static %}
-        {% if session.activity.name == "Yoga" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/yoga.jpg' %}">
-        {% elif session.activity.name == "Boxfit" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/box.jpeg' %}">
-        {% elif session.activity.name == "Pilates" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/pilates.jpeg' %}">
-        {% elif session.activity.name == "Mindfulness" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/mindfulness.jpg' %}">
-        {% elif session.activity.name == "Treadmill Torture" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/treadmill.jpg' %}">
-        {% elif session.activity.name == "Kettlebell Chaos" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/kettle.jpg' %}">
-        {% elif session.activity.name == "HIIT" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/hiit.jpg' %}">
-        {% elif session.activity.name == "Body Burn" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/bodyburn.jpg' %}">
-        {% elif session.activity.name == "Spin" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/spin.jpg' %}">
+        {% if session.activity.name == "Yoga" %}<img class="bg-img my-image" src="{% static 'images/yoga.jpg' %}">
+        {% elif session.activity.name == "Boxfit" %}<img class="bg-img my-image" src="{% static 'images/box.jpeg' %}">
+        {% elif session.activity.name == "Pilates" %}<img class="bg-img my-image" src="{% static 'images/pilates.jpeg' %}">
+        {% elif session.activity.name == "Mindfulness" %}<img class="bg-img my-image" src="{% static 'images/mindfulness.jpg' %}">
+        {% elif session.activity.name == "Treadmill Torture" %}<img class="bg-img my-image" src="{% static 'images/treadmill.jpg' %}">
+        {% elif session.activity.name == "Kettlebell Chaos" %}<img class="bg-img my-image" src="{% static 'images/kettle.jpg' %}">
+        {% elif session.activity.name == "HIIT" %}<img class="bg-img my-image" src="{% static 'images/hiit.jpg' %}">
+        {% elif session.activity.name == "Body Burn" %}<img class="bg-img my-image" src="{% static 'images/bodyburn.jpg' %}">
+        {% elif session.activity.name == "Spin" %}<img class="bg-img my-image" src="{% static 'images/spin.jpg' %}">
         {% endif %}
       </div>
       <div class="col-6 col-sm-6 col-md-3 col-lg-3"><strong>{{ session.activity.name }}</strong>
@@ -175,15 +175,15 @@
       <div class="col-12 col-sm-12 col-md-12 col-lg-1 icon-field xs-font"><i class="fa-solid fa-clock"></i> {{ session.time | time:"G:i" }} {{ session.activity.duration }}</div>
       <div class="col-6 col-sm-4 col-md-3 has-bg-img img-div">
         {% load static %}
-        {% if session.activity.name == "Yoga" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/yoga.jpg' %}">
-        {% elif session.activity.name == "Boxfit" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/box.jpeg' %}">
-        {% elif session.activity.name == "Pilates" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/pilates.jpeg' %}">
-        {% elif session.activity.name == "Mindfulness" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/mindfulness.jpg' %}">
-        {% elif session.activity.name == "Treadmill Torture" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/treadmill.jpg' %}">
-        {% elif session.activity.name == "Kettlebell Chaos" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/kettle.jpg' %}">
-        {% elif session.activity.name == "HIIT" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/hiit.jpg' %}">
-        {% elif session.activity.name == "Body Burn" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/bodyburn.jpg' %}">
-        {% elif session.activity.name == "Spin" %}<img class="bg-img my-image" src="{% static 'classbooking_app/images/spin.jpg' %}">
+        {% if session.activity.name == "Yoga" %}<img class="bg-img my-image" src="{% static 'images/yoga.jpg' %}">
+        {% elif session.activity.name == "Boxfit" %}<img class="bg-img my-image" src="{% static 'images/box.jpeg' %}">
+        {% elif session.activity.name == "Pilates" %}<img class="bg-img my-image" src="{% static 'images/pilates.jpeg' %}">
+        {% elif session.activity.name == "Mindfulness" %}<img class="bg-img my-image" src="{% static 'images/mindfulness.jpg' %}">
+        {% elif session.activity.name == "Treadmill Torture" %}<img class="bg-img my-image" src="{% static 'images/treadmill.jpg' %}">
+        {% elif session.activity.name == "Kettlebell Chaos" %}<img class="bg-img my-image" src="{% static 'images/kettle.jpg' %}">
+        {% elif session.activity.name == "HIIT" %}<img class="bg-img my-image" src="{% static 'images/hiit.jpg' %}">
+        {% elif session.activity.name == "Body Burn" %}<img class="bg-img my-image" src="{% static 'images/bodyburn.jpg' %}">
+        {% elif session.activity.name == "Spin" %}<img class="bg-img my-image" src="{% static 'images/spin.jpg' %}">
         {% endif %}
       </div>
       <div class="col-6 col-sm-6 col-md-3 col-lg-3"><strong>{{ session.activity.name }}</strong>
@@ -244,7 +244,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {% load static %}
-<script src="{% static 'classbooking_app/js/timetable.js' %}"></script>
+<script src="{% static 'js/timetable.js' %}"></script>
   <footer class="dark-background">
     <div class="footer-btn-section">
       {% if user.is_authenticated %}

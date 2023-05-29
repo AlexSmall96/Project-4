@@ -147,3 +147,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "load_home_page"
 
 LOGOUT_REDIRECT_URL = "load_home_page"
+
+cloudinary.config( 
+  cloud_name = "dojzptdbc", 
+  api_key = "965569167674243", 
+  api_secret = "PmE0Hfj05vUpAAIxzab2fxnSWmk" 
+)

@@ -4,6 +4,7 @@
 
 <div class="dark-background">
   <!-- Hero Image -->
+  {% load static %}
   <div id="hero-image"></div>
   <!-- Links to members area and timetable or login and membership options -->
   <div id="home-links-background" class="dark-background">
@@ -50,7 +51,7 @@
     <div class="row no-gutters">
       <div class="col-12 col-sm-6 order-last order-sm-first has-bg-img img-margin">
         {% load static %}
-        <img src="{% static 'classbooking_app/images/pool.jpg' %}">
+        <img src="{% static 'images/pool.jpg' %}">
       </div>
       <div id="facilities-div" class="col-12 col-sm-6 order-first order-sm-last">
           <h2>Facilities</h2>
@@ -79,13 +80,13 @@
       </div>
       <div class="col-12 col-sm-6 has-bg-img img-margin">
         {% load static %}
-        <img src="{% static 'classbooking_app/images/about-class.jpg' %}">
+        <img src="{% static 'images/about-class.jpg' %}">
       </div>
     </div>
     <div class="row no-gutters">
       <div class="col-12 col-sm-6 order-last order-sm-first has-bg-img" id="jacuzzi-div">
         {% load static %}
-        <img src="{% static 'classbooking_app/images/jacuzzi.jpg' %}">
+        <img src="{% static 'images/jacuzzi.jpg' %}">
       </div>
       <div id="spa-div" class="col-12 col-sm-6 order-first order-sm-last">
         <h2>Spa</h2>
