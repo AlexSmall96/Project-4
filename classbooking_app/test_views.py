@@ -20,4 +20,7 @@ class TestLoadPages(TestCase):
         response = self.client.get('/register.html')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'classbooking_app/register.html')
+        user = User.objects.create_superuser('username1', 'user@email.com', 'password')
+    
+
 

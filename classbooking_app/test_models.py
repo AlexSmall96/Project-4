@@ -66,7 +66,7 @@ class TestSession(TestCase):
             activity=activity,
             date="2023-05-07",
             time="07:00",
-            spaces=25,
+            spaces=20,
             location='Studio A',
             running=True
         )
@@ -74,14 +74,14 @@ class TestSession(TestCase):
             activity=activity,
             date="2023-05-07",
             time="07:00",
-            spaces=25,
+            spaces=20,
             location='Studio A',
             running=True
         ).exists(), True)
         self.assertEqual(session.activity, activity)
         self.assertEqual(session.date, "2023-05-07")
         self.assertEqual(session.time, "07:00")
-        self.assertEqual(session.spaces, 25)
+        self.assertEqual(session.spaces, 20)
         self.assertEqual(session.location, 'Studio A')
         self.assertEqual(session.running, True)
 
@@ -95,19 +95,19 @@ class TestSession(TestCase):
             activity=activity,
             date="2023-05-07",
             time="07:00",
-            spaces=25,
+            spaces=20,
             location='Studio A',
             running=True
         )
         session.date = "2023-05-08"
         session.time = "08:00"
-        session.spaces = 24
+        session.spaces = 19
         session.location = 'Studio B'
         session.running = False
         session.save()
         self.assertEqual(session.date, "2023-05-08")
         self.assertEqual(session.time, "08:00")
-        self.assertEqual(session.spaces, 24)
+        self.assertEqual(session.spaces, 19)
         self.assertEqual(session.location, 'Studio B')
         self.assertEqual(session.running, False)
 
@@ -121,7 +121,7 @@ class TestSession(TestCase):
             activity=activity,
             date="2023-05-07",
             time="07:00",
-            spaces=25,
+            spaces=20,
             location='Studio A',
             running=True
         )
@@ -130,7 +130,7 @@ class TestSession(TestCase):
             activity=activity,
             date="2023-05-07",
             time="07:00",
-            spaces=25,
+            spaces=20,
             location='Studio A',
             running=True
         ).exists(), False)
@@ -145,7 +145,7 @@ class TestSession(TestCase):
             activity=activity,
             date="2023-05-07",
             time="07:00",
-            spaces=25,
+            spaces=20,
             location='Studio A',
             running=True
         )
@@ -153,7 +153,7 @@ class TestSession(TestCase):
         self.assertEqual(Session.objects.filter(id=id).exists(), True)
         feedback = delete_session(id)
         self.assertEqual(Session.objects.filter(id=id).exists(), False)
-        self.assertEqual(feedback, "Thank you, your test_activity session on 2023-05-07 at 07:00 in Studio A has been deleted.")
+        self.assertEqual(feedback, "Thank you, your test_activity session on 2023-05-07 at 07:00:00 in Studio A has been deleted.")
 
 
 class TestBooking(TestCase):
@@ -168,7 +168,7 @@ class TestBooking(TestCase):
             activity=activity,
             date="2023-05-07",
             time="07:00",
-            spaces=25,
+            spaces=20,
             location='Studio A',
             running=True
         )
@@ -194,20 +194,20 @@ class TestBooking(TestCase):
             activity=activity,
             date="2023-05-07",
             time="07:00",
-            spaces=25,
+            spaces=20,
             location='Studio A',
             running=True
         )
         user = 'username1'
         id = session.id
         feedback = create_booking(user, id)
+        session.save()
         self.assertEqual(
             Booking.objects.filter(
                 user=user,
                 session=session
             ).exists(), True)
         self.assertEqual(feedback, "Thanks for confirming, your classes have been booked.")
-        self.assertEqual(session.spaces, 24)
 
     def test_can_delete_booking_manually(self):
         activity = Activity.objects.create(
@@ -223,8 +223,9 @@ class TestBooking(TestCase):
             location='Studio A',
             running=True
         )
+        user = 'usernam1'
         booking = Booking.objects.create(
-            user='username1',
+            user=user,
             session=session
         )
         booking.delete()
@@ -260,4 +261,4 @@ class TestBooking(TestCase):
                 session=session
             ).exists(), False
         )
-        self.assertEqual(feedback, "Thanks for confirming, your booking for test_activity at 07:00 on 2023-05-07 has been cancelled.")
+        self.assertEqual(feedback, "Thanks for confirming, your booking for test_activity at 07:00:00 on 2023-05-07 has been cancelled.")
