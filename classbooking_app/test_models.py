@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.shortcuts import get_object_or_404
 from .models import Activity, Session, Booking
 from .views import create_booking, delete_booking, delete_session
 
@@ -266,7 +265,7 @@ class TestBooking(TestCase):
 
 class TestCascades(TestCase):
 
-    def test_activity_cascades(self):
+    def test_activity_change_cascades(self):
         activity = Activity.objects.create(
             name='test_activity',
             description='test_description',
@@ -306,7 +305,7 @@ class TestCascades(TestCase):
         self.assertEqual(booking.session.activity.capacity, 15)
         self.assertEqual(booking.session.activity.duration, '30m')
 
-    def test_session_cascades(self):
+    def test_session_change_cascades(self):
         activity = Activity.objects.create(
             name='test_activity',
             description='test_description',
@@ -341,3 +340,89 @@ class TestCascades(TestCase):
         self.assertEqual(booking.session.spaces, 20)
         self.assertEqual(booking.session.location, 'Studio B')
         self.assertEqual(booking.session.running, False)
+
+    def test_activity_deletion_cascades(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        user = 'username1'
+        booking = Booking.objects.create(
+            user=user,
+            session=session
+        )
+        self.assertEqual(
+            Session.objects.filter(
+                activity=activity,
+                date="2023-05-07",
+                time="07:00",
+                spaces=25,
+                location='Studio A',
+                running=True
+            ).exists(), True
+        )
+        self.assertEqual(
+            Booking.objects.filter(
+                user=user,
+                session=session
+            ).exists(), True
+        )
+        activity.delete()
+        self.assertEqual(
+            Session.objects.filter(
+                activity=activity,
+                date="2023-05-07",
+                time="07:00",
+                spaces=25,
+                location='Studio A',
+                running=True
+            ).exists(), False
+        )
+        self.assertEqual(
+            Booking.objects.filter(
+                user=user,
+                session=session
+            ).exists(), False
+        )
+    
+    def test_session_deletion_cascades(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        user = 'username1'
+        booking = Booking.objects.create(
+            user=user,
+            session=session
+        )
+        self.assertEqual(
+            Booking.objects.filter(
+                user=user,
+                session=session
+            ).exists(), True
+        )
+        session.delete()
+        self.assertEqual(
+            Booking.objects.filter(
+                user=user,
+                session=session
+            ).exists(), False
+        )

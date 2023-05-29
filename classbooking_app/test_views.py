@@ -1,7 +1,8 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.shortcuts import get_object_or_404
 from .models import Activity, Session, Booking
 from datetime import datetime
+from django.contrib.auth.models import User
 
 
 class TestLoadPages(TestCase):
@@ -20,7 +21,16 @@ class TestLoadPages(TestCase):
         response = self.client.get('/register.html')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'classbooking_app/register.html')
-        user = User.objects.create_superuser('username1', 'user@email.com', 'password')
-    
 
+    # Test that restricted pages can't be accessed while not logged in
+    def test_restrict_timetable_page(self):
+        response = self.client.get('/timetable.html')
+        self.assertNotEqual(response.status_code, 200)
 
+    def test_restrict_members_area_page(self):
+        response = self.client.get('/members_area.html')
+        self.assertNotEqual(response.status_code, 200)
+
+    def test_restrict_admin_page(self):
+        response = self.client.get('/admin.html')
+        self.assertNotEqual(response.status_code, 200)
