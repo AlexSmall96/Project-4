@@ -1,1 +1,1 @@
-web: gunicorn rural-fitness.wsgi
+web: gunicorn classbooking.wsgi
