@@ -16,10 +16,6 @@ class Activity(models.Model):
         blank=False,
         default="test_description"
         )
-    image = models.CharField(
-        max_length=200,
-        default="test_description"
-        )
     capacity = models.IntegerField(
         null=False,
         blank=False,
