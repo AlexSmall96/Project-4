@@ -9,7 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mallanna&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../static/classbooking_app/css/style.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'classbooking_app/css/style.css' %}">
     <title>Rural Fitness</title>
 </head>
 <body>
@@ -130,7 +131,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <!--Link to script.js-->
   {% load static %}
-  <script src="{% static 'classbooking_app/js/members_area.js' %}"></script>
+  <script src="{% static 'classbooking_app/js/signup_details.js' %}"></script>
   <footer class="dark-background">
     <div class="footer-btn-section">
       {% if user.is_authenticated %}
