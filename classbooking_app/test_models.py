@@ -152,7 +152,12 @@ class TestSession(TestCase):
         self.assertEqual(Session.objects.filter(id=id).exists(), True)
         feedback = delete_session(id)
         self.assertEqual(Session.objects.filter(id=id).exists(), False)
-        self.assertEqual(feedback, "Thank you, your test_activity session on 2023-05-07 at 07:00:00 in Studio A has been deleted.")
+        self.assertEqual(
+            feedback,
+            """
+            Thank you, your test_activity session on 2023-05-07 at 07:00:00 in
+            Studio A has been deleted
+            """)
 
 
 class TestBooking(TestCase):
@@ -206,7 +211,9 @@ class TestBooking(TestCase):
                 user=user,
                 session=session
             ).exists(), True)
-        self.assertEqual(feedback, "Thanks for confirming, your classes have been booked.")
+        self.assertEqual(
+            feedback,
+            "Thanks for confirming, your classes have been booked.")
 
     def test_can_delete_booking_manually(self):
         activity = Activity.objects.create(
@@ -260,7 +267,12 @@ class TestBooking(TestCase):
                 session=session
             ).exists(), False
         )
-        self.assertEqual(feedback, "Thanks for confirming, your booking for test_activity at 07:00:00 on 2023-05-07 has been cancelled.")
+        self.assertEqual(
+            feedback,
+            """
+            Thanks for confirming, your booking for test_activity at 07:00:00
+            on 2023-05-07 has been cancelled.
+            """)
 
 
 class TestCascades(TestCase):
@@ -289,7 +301,9 @@ class TestCascades(TestCase):
         self.assertEqual(session.activity.capacity, 20)
         self.assertEqual(session.activity.duration, '1hr')
         self.assertEqual(booking.session.activity.name, 'test_activity')
-        self.assertEqual(booking.session.activity.description, 'test_description')
+        self.assertEqual(
+            booking.session.activity.description,
+            'test_description')
         self.assertEqual(booking.session.activity.capacity, 20)
         self.assertEqual(booking.session.activity.duration, '1hr')
         activity.name = 'test_activity_2'
@@ -301,7 +315,9 @@ class TestCascades(TestCase):
         self.assertEqual(session.activity.capacity, 15)
         self.assertEqual(session.activity.duration, '30m')
         self.assertEqual(booking.session.activity.name, 'test_activity_2')
-        self.assertEqual(booking.session.activity.description, 'test_description_2')
+        self.assertEqual(
+            booking.session.activity.description,
+            'test_description_2')
         self.assertEqual(booking.session.activity.capacity, 15)
         self.assertEqual(booking.session.activity.duration, '30m')
 
@@ -393,7 +409,7 @@ class TestCascades(TestCase):
                 session=session
             ).exists(), False
         )
-    
+
     def test_session_deletion_cascades(self):
         activity = Activity.objects.create(
             name='test_activity',

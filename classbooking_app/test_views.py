@@ -1,8 +1,5 @@
 from django.test import TestCase, Client
-from django.shortcuts import get_object_or_404
 from .models import Activity, Session, Booking
-from datetime import datetime
-from django.contrib.auth.models import User
 
 
 class TestLoadPages(TestCase):
@@ -15,7 +12,9 @@ class TestLoadPages(TestCase):
     def test_load_signup_details_page(self):
         response = self.client.get('/signup_details.html')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'classbooking_app/signup_details.html')
+        self.assertTemplateUsed(
+            response,
+            'classbooking_app/signup_details.html')
 
     def test_load_register_page(self):
         response = self.client.get('/register.html')
