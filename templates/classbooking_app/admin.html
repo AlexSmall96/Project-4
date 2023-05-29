@@ -1,0 +1,272 @@
+{% extends 'classbooking_app/base.html' %}
+
+{% block contentbody %}
+<form method="POST" id="session-form">
+{% csrf_token %}
+<!-- Instructions -->
+<div  class="beneath-header" id="admin-instructions">
+<h4>Edit Timetable:</h4>
+<h5><i class="fa-solid fa-circle-exclamation"></i> For Admin use only:</h5>
+<ul>
+<li>Sessions are shown in the table below. By default, the timetable for the next month is shown, but all sessions are available to view and edit.</li>
+ <li>Use the date, activity and location filters below to view sessions.</li>
+ <li>For any session shown, alter the fields as required. To cancel a session, untick the 'running' box. Press 'Save Session Changes' and press confirm on the popup. 
+  Altering information without pressing save WILL NOT update the Timetable.</li>
+ <li>To delete a session, press the corresponding 'Delete Session' button and press confirm on the popup. The session WILL NOT be deleted without pressing confirm.</li>
+ <li>To add a new session to the timetable, press the add session button. The new session will appear highlighted in yellow. Session details can then be chosen.</li>
+ <li>Details can only be altered for one session at a time, and only one session can be created at a time.</li>
+ <li> Please ensure all members who are booked into a session are informed of any session changes or deletions. </li>
+<li>Use the below filters to load sessions.</li>
+</ul>
+    <!--Hidden Inputs to commmunicate with python-->
+    <input class="invisible" type="text" id="update-field" name="update-field">
+    <input class="invisible" type="text" id="delete-field" name="delete-field">
+    <input class="invisible" type="text" id="create-field" name="create-field">
+    <input class="invisible" type="text" id="feedback-field" name="feedback-field" value="{{ feedback_field }}">
+    <p class="invisible" id="admin-feedback">{{ feedback }}</p>
+    
+    <!-- Form to Filter Sessions-->
+    <div id="admin-filter" class="container">
+      <div class="row">
+        <div class="col-3"><label for="dat-filter">Date:</label></div>
+        <div class="col-9"><input class="filter" type="date" id="dat-filter" name="date-filter" value="{{ date_filter }}"></div>
+      </div>
+      <div class="row">
+        <div class="col-3"><label for="act-filter">Activity: </label></div>
+        <div class="col-9"><select class="filter" id="act-filter" name="activity-filter" value="{{ activity_filter }}">
+          <option class="activity-option" value="All">All</option>
+          {% for activity in activities %}
+          {% if activity.name == activity_filter %}
+              <option value = "{{ activity.name }}" selected>{{ activity.name }}</option>
+          {% else %}
+          <option value="{{ activity.name }}">{{ activity.name }}</option>
+          {% endif %}
+          {% endfor %}
+      </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <label for="loc-filter">Location:</label>
+        </div>
+        <div class="col-9">    
+          <select class="filter" id="loc-filter" name="location-filter" value="{{ location_filter }}">
+            <option value="All">All</option>
+            {% for location in locations %}
+            {% if location == location_filter %}
+            <option value = "{{ location }}" selected>{{ location }}</option>
+            {% else %}
+            <option value="{{ location }}">{{ location }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Button to add a session -->
+  <div id="add-btn-section" class="container vertical-margin-top">
+    <div class="row">
+      <button class="admin-btn" type="button" id="add-session">
+          <i class="fa-solid fa-square-plus"></i>
+          Add Session
+      </button>  
+    </div>
+  </div>
+   <div id="admin-list-section">
+    <div id="admin-headers" class="container session-box">
+      <div class="row">
+        <div id="session-headers" class="row">
+          <div class="col-sm-2">Activity 
+              {%if activity_filter != "All" %}
+              <button type="button" id="act-filter-icon" class="filter-icon filter-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% else %}
+              <button type="button" id="act-filter-icon" class="filter-icon filter-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% endif %}
+          </div>
+          <div class="col-sm-2">Date
+              {%if date_filter != "" %}
+              <button type="button" id="dat-filter-icon" class="filter-icon filter-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% else %}
+              <button type="button" id="dat-filter-icon" class="filter-icon invisible filter-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% endif %}
+          </div>
+          <div class="col-sm-2">Time</div>
+          <div class="col-sm-2">Location
+              {%if location_filter != "All" %}
+              <button type="button" id="loc-filter-icon" class="filter-icon filter-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% else %}
+              <button type="button" id="loc-filter-icon" class="filter-icon filter-btn invisible"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+              {% endif %}               
+          </div>
+          <div class="col-sm-1"><p class="header-icon"><i class="fa-solid fa-users"></i></p><p class="header-txt">Spaces</p></div>
+          <div class="col-sm-1"><p class="header-icon"><i class="fa-solid fa-circle-play"></i></p><p class="header-txt">Running</p></div>
+          <div class="col-sm-1"></div>
+          <div class="col-sm-1"></div>
+      </div>
+      </div>
+    </div>
+    <!-- List of chosen sessions -->
+    <div id="session-cont" class="container session-box">
+      {% if sessions|length > 0 %}
+        {% for session in sessions %}
+        <div id="{{ session.id }}-admin-list" class="row">
+          <div class="col-2 d-sm-none">
+            <label class="sm-font admin-height" for="{{ session.id }}-activity">Name</label>
+          </div>
+            <div class="col-10 col-sm-2">
+                <select class="sm-width admin-height" id="{{ session.id }}-activity" name="{{ session.id }}-activity">
+                    {% for activity in activities %}
+                    {% if activity == session.activity %}
+                    <option value="{{ activity.name }}" selected>{{ activity.name }}</option>
+                    {% else %}
+                    <option value="{{ activity.name }}">{{ activity.name }}</option>
+                    {% endif %}
+                    {% endfor %}
+                    </select>
+            </div>
+            <div class="col-2 d-sm-none">
+              <label class="sm-font admin-height" for="{{ session.id }}-date">Date/Time</label>
+            </div>
+            <div class="col-5 col-sm-2">
+                <input class="date-edit sm-width admin-height" type="date" id="{{ session.id }}-date" name="{{ session.id }}-date" value="{{ session.date|date:'Y-m-d' }}">
+            </div>
+            <div class="col-5 col-sm-2">
+                <input class="sm-width admin-height" type="time" id="{{ session.id }}-time" name="{{ session.id }}-time" value="{{ session.time|time:'H:i' }}" step="3600000">
+            </div>
+            <div class="col-2 d-sm-none">
+              <label class="sm-font admin-height" for="{{ session.id }}-location">Location</label>
+            </div>
+            <div class="col-10 col-sm-2">
+                <select class="sm-width admin-height" id="{{ session.id }}-location" name="{{ session.id }}-location">
+                    {% for location in locations %}
+                    {% if location == session.location %}
+                    <option value="{{ location }}" selected>{{ location }}</option>
+                    {% else %}
+                    <option value="{{ location }}">{{ location }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-2 d-sm-none">
+              <label class="sm-font admin-height" for="{{ session.id }}-spaces">Spaces</label>
+            </div>
+            <div class="col-5 col-sm-1">
+                <input class="sm-width admin-height" type="number" id="{{ session.id }}-spaces" name="{{ session.id }}-spaces" value="{{ session.spaces }}" min="0" max="25" step="1">
+            </div>
+            <div class="col-2 offset-1 d-sm-none">
+              <label class="sm-font admin-height" for="{{ session.id }}-running">Running</label>
+            </div>
+            <div class="col-2 col-sm-1">
+                {% if session.running %}
+                <input class="sm-width admin-checkbox" type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running" checked>
+                {% else %}
+                <input class="sm-width admin-checkbox" type="checkbox" id="{{ session.id }}-running" name="{{ session.id }}-running">
+                {% endif %}                
+            </div>
+            <div class="col-5 offset-2 col-sm-1 offset-sm-0">
+                <button class="admin-btn sm-width sm-btn admin-height" type="button"  name="{{ session.id }}-update" data-toggle="modal" data-target="#confirm-update-modal-{{ session.id }}">
+                  <p class="action-icon"><i class="fa-solid fa-floppy-disk"></i></p>
+                  <p class="action-txt">Save Changes</p>
+                </button>
+            </div>
+            
+            <div class="col-5 col-sm-1">
+                <button class="admin-btn sm-width sm-btn admin-height" type="button"  name="{{ session.id }}-delete" data-toggle="modal" data-target="#confirm-delete-modal-{{ session.id }}">
+                  <p class="action-icon"><i class="fa-solid fa-trash-can"></i></p>
+                  <p class="action-txt">Delete Session</p>
+                </button>
+            </div>
+        </div>
+    <!-- Confirm Update Modal -->
+    <div class="modal fade" id="confirm-update-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to make changes to this session?</h5>
+            </div>
+            <div class="modal-footer">
+              <button id="data-dismiss-{{ session.id }}" type="button" class="btn btn-secondary" data-dismiss="modal">No, discard changes.</button>
+              <button type="button" class="btn btn-primary update-btn" id="{{ session.id }}-update">Yes, save changes.</button>
+            </div>
+          </div>
+        </div>
+      </div>
+          <!-- Confirm Delete Modal -->
+      <div class="modal fade" id="confirm-delete-modal-{{ session.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this session from the timetable?</h5>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No, keep the session.</button>
+                <button type="button" class="btn btn-primary delete-btn" id="{{ session.id }}-delete">Yes, delete.</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No Sessions matching criteria.</p>
+        {% endif %}
+    </div>
+    </form>
+          <!-- Confirm Create Modal -->
+          <div class="modal fade" id="confirm-create-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to create this session?</h5>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" id="data-dismiss-create">No</button>
+                  <button type="button" class="btn btn-primary" id="create-btn-modal">Yes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    <!-- Feedback modal -->
+    <button type="button" data-toggle="modal" data-target="#feedback-modal" id="feedback-modal-btn" class="invisible"></button>
+    <div class="modal fade" id="feedback-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="feedback-modal-title">
+                {{ feedback }}
+              </h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">View Sessions</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Hidden data for javascript to load select options-->
+    <div id="activity-list" class="invisible">
+        {% for activity in activities %}
+        <p>{{ activity }}</p>
+        {% endfor %}
+    </div>
+
+    <div id="location-list" class="invisible">
+        {% for location in locations %}
+        <p>{{ location }}</p>
+        {% endfor %}
+    </div>
+      <!-- Max id to ensure new session is unique -->
+      <p class="invisible" id="max-id">{{ max_id }}</p>
+      <!-- Default date to filter  -->
+      <p class="invisible" id="default-date">{{ date_filter }}</p>
+      {% endblock %}
+
+
+{% block contentscript %}
+
+<!-- Link to js file-->
+{% load static %}
+<script src="{% static 'classbooking_app/js/admin.js' %}"></script>
+
+{% endblock %}
