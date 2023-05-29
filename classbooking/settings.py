@@ -147,3 +147,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "load_home_page"
 
 LOGOUT_REDIRECT_URL = "load_home_page"
+
+cloud_name = os.environ.get('cloud_name')
+api_key = os.environ.get('api_key')
+api_secret = os.environ.get('api_secret')
+
+cloudinary.config(
+    cloud_name=cloud_name,
+    api_key=api_key,
+    api_secret=api_secret
+)

@@ -21,5 +21,3 @@ class TestLoadPages(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'classbooking_app/register.html')
 
-
-

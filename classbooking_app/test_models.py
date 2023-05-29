@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.shortcuts import get_object_or_404
 from .models import Activity, Session, Booking
-from datetime import datetime
+from .views import create_booking, delete_booking, delete_session
 
 
 class TestActivity(TestCase):
@@ -110,3 +110,154 @@ class TestSession(TestCase):
         self.assertEqual(session.spaces, 24)
         self.assertEqual(session.location, 'Studio B')
         self.assertEqual(session.running, False)
+
+    def test_can_delete_session_manually(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        session.delete()
+        self.assertEqual(Session.objects.filter(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        ).exists(), False)
+
+    def test_can_delete_session_via_function(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        id = session.id
+        self.assertEqual(Session.objects.filter(id=id).exists(), True)
+        feedback = delete_session(id)
+        self.assertEqual(Session.objects.filter(id=id).exists(), False)
+        self.assertEqual(feedback, "Thank you, your test_activity session on 2023-05-07 at 07:00 in Studio A has been deleted.")
+
+
+class TestBooking(TestCase):
+
+    def test_can_create_booking_manually(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        booking = Booking.objects.create(
+            user='username1',
+            session=session
+        )
+        self.assertEqual(
+            Booking.objects.filter(
+                user='username1',
+                session=session).exists(), True
+                )
+        self.assertEqual(booking.session, session)
+        self.assertEqual(booking.user, 'username1')
+
+    def test_can_create_booking_via_function(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        user = 'username1'
+        id = session.id
+        feedback = create_booking(user, id)
+        self.assertEqual(
+            Booking.objects.filter(
+                user=user,
+                session=session
+            ).exists(), True)
+        self.assertEqual(feedback, "Thanks for confirming, your classes have been booked.")
+        self.assertEqual(session.spaces, 24)
+
+    def test_can_delete_booking_manually(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        booking = Booking.objects.create(
+            user='username1',
+            session=session
+        )
+        booking.delete()
+        self.assertEqual(Booking.objects.filter(
+            user=user,
+            session=session
+            ).exists(), False)
+
+    def test_can_delete_booking_via_function(self):
+        activity = Activity.objects.create(
+            name='test_activity',
+            description='test_description',
+            capacity=20,
+            duration='1hr')
+        session = Session.objects.create(
+            activity=activity,
+            date="2023-05-07",
+            time="07:00",
+            spaces=25,
+            location='Studio A',
+            running=True
+        )
+        user = 'username1'
+        booking = Booking.objects.create(
+            user=user,
+            session=session
+        )
+        id = session.id
+        feedback = delete_booking(user, id)
+        self.assertEqual(
+            Booking.objects.filter(
+                user=user,
+                session=session
+            ).exists(), False
+        )
+        self.assertEqual(feedback, "Thanks for confirming, your booking for test_activity at 07:00 on 2023-05-07 has been cancelled.")
