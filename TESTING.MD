@@ -151,7 +151,6 @@ In this section, a 'member' refers to a normal user who has registered an accoun
 |8.12|Database Logic|When creating or updating a session, session times must be on the hour, if not a feedback modal appears stating this| Pass
 |8.13|Database Logic|Details that have been altered on the admin page are reflected on the members area and timetable page. (See Members Area and Timetable Test Sections)| Pass
 
-### Screenshots where applicable for Admin page
 [Admin Tests Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/admin-screenshots.pdf).
 
 ### Defensiveness 
