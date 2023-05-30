@@ -1,7 +1,27 @@
 # Testing
 Back to [README.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/README.md).
 ## Table of Contents
-
+- [Testing](#testing)
+  * [Table of Contents](#table-of-contents)
+  * [Automated Tests](#automated-tests)
+  * [Manual Testing](#manual-testing)
+    + [Home Page](#home-page)
+    + [Signup Details Page](#signup-details-page)
+    + [Register Page](#register-page)
+    + [Login Page](#login-page)
+    + [Members Only Content](#members-only-content)
+    + [Timetable](#timetable)
+    + [Members Area](#members-area)
+    + [Admin Page](#admin-page)
+    + [Screenshots where applicable for Admin page](#screenshots-where-applicable-for-admin-page)
+    + [Defensiveness](#defensiveness)
+  * [Responsiveness](#responsiveness)
+    + [Responsiveness Issues Found](#responsiveness-issues-found)
+  * [Validation Testing](#validation-testing)
+    + [Python Validator](#python-validator)
+    + [JS Validation](#js-validation)
+    + [HTML Validation](#html-validation)
+    + [CSS Validation](#css-validation)
 ## Automated Tests
 See test_models.py and test_views.py for automated python tests, covering basic template loading and model interactivity. This document covers more complex and detailed features that are better suited to manual testing.
 ## Manual Testing
