@@ -65,6 +65,17 @@ Manual testing was divided into sections based on the page location of the site.
 
 [Login Page Tests Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/login-page-screenshots.pdf).
 
+### Members Only Content 
+In this section, a 'member' refers to a normal user who has registered an account, that is not a superuser.
+| Test | Category         | Pass Criteria                       | Pass/Fail |
+|------|------------------|-------------------------------------|-----------|
+|5.1|Loading Data| When logged in as a member, the timetable and members area links become visible in the nav bar| Pass
+|5.2|Loading Data| When logged in as a member, the buttons underneath the hero image and 'Classes' section become links to 'Members Area' and 'Timetable' and direct to the correct pages when clicked| Pass
+|5.3|Loading Data| When logged in as a member, the buttons underneath in the class hero image become links to 'Members Area' and 'Timetable' and direct to the correct pages when clicked| Pass
+|5.4|Loading Data| When logged in as a member, the button in the footer becomes a link to 'Members Area' and directs the user to the correct page when clicked| Pass
+
+[Login Page Tests Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/members-only-screenshots.pdf).
+
 ### Timetable
 | Test | Category         | Pass Criteria                       | Pass/Fail |
 |------|------------------|-------------------------------------|-----------|
