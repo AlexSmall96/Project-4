@@ -116,7 +116,7 @@ In this section, a 'member' refers to a normal user who has registered an accoun
 6.15| Database Logic| Button corresponding to the class the user cancelled now appears as default text 'Add to Cart' |Pass
 6.16| Database Logic| When a user books in for a class, the number of spaces shown decreases by 1 |Pass
 6.17| Database Logic|If a class is cancelled by the admin, the location, spaces and buttons disappear and are replaced by a message with text 'Apologies, class canceled' |Pass
-6.18| If a class has 0 spaces left, its action button disappears and is replaced with a 'Class Currently Full' message |Pass
+6.18|Database Logic| If a class has 0 spaces left, its action button disappears and is replaced with a 'Class Currently Full' message |Pass
 
 [Timetable Tests Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/timetable-screenshots.pdf).
 
