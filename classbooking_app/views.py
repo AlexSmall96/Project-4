@@ -7,8 +7,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Activity, Session, Booking
 from datetime import datetime, date, timedelta
 import time
-from django.utils import timezone
-from itertools import chain
 
 
 def load_home_page(request):
