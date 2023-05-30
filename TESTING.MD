@@ -117,10 +117,25 @@ In this section, a 'member' refers to a normal user who has registered an accoun
 | Test | Category         | Pass Criteria                       | Pass/Fail |
 |------|------------------|-------------------------------------|-----------|
 |8.1| Loading Data| When user logs in as super user, the admin page becomes visible in the nav bar |
+|8.2|Database Logic| Applying each of the filters alters the sessions shown, and a clickable filter button appears when each field is filtered. | Pass
+|8.3|Database Logic| Clicking each filter button removes the filter and updates the list of sessions | Pass
+|8.4|Database Logic| All fields can be edited when updating a session| Pass
+|8.5|Database Logic| When save changes button is clicked on a session, a confirmation modal appears. Session details are updated when user confirms via modal| Pass
+|8.6|Database Logic| User recives feedback via another modal that session details have been updated| Pass
+|8.7|Database Logic| When save delete button is clicked on a session, a confirmation modal appears. Session is deleted when user confirms via modal| Pass
+|8.8|Database Logic| User recives feedback via another modal that session has been deleted| Pass
+|8.9|Component Interactivity| Clicking Add session button results in a new session appearing in yellow| Pass
+|8.10|Database Logic| Modals appear in the same way as update sessions as for creating a session| Pass
+|8.11|Database Logic| Modals appear in the same way as update sessions as for creating a session| Pass
+|8.12|Database Logic|When creating or updating a session, details cannot be altered to create a clash with the current timetable| Pass
+|8.12|Database Logic|When creating or updating a session, session times must be on the hour, if not a feedback modal appears stating this| Pass
+|8.13|Database Logic|Details that have been altered on the admin page are reflected on the members area and timetable page. (See Members Area and Timetable Test Sections)| Pass
+
 ### Screenshots where applicable for Admin page
+[Admin Tests Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/admin-screenshots.pdf).
 
 ### Defensiveness 
-Several of the pages on this site have restricted content that is role specific. To deal with this, defensiveness has been added. If the timetable or members area urls are copied into another browser
+Several of the pages on this site have restricted content that is role specific. To deal with this, defensiveness has been added. If the timetable, members area or admin urls are copied into another browser, the user is redirected to the home page as they are no longer logged in. Further developments would include a specific feedback message directed to the user or being redirected to the login page.
 ## Responsiveness
 
 ## User Stories Testing
