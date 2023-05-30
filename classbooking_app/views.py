@@ -216,101 +216,105 @@ def delete_booking(user, id):
     return f"Thanks for confirming, your booking for {session.activity.name} at {session.time} on {session.date} has been cancelled."
 
 
-@login_required(login_url="/login.html")
 def load_timetable(request):
-    user = request.user
-    confirmed = ""
-    cart = ""
-    cancel_id = ""
-    timtbl_feedback = ""
-    today = date.today()
-    tomorrow = date.today() + timedelta(days=1)
-    next_week = (date.today() + timedelta(days=6))
-    now = datetime.now()
-    weeks_sessions = Session.objects.filter(date__range=[tomorrow, next_week]).order_by("date", "time")
-    todays_sessions = Session.objects.filter(date=today, time__gte=now).order_by("date", "time")
-    if len(todays_sessions) == 0:
-        tab_range = [tomorrow, next_week]
-        active_date = tomorrow
+    if not request.user.is_authenticated:
+        return redirect('/')
     else:
-        tab_range = [today, next_week]
-        active_date = today
-    dates = Session.objects.filter(date__range=tab_range).values_list(
-        'date', flat=True).distinct().order_by("date")
-    existing_bookings = Booking.objects.filter(user=user)
-    if request.method == "POST":
-        cart = request.POST.get('cart')
-        cart_ids = cart.split()
-        confirmed = request.POST.get('confirmed')
-        for session_id in cart_ids:
-            timtbl_feedback = create_booking(user, session_id)
-        cancel_id = request.POST.get("cancel-timetable")
-        if cancel_id != "":
-            timtbl_feedback = delete_booking(user, cancel_id)
-            cancel_id = int(cancel_id)
-    existing_bookings = Booking.objects.filter(user=user)
-    context = {
-        'todays_sessions': todays_sessions,
-        'weeks_sessions': weeks_sessions,
-        'todays_sessions': todays_sessions,
-        'dates': dates,
-        'existing_bookings': existing_bookings,
-        'confirmed': confirmed,
-        'cart': cart,
-        'cancel_id': cancel_id,
-        'today': today,
-        'active_date': active_date,
-        'timtbl_feedback': timtbl_feedback
-        }
-    return render(request, 'classbooking_app/timetable.html', context)
+        user = request.user
+        confirmed = ""
+        cart = ""
+        cancel_id = ""
+        timtbl_feedback = ""
+        today = date.today()
+        tomorrow = date.today() + timedelta(days=1)
+        next_week = (date.today() + timedelta(days=6))
+        now = datetime.now()
+        weeks_sessions = Session.objects.filter(date__range=[tomorrow, next_week]).order_by("date", "time")
+        todays_sessions = Session.objects.filter(date=today, time__gte=now).order_by("date", "time")
+        if len(todays_sessions) == 0:
+            tab_range = [tomorrow, next_week]
+            active_date = tomorrow
+        else:
+            tab_range = [today, next_week]
+            active_date = today
+        dates = Session.objects.filter(date__range=tab_range).values_list(
+            'date', flat=True).distinct().order_by("date")
+        existing_bookings = Booking.objects.filter(user=user)
+        if request.method == "POST":
+            cart = request.POST.get('cart')
+            cart_ids = cart.split()
+            confirmed = request.POST.get('confirmed')
+            for session_id in cart_ids:
+                timtbl_feedback = create_booking(user, session_id)
+            cancel_id = request.POST.get("cancel-timetable")
+            if cancel_id != "":
+                timtbl_feedback = delete_booking(user, cancel_id)
+                cancel_id = int(cancel_id)
+        existing_bookings = Booking.objects.filter(user=user)
+        context = {
+            'todays_sessions': todays_sessions,
+            'weeks_sessions': weeks_sessions,
+            'todays_sessions': todays_sessions,
+            'dates': dates,
+            'existing_bookings': existing_bookings,
+            'confirmed': confirmed,
+            'cart': cart,
+            'cancel_id': cancel_id,
+            'today': today,
+            'active_date': active_date,
+            'timtbl_feedback': timtbl_feedback
+            }
+        return render(request, 'classbooking_app/timetable.html', context)
 
 
-@login_required(login_url="/login.html")
 def load_members_area(request):
-    # Set the feedback message to empty as no form has been submitted yet
-    member_feedback = ""
-    # Save current user
-    user = request.user
-    # Get current date and time
-    current_date = date.today()
-    now = datetime.now()
-    # Get bookings for next week starting from tomorrow
-    date_min = current_date + timedelta(days=1)
-    bookings = Booking.objects.filter(
-        user=user,
-        session__date__gte=date_min
-        ).order_by("session__date", "session__time")
-    # Get todays bookings where the class is still to occur
-    todays_bookings = Booking.objects.filter(
-        user=user,
-        session__date=current_date,
-        session__time__gte=now).order_by("session__date","session__time")
-    # Count the total number of users bookings
-    no_tot_bookings = len(todays_bookings) + len(bookings)
-    # Check if form has been submitted
-    if request.method == "POST":
-        # Get id of session associated with booking the user wishes to cancel
-        cancel_id = request.POST.get('cancel')
-        # Delete booking and return feedback message
-        member_feedback = delete_booking(user, cancel_id)
-        # Update the users bookings list
+    if not request.user.is_authenticated:
+        return redirect('/')
+    else:
+        # Set the feedback message to empty as no form has been submitted yet
+        member_feedback = ""
+        # Save current user
+        user = request.user
+        # Get current date and time
+        current_date = date.today()
+        now = datetime.now()
+        # Get bookings for next week starting from tomorrow
+        date_min = current_date + timedelta(days=1)
         bookings = Booking.objects.filter(
             user=user,
             session__date__gte=date_min
             ).order_by("session__date", "session__time")
+        # Get todays bookings where the class is still to occur
         todays_bookings = Booking.objects.filter(
             user=user,
             session__date=current_date,
             session__time__gte=now).order_by("session__date", "session__time")
-        # Update count of total bookings
+        # Count the total number of users bookings
         no_tot_bookings = len(todays_bookings) + len(bookings)
-    # Save variables as context to pass through to browswer
-    context = {
-        'member_feedback': member_feedback,
-        'todays_bookings': todays_bookings,
-        'bookings': bookings,
-        'current_date': current_date,
-        'no_tot_bookings': no_tot_bookings,
-        }
-    # Pass through the remaining users bookings
-    return render(request, 'classbooking_app/members_area.html', context)
+        # Check if form has been submitted
+        if request.method == "POST":
+            # Get id of session associated with booking the user wishes to cancel
+            cancel_id = request.POST.get('cancel')
+            # Delete booking and return feedback message
+            member_feedback = delete_booking(user, cancel_id)
+            # Update the users bookings list
+            bookings = Booking.objects.filter(
+                user=user,
+                session__date__gte=date_min
+                ).order_by("session__date", "session__time")
+            todays_bookings = Booking.objects.filter(
+                user=user,
+                session__date=current_date,
+                session__time__gte=now).order_by("session__date", "session__time")
+            # Update count of total bookings
+            no_tot_bookings = len(todays_bookings) + len(bookings)
+        # Save variables as context to pass through to browswer
+        context = {
+            'member_feedback': member_feedback,
+            'todays_bookings': todays_bookings,
+            'bookings': bookings,
+            'current_date': current_date,
+            'no_tot_bookings': no_tot_bookings,
+            }
+        # Pass through the remaining users bookings
+        return render(request, 'classbooking_app/members_area.html', context)

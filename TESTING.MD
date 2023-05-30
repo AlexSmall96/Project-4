@@ -109,15 +109,18 @@ In this section, a 'member' refers to a normal user who has registered an accoun
 |7.4| Database Logic  | Clicking yes button on confirmation modal results in message confirming to user that booking has been cancelled, with Book more classes and View remainign Bookings buttons appearing | Pass
 |7.5| Component Interactivity  | Clicking book more classes directs user to timetable, clicking view remaining bookings dismisses modal and takes user back to members area | Pass
 |7.6| Component Interactivity  | Cancelled classse that user has booked into appear in members area with message stating they have been cancelled | Pass
-|7.7| Navigation Links  | Facebook link in picture opens in new tab to facebook home page, link to home page in footer links correctly to hom page | Pass
+|7.7| Navigation Links  | Facebook link in picture opens in new tab to facebook home page, link to home page in footer links correctly to home page | Pass
 
 [Members Area Tests Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/members-area-screenshots.pdf).
 
 ### Admin Page 
 | Test | Category         | Pass Criteria                       | Pass/Fail |
 |------|------------------|-------------------------------------|-----------|
+|8.1| Loading Data| When user logs in as super user, the admin page becomes visible in the nav bar |
 ### Screenshots where applicable for Admin page
 
+### Defensiveness 
+Several of the pages on this site have restricted content that is role specific. To deal with this, defensiveness has been added. If the timetable or members area urls are copied into another browser
 ## Responsiveness
 
 ## User Stories Testing
