@@ -103,7 +103,15 @@ In this section, a 'member' refers to a normal user who has registered an accoun
 ### Members Area
 | Test | Category         | Pass Criteria                       | Pass/Fail |
 |------|------------------|-------------------------------------|-----------|
-### Screenshots where applicable for Members Area
+|7.1| Loading Data | Header from home page loads as expected, welcome message loads stating users username and joined date. Button on footer has a link to home page|Pass|
+|7.2| Database Logic | Users booked in classes appear, with cancellation button for each one | Pass
+|7.3| Component Interactivity | Clicking cancellation button resuts in confirmation modal appearing, with yes and no buttons| Pass
+|7.4| Database Logic  | Clicking yes button on confirmation modal results in message confirming to user that booking has been cancelled, with Book more classes and View remainign Bookings buttons appearing | Pass
+|7.5| Component Interactivity  | Clicking book more classes directs user to timetable, clicking view remaining bookings dismisses modal and takes user back to members area | Pass
+|7.6| Component Interactivity  | Cancelled classse that user has booked into appear in members area with message stating they have been cancelled | Pass
+|7.7| Navigation Links  | Facebook link in picture opens in new tab to facebook home page, link to home page in footer links correctly to hom page | Pass
+
+[Members Area Tests Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/members-area-screenshots.pdf).
 
 ### Admin Page 
 | Test | Category         | Pass Criteria                       | Pass/Fail |
