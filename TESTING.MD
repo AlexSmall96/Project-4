@@ -138,8 +138,6 @@ In this section, a 'member' refers to a normal user who has registered an accoun
 Several of the pages on this site have restricted content that is role specific. To deal with this, defensiveness has been added. If the timetable, members area or admin urls are copied into another browser, the user is redirected to the home page as they are no longer logged in. Further developments would include a specific feedback message directed to the user or being redirected to the login page.
 ## Responsiveness
 
-## User Stories Testing
-
 ## Issues Found
  
 ## Validation Testing

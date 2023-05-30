@@ -12,14 +12,24 @@ from itertools import chain
 
 
 def load_home_page(request):
+    """
+    Loads the home page as default view for site
+    """
     return render(request, 'classbooking_app/home.html')
 
 
 def load_signup_details_page(request):
+    """
+    Loads the mock sign up page with membership options, contact details
+    and payment
+    """
     return render(request, 'classbooking_app/signup_details.html')
 
 
 def register(request):
+    """
+    Loads the page where members can register an account
+    """
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -29,10 +39,13 @@ def register(request):
     else:
         form = UserCreationForm()
 
-    return render(request, 'classbooking_app/register.html', {'form': form})  
+    return render(request, 'classbooking_app/register.html', {'form': form})
 
 
 def name_to_id(activity):
+    """
+    Converts activity names into ids
+    """
     names = {
         'Boxfit':	1,
         'Kettlebell Chaos':	2,
@@ -48,6 +61,10 @@ def name_to_id(activity):
 
 
 def create_session(request, id):
+    """
+    Used by admin page to create a session
+    """
+    # Get session details
     name = request.POST.get(id + '-activity')
     activity = get_object_or_404(Activity, id=name_to_id(name))
     date = request.POST.get(id + '-date')
@@ -58,6 +75,7 @@ def create_session(request, id):
         running = True
     else:
         running = False
+    # Check for clash
     clash = len(Session.objects.filter(
         date=date,
         time=time,
@@ -65,7 +83,11 @@ def create_session(request, id):
         running=True
         )) > 0
     if clash:
-        return f"Session not created. Another session is already taking place in {location} on {date} at {time}."
+        # Feedback to user
+        return f"""
+        Session not created. Another session is already taking place
+        in {location} on {date} at {time}.
+        """
     else:
         session = Session(
             activity=activity,
@@ -76,10 +98,17 @@ def create_session(request, id):
             running=running
         )
         session.save()
-        return f"Thank you a session for {name} on {date} at {time} in {location} has been created."
+        return f"""
+        Thank you a session for {name} on {date} at {time} in {location}
+        has been created.
+        """
 
 
 def update_session(request, id):
+    """
+    Used by admin page to update a session
+    """
+    # Get session user wishes to update
     session = get_object_or_404(Session, id=id)
     name = request.POST.get(id + '-activity')
     activity = get_object_or_404(Activity, id=name_to_id(name))
@@ -92,6 +121,7 @@ def update_session(request, id):
         date=date,
         time=time,
         location=location)) > 0
+    # Check for clash in new details
     clashes = Session.objects.filter(
         date=date,
         time=time,
@@ -102,7 +132,11 @@ def update_session(request, id):
     if clash:
         same_session = int(clashes[0].id) == int(id)
     if clash and not same_session:
-        return f"Changes not saved. Another session is already taking place in {location} on {date} at {time}."
+        # feedback to user
+        return f"""
+        Changes not saved. Another session is already taking place in
+        {location} on {date} at {time}.
+        """
     else:
         session.activity = activity
         session.date = date
@@ -111,10 +145,15 @@ def update_session(request, id):
         session.running = running
         session.spaces = request.POST.get(id + '-spaces')
         session.save()
+        # feedback to user
         return f"Thank you, your {name} session details have been updated."
-   
+
 
 def delete_session(id):
+    """
+    Used by admin page to delete a session
+    """
+    # Get session
     session = Session.objects.filter(id=id)
     if len(session) > 0:
         session = session[0]
@@ -123,12 +162,20 @@ def delete_session(id):
         time = session.time
         location = session.location
         session.delete()
-        return f"Thank you, your {name} session on {date} at {time} in {location} has been deleted."
+        # Feedback to user
+        return f"""
+        Thank you, your {name} session on {date} at {time}
+        in {location} has been deleted.
+        """
     else:
         return ""
 
 
 def admin_page(request):
+    """
+    Only accessed by a superuser, loads the admin page which allows superuser
+    to edit the timetable
+    """
     if not request.user.is_superuser:
         messages.error(request, 'This page for admin access only.')
         return redirect('/')
@@ -143,18 +190,19 @@ def admin_page(request):
         activity_filter = 'All'
         feedback = ""
         # Load todays sessions
-        sessions = Session.objects.filter(date=date_filter).order_by("date", "time")
+        sessions = Session.objects.filter(date=date_filter).order_by(
+            "date", "time")
         if len(Session.objects.all()) > 0:
-            max_id = list(Session.objects.all().values_list('id', flat=True).order_by('-id'))[0]
+            max_id = list(Session.objects.all().values_list(
+                'id', flat=True).order_by('-id'))[0]
         else:
             max_id = 999000
         # Get all activities and locations to use as dropdown for filters
         activities = Activity.objects.all()
         locations = Session.objects.all().values_list(
             'location', flat=True).distinct()
-        # If data has been sent through form
+        # Process form data
         if request.method == "POST":
-            # Update filters for date, activity and location
             update_id = request.POST.get('update-field')
             if update_id != "":
                 feedback = update_session(request, update_id)
@@ -192,6 +240,9 @@ def admin_page(request):
 
 
 def create_booking(user, id):
+    """
+    Used by timetable page to create bookings
+    """
     # Get session associated with booking
     session = get_object_or_404(Session, id=id)
     if len(Booking.objects.filter(session=session, user=user)) == 0:
@@ -201,36 +252,55 @@ def create_booking(user, id):
             user=user,
             )
         booking.save()
+        # Update session spaces
         spaces_taken = len(Booking.objects.filter(session=session))
         session.spaces = session.activity.capacity - spaces_taken
         session.save()
+        # Feedback result to user
         return f"Thanks for confirming, your classes have been booked."
 
 
 def delete_booking(user, id):
+    """
+    Allows members to cancel bookings via timetable or members area page
+    """
+    # Get session associated with booking
     session = get_object_or_404(Session, id=id)
     bookings = Booking.objects.filter(user=user, session=session).delete()
+    # Update session spaces
     spaces_taken = len(Booking.objects.filter(session=session))
     session.spaces = session.activity.capacity - spaces_taken
     session.save()
-    return f"Thanks for confirming, your booking for {session.activity.name} at {session.time} on {session.date} has been cancelled."
+    # Feedback result to user
+    return f"""
+    Thanks for confirming, your booking for {session.activity.name}
+     at {session.time} on {session.date} has been cancelled.
+     """
 
 
 def load_timetable(request):
+    """
+    Loads the timetable page
+    """
     if not request.user.is_authenticated:
         return redirect('/')
     else:
+        # Get current user
         user = request.user
         confirmed = ""
         cart = ""
         cancel_id = ""
         timtbl_feedback = ""
+        # Set date range
         today = date.today()
         tomorrow = date.today() + timedelta(days=1)
         next_week = (date.today() + timedelta(days=6))
         now = datetime.now()
-        weeks_sessions = Session.objects.filter(date__range=[tomorrow, next_week]).order_by("date", "time")
-        todays_sessions = Session.objects.filter(date=today, time__gte=now).order_by("date", "time")
+        # Load the weeks data
+        weeks_sessions = Session.objects.filter(
+            date__range=[tomorrow, next_week]).order_by("date", "time")
+        todays_sessions = Session.objects.filter(
+            date=today, time__gte=now).order_by("date", "time")
         if len(todays_sessions) == 0:
             tab_range = [tomorrow, next_week]
             active_date = tomorrow
@@ -240,6 +310,7 @@ def load_timetable(request):
         dates = Session.objects.filter(date__range=tab_range).values_list(
             'date', flat=True).distinct().order_by("date")
         existing_bookings = Booking.objects.filter(user=user)
+        # Process form data
         if request.method == "POST":
             cart = request.POST.get('cart')
             cart_ids = cart.split()
@@ -250,7 +321,9 @@ def load_timetable(request):
             if cancel_id != "":
                 timtbl_feedback = delete_booking(user, cancel_id)
                 cancel_id = int(cancel_id)
+        # Redefine bookings
         existing_bookings = Booking.objects.filter(user=user)
+        # Pass data through to browser
         context = {
             'todays_sessions': todays_sessions,
             'weeks_sessions': weeks_sessions,
@@ -268,6 +341,9 @@ def load_timetable(request):
 
 
 def load_members_area(request):
+    """
+    Loads Members Area page
+    """
     if not request.user.is_authenticated:
         return redirect('/')
     else:
@@ -293,7 +369,8 @@ def load_members_area(request):
         no_tot_bookings = len(todays_bookings) + len(bookings)
         # Check if form has been submitted
         if request.method == "POST":
-            # Get id of session associated with booking the user wishes to cancel
+            # Get id of session associated with booking the user
+            # wishes to cancel
             cancel_id = request.POST.get('cancel')
             # Delete booking and return feedback message
             member_feedback = delete_booking(user, cancel_id)
@@ -305,7 +382,8 @@ def load_members_area(request):
             todays_bookings = Booking.objects.filter(
                 user=user,
                 session__date=current_date,
-                session__time__gte=now).order_by("session__date", "session__time")
+                session__time__gte=now).order_by(
+                    "session__date", "session__time")
             # Update count of total bookings
             no_tot_bookings = len(todays_bookings) + len(bookings)
         # Save variables as context to pass through to browswer
