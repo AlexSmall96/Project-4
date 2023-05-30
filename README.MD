@@ -98,7 +98,7 @@ Future developments of this project may include implementing the following featu
 - Not allowing users to cancel bookings if it is within a certain period of the session starting.
 - Developing the admin page to allow the Activity and Session models to be edited.
 ## Testing
-Testing is detailed fully in [TESTING.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/TESTING.md).
+Testing is detailed fully in [TESTING.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/TESTING.MD).
 
 ## Programming Languages, Frameworks, and Libraries used
 - HTML
