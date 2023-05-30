@@ -1,9 +1,9 @@
 # Rural Fitness
 Rural Fitness is a fictional, state-of-the-art gym and spa. Located in the countryside as the name suggests, it aims to provide high-quality facilities to those who live / holiday in more rural areas, while also providing a luxurious spa experience for those looking to relax.
 ## Live Site 
-[https://connect-four-python.herokuapp.com/](https://connect-four-python.herokuapp.com/)
+[https://classbooking.herokuapp.com/](https://classbooking.herokuapp.com/)
 
-![](documentation/images/live_site_1.png) |
+![](documentation/amiresp.png)
 
 ## Repository 
 [https://github.com/AlexSmall96/Rural-Fitness](https://github.com/AlexSmall96/Rural-Fitness)
