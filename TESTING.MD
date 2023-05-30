@@ -59,7 +59,7 @@ Manual testing was divided into sections based on the page location of the site.
 |2.8| Input Validation | If 'Next' button on 'Payment' tab is clicked with a form input empty, a help message appears below empty input, and button can't be clicked|Pass|
 |2.9| Component Interactivity | If form is filled in, clicking 'Next' takes user to the 'Login Details' tab, with a separate html page opening. |Pass|
 
-[Signup Details Page Tests Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/signup-details-page-screenshots.pdf).
+[Signup Details Page Tests Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/signup-details-page.pdf).
 
 ### Register Page
 
@@ -158,7 +158,7 @@ In this section, a 'member' refers to a normal user who has registered an accoun
 Several of the pages on this site have restricted content that is role-specific. To deal with this, defensiveness has been added. If the timetable, members area or admin URLs are copied into another browser, the user is redirected to the home page as they are no longer logged in. Further developments would include a specific feedback message directed to the user or being redirected to the login page.
 ## Responsiveness
 All pages have been tested for responsiveness at the full range of browser sizes. Responsiveness has been implemented to provide a pleasing user experience at each screen size. The pages that have breakpoints via Boostrap or change significantly with window resizing have been recorded and the screenshots have been linked.
-[Responsiveness Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/responsivess.pdf).
+[Responsiveness Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/responsiveness.pdf).
 ### Responsiveness Issues Found
 - At small but still, over 576px screen sizes, the Spa section text is larger than the picture, causing a gap between the picture and the footer.
 - At small screen sizes, the admin page buttons become quite hard to press accurately, and the text begins to run out of room. This is a small issue however as in practice an admin page would most likely be accessed on a monitor.
