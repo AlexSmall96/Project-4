@@ -48,7 +48,7 @@ To plan the structure of the database, the below schema was created. The Activit
 ![Database Schema](documentation/planning/db_schema.png)
 
 ## User Stories
-The project followed an agile methodology and implemented Issues on GitHub, which were aligned with the project's User stories. Details of the acceptance criteria of each user story can be found in [TESTING.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/TESTING.md).
+The project followed an agile methodology and implemented Issues on GitHub, which were aligned with the project's User stories. Details of the acceptance criteria of each user story can be found in [TESTING.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/TESTING.MD).
 ### Gym / Club Member
 - As a potential member, I can create an account so I can log in and view members-only pages.
 
