@@ -73,13 +73,20 @@
 <footer class="dark-background">
   <div class="footer-btn-section">
     {% if user.is_authenticated %}
+    {% if request.path == "/members_area.html" %}
+    <a href="/">
+      <button type="button" class="btn btn-secondary link-btn footer-btn">
+        Home
+        </button>
+    </a>
+    {% else %}
         <a href="/members_area.html">
           <button type="button" class="btn btn-secondary link-btn footer-btn">
             Members Area
             </button>
         </a>
-
-      {% else %}
+    {% endif %}
+    {% else %}
         <a href="/signup_details.html">
           <button type="button" class="btn btn-secondary link-btn footer-btn">
             Membership Options

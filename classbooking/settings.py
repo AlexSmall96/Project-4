@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'classbooking_app',
-    'accounts'
 ]
 
 MIDDLEWARE = [
