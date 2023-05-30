@@ -30,6 +30,8 @@ See test_models.py and test_views.py for automaed python tests.
 
 | Test | Category         | Expected Result                     | Actual Result                                              | Pass/Fail |
 |------|------------------|-------------------------------------|------------------------------------------------------------|-----------|
+|2.1   |Loading Data      |When page loads, same header from the home page appears at top with tabs to navigate form below | Home page nav bar appears as expected and tabs with form section titles appears below. |Pass|
+|2.2   |Loading Data      |Cards containing three membership options appear below tabs | All three cards appear as expected |Pass|
 
 ### Screenshots where applicable for Signup Details Page
 
