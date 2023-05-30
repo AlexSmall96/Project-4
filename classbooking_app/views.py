@@ -28,7 +28,9 @@ def load_signup_details_page(request):
 
 def register(request):
     """
-    Loads the page where members can register an account
+    Loads the page where members can register an account.
+    The code for this view was taken from the following tutorial:
+    https://overiq.com/django-1-10/django-creating-users-using-usercreationform/
     """
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
