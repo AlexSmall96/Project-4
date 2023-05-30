@@ -1,5 +1,5 @@
 # Testing
-Back to [README.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/README.md).
+Back to [README.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/README.MD).
 ## Table of Contents
 - [Testing](#testing)
   * [Table of Contents](#table-of-contents)
