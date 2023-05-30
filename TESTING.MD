@@ -137,8 +137,17 @@ In this section, a 'member' refers to a normal user who has registered an accoun
 ### Defensiveness 
 Several of the pages on this site have restricted content that is role specific. To deal with this, defensiveness has been added. If the timetable, members area or admin urls are copied into another browser, the user is redirected to the home page as they are no longer logged in. Further developments would include a specific feedback message directed to the user or being redirected to the login page.
 ## Responsiveness
-
-## Issues Found
- 
+All pages have been tested for responsiveness at the full range of browser sizes. Responsiveness has been implenmented to provide a pleasing user experience at each screen size. The pages that have breakpoints via boostrap or change sigificantly with window resizing have been recorded and the screenshots have been linked.
+[Responsiveness Screenshots](https://github.com/AlexSmall96/Rural-Fitness/blob/main/documentation/testing/responsivess.pdf).
+### Responsiveness Issues Found
+- At small but still over 576px screen sizes, the Spa section text is larger than the picture, causing a gap between the picture and the footer.
+- At small screen sizes, the admin pag buttons become quite hard to press accurately, and the text begins to run out of room. This is a small issue however as in practice an admin page would most likely be accessed on a monitor.
 ## Validation Testing
-
+### Python Validator
+ All.py files have been validated through the [Code Institute Python Validator](https://pep8ci.herokuapp.com/) and returned clear with no errors found, with the exception of settings.py which has line too long errors. I chose to ignore these errors as they were pre coded in the django installation.
+### JS Validation 
+The .js files pass through [JSHint](https://jshint.com/) without any errors.
+### HTML Validation
+HTML Validation not applicable due to the use of Jinja templating language.
+### CSS Validation
+The style.css file passes through the official [CSS validator](https://jigsaw.w3.org/css-validator/) without any errors.
