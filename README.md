@@ -45,17 +45,16 @@ Testing is detailed fully in [TESTING.MD](https://github.com/AlexSmall96/Rural-F
 
 # Deployment
 ### Deploying the Site to Heroku
-
-1. Create an account on [Heroku](https://id.heroku.com/login) and log in.
-2. Navigate to the Dashboard.
-3. Click 'New', and 'Create new app'.
-4. Select the appropriate name, app names must be unique so 'python-connect-four' will be unavailable.
-5. Select Location.
-6. Click 'Create app'.
-7. Navigate to the 'Settings' tab, and click "Reveal Config Vars".
-8. Add a Config Var with KEY: 'PORT' and value: '8000', and select 'Add'.
-9. Navigate to the 'Buildpacks' section and click 'Add buildpack'. 
-10. Add in order'python' then 'nodejs' to the buildpacks section. Order can be changed by clicking and dragging.
+1. Create an account on [Elephant SQL](https://www.elephantsql.com/) and log in.
+2. Create a new database instance on Elephant SQL and copy the database url
+3. Create an account on [Heroku](https://id.heroku.com/login) and log in.
+4. Create a new app on Heroku
+5. Navigate to the 'Settings' tab, and click "Reveal Config Vars".
+6. Add a config var with key DATABASE_URL and value of the databse url you copied from elephantsql
+7. Create an account on [Cloudinary](https://cloudinary.com/users/login) and uploaded all files in the static folder of this repository
+8. Copy Cloudinary url.
+9. Add another config var with key CLOUDINARY_URL and value of the cloudinary url you copied.
+10. Add a final config var with key SECRET_KEY and set it to a chosen value
 11. Navigate to the 'Deployment' tab. For 'Deployment method', select Github.
 12. Under 'Search for a repository to connect to', enter the appropriate GitHub username and repository name
 13. To deploy the repository, either select 'Enable Automatic Deploys', which deploys the site after each push to GitHub or Manually click 'Deploy Branch'
