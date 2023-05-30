@@ -162,6 +162,55 @@ All pages have been tested for responsiveness at the full range of browser sizes
 ### Responsiveness Issues Found
 - At small but still over 576px screen sizes, the Spa section text is larger than the picture, causing a gap between the picture and the footer.
 - At small screen sizes, the admin pag buttons become quite hard to press accurately, and the text begins to run out of room. This is a small issue however as in practice an admin page would most likely be accessed on a monitor.
+
+### User Stories Testing 
+The project followed an agile methodology and implemented Issues on github, which were aligned to the projects User stories. All user stories have been implemented and passed the accceptance criteria.
+### Gym / Club Member
+- As a potential member, I can create an account so I can log in and view members-only pages.
+- Acceptance Criteria:
+1. I can create an account with my chosen username and password.
+2. I can then login and access the timetable and members area.
+
+- As a member I can log in with my username and password after I have registered, and access members-only pages.
+- Acceptance Criteria:
+1. If I have registered an account, I can re-login with the same details.
+2. When I log in, the timetable and members area becomes accessible.
+
+- As a member, I can book any available class from the timetable.
+- Acceptance Criteria:
+1. Timetable page loads with a booking button for each class, and a confirm button at the top to confirm bookings.
+2. User is provided confirmation message that class has been booked.
+
+- As a member, I can view which classes I am booked into.
+- Acceptance Criteria:
+1. The member's area shows a list of all the user's bookings.
+2. The timetable indicates which classes the user has booked by giving the option to cancel.
+
+- As a member, I can cancel a booking If I can't/no longer wish to attend the class.
+- Acceptance Criteria:
+1. The timetable and members area shows which classes have been booked, and have the option to cancel any booking.
+2. The user receives feedback confirming a booking has been canceled.
+
+- As a member, I can view which classes I am booked into.
+- Acceptance Criteria:
+1. The member's area shows a list of all the user's bookings.
+2. The timetable indicates which classes the user has booked by giving the option to cancel.
+
+### Gym / Club Admin
+- As an Admin, I can create a new class and save it to the timetable.
+- Acceptance Criteria :
+1. When logged in as a superuser, the user can access an admin-only page and add new classes to the timetable.
+2. The user receives a confirmation message that the new class has been saved to the timetable.
+
+- As an admin, I can edit any field in any class in the timetable.
+- Acceptance Criteria
+1. User can access any class from the timetable, and change any of the fields in the class.
+2. User receives a confirmation message that class information has been updated.
+
+- As an admin, I can select any class from the timetable and delete it.
+- Acceptance Criteria :
+1. User can select any class and delete it.
+2. User receives a confirmation message that the class has been deleted.
 ## Validation Testing
 ### Python Validator
  All.py files have been validated through the [Code Institute Python Validator](https://pep8ci.herokuapp.com/) and returned clear with no errors found, with the exception of settings.py which has line too long errors. I chose to ignore these errors as they were pre coded in the django installation.

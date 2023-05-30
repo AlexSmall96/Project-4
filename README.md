@@ -20,13 +20,26 @@ Alex Small
 ## Project Goals and Planning
 
 ## User Stories
+The project followed an agile methodology and implemented Issues on github, which were aligned to the projects User stories. Details of acceptance criteria of each user story can be found in [TESTING.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/TESTING.md).
 ### Gym / Club Member
+- As a potential member, I can create an account so I can log in and view members-only pages.
+
+- As a member I can log in with my username and password after I have registered, and access members-only pages.
+
+- As a member, I can book any available class from the timetable.
+
+- As a member, I can view which classes I am booked into.
+
+- As a member, I can cancel a booking If I can't/no longer wish to attend the class.
+
+- As a member, I can view which classes I am booked into.
 
 ### Gym / Club Admin
+- As an Admin, I can create a new class and save it to the timetable.
 
+- As an admin, I can edit any field in any class in the timetable.
 
-### Website Owner
-
+- As an admin, I can select any class from the timetable and delete it.
 
 ## Features
 
@@ -37,10 +50,10 @@ Alex Small
 ## Testing
 Testing is detailed fully in [TESTING.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/TESTING.md).
 
-## Frameworks & Programs Used
+## Programs, Frameworks and Libraries Used
 
 
-## Python Libraries Used
+
 
 
 # Deployment
