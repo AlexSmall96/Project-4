@@ -41,7 +41,7 @@ Alex Small
 The site is mainly targeted toward fitness enthusiasts living in rural areas, but the broader target audience is all adults.  The site aims to be welcoming and informal yet professional, with class descriptions being fun and engaging to draw in new members.
  
 ## Project Goals and Planning
-The goal of the project was to create a user-friendly exercise class booking system, to display database management skills and proficiency in the Django framework. The site aims to make the booking process as intuitive and smooth as possible, with clear feedback given to the user at each stage.
+The goal of the project was a website for a fictional state of the art gym, complete with a user-friendly exercise class booking system. This aimed to display database management skills and proficiency in the Django framework, along with CSS and JS competency. The site aims to make the booking process as intuitive and smooth as possible, with clear feedback given to the user at each stage.
 ### Database Schema
 To plan the structure of the database, the below schema was created. The Activity model is the base model, with the Session model inheriting values from it via a foreign key. The Booking model uses the Session model as a foreign key.
 
@@ -64,6 +64,21 @@ To plan the site layout, the below wireframes were created for the Home, Timetab
 - Admin Page
 
 ![Members Area](documentation/planning/Admin.jpg)
+
+## Colours
+The main colours used throughout the site are given below. These colours were chosen to create a subtle, clean, professional look, which reflects the gym's ethos.
+![Colours](documentation/planning/RFColours.png)
+
+## Typography 
+The font used throughout the site was [Mallana](https://fonts.google.com/specimen/Mallanna) from google fonts.  This was chosen due to its professional feel to again reflect the gym's style.
+ 
+![Font](documentation/planning/font.jpg)
+
+## Images
+The site images were taken from [Pexels](https://www.pexels.com/). These were chosen as they were appropriate to the activites the gym hosts. There is also a wide demographic range in the selected images, making the gym appeal to a wide audience.
+
+![Images](documentation/planning/images.jpg)
+
 ## User Stories
 The project followed an agile methodology and implemented Issues on GitHub, which were aligned with the project's User stories. Details of the acceptance criteria of each user story can be found in [TESTING.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/TESTING.MD).
 ### Gym / Club Member
