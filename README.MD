@@ -1,5 +1,7 @@
 # Rural Fitness
 Rural Fitness is a fictional, state-of-the-art gym and spa. Located in the countryside as the name suggests, it aims to provide high-quality facilities to those who live / holiday in more rural areas, while also providing a luxurious spa experience for those looking to relax.
+
+Note: The registration section requires a payment form to fill in, no functionality is setup to handle card details and no payments will be taken. This form is purely for visual effect. 
 ## Live Site 
 [https://classbooking.herokuapp.com/](https://classbooking.herokuapp.com/)
 
@@ -20,13 +22,18 @@ Alex Small
   * [Target Audience](#target-audience)
   * [Project Goals and Planning](#project-goals-and-planning)
     + [Database Schema](#database-schema)
+  * [Wireframes](#wireframes)
+  * [Colours](#colours)
+  * [Typography](#typography)
+  * [Images](#images)
   * [User Stories](#user-stories)
     + [Gym / Club Member](#gym---club-member)
     + [Gym / Club Admin](#gym---club-admin)
   * [Features](#features)
   * [Future Features](#future-features)
   * [Testing](#testing)
-  * [Programming Languages, Frameworks and Libraries used](#programming-languages--frameworks-and-libraries-used)
+  * [Programming Languages, Frameworks, and Libraries used](#programming-languages--frameworks--and-libraries-used)
+  * [Other programs used](#other-programs-used)
 - [Deployment](#deployment)
     + [Deploying the Site to Heroku](#deploying-the-site-to-heroku)
     + [Forking the Repository on GitHub](#forking-the-repository-on-github)
@@ -48,7 +55,8 @@ To plan the structure of the database, the below schema was created. The Activit
 ![Database Schema](documentation/planning/db_schema.png)
 
 ## Wireframes
-To plan the site layout, the below wireframes were created for the Home, Timetable, Members Area and Admin pages. For each page, the desktop and mobile view was sketched out.
+To plan the site layout, the below wireframes were created for the Home, Timetable, Members Area and Admin pages. For each page the desktop view was sketched out in a wireframe, for pages where the mobile view differed significantly in layout, a mobile wireframe was also created. 
+
 - Home
 
 ![Home](documentation/planning/Home.jpg)
