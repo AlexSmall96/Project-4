@@ -1,7 +1,7 @@
 # Rural Fitness
 Rural Fitness is a fictional, state-of-the-art gym and spa. Located in the countryside as the name suggests, it aims to provide high-quality facilities to those who live / holiday in more rural areas, while also providing a luxurious spa experience for those looking to relax.
 
-Note: The registration section requires a payment form to fill in, no functionality is setup to handle card details and no payments will be taken. This form is purely for visual effect. 
+Note: The registration section requires a payment form to fill in, no functionality is set up to handle card details and no payments will be taken. This form is purely for visual effects. 
 ## Live Site 
 [https://classbooking.herokuapp.com/](https://classbooking.herokuapp.com/)
 
@@ -48,14 +48,14 @@ Alex Small
 The site is mainly targeted toward fitness enthusiasts living in rural areas, but the broader target audience is all adults.  The site aims to be welcoming and informal yet professional, with class descriptions being fun and engaging to draw in new members.
  
 ## Project Goals and Planning
-The goal of the project was a website for a fictional state of the art gym, complete with a user-friendly exercise class booking system. This aimed to display database management skills and proficiency in the Django framework, along with CSS and JS competency. The site aims to make the booking process as intuitive and smooth as possible, with clear feedback given to the user at each stage.
+The goal of the project was a website for a fictional state-of-the-art gym, complete with a user-friendly exercise class booking system. This aimed to display database management skills and proficiency in the Django framework, along with CSS and JS competency. The site aims to make the booking process as intuitive and smooth as possible, with clear feedback given to the user at each stage.
 ### Database Schema
 To plan the structure of the database, the below schema was created. The Activity model is the base model, with the Session model inheriting values from it via a foreign key. The Booking model uses the Session model as a foreign key.
 
 ![Database Schema](documentation/planning/db_schema.png)
 
 ## Wireframes
-To plan the site layout, the below wireframes were created for the Home, Timetable, Members Area and Admin pages. For each page the desktop view was sketched out in a wireframe, for pages where the mobile view differed significantly in layout, a mobile wireframe was also created. 
+To plan the site layout, the below wireframes were created for the Home, Timetable, Members Area, and Admin pages. For each page, the desktop view was sketched out in a wireframe, for pages where the mobile view differed significantly in layout, a mobile wireframe was also created. 
 
 - Home
 
@@ -82,7 +82,7 @@ To plan the site layout, the below wireframes were created for the Home, Timetab
 ![Registration](documentation/planning/Login.jpg)
 
 ## Colours
-The main colours used throughout the site are given below. These colours were chosen to create a subtle, clean, professional look, which reflects the gym's ethos.
+The main colors used throughout the site are given below. These colors were chosen to create a subtle, clean, professional look, which reflects the gym's ethos.
 ![Colours](documentation/planning/RFColours.png)
 
 ## Typography 
@@ -91,7 +91,7 @@ The font used throughout the site was [Mallana](https://fonts.google.com/specime
 ![Font](documentation/planning/font.jpg)
 
 ## Images
-The site images were taken from [Pexels](https://www.pexels.com/). These were chosen as they were appropriate to the activites the gym hosts. There is also a wide demographic range in the selected images, making the gym appeal to a wide audience.
+The site images were taken from [Pexels](https://www.pexels.com/). These were chosen as they were appropriate to the activities the gym hosts. There is also a wide demographic range in the selected images, making the gym appeal to a wide audience.
 
 ![Images](documentation/planning/images.jpg)
 
@@ -157,7 +157,7 @@ Testing is detailed fully in [TESTING.MD](https://github.com/AlexSmall96/Rural-F
     - The DateTime Python library was used to record the current date to load the correct data into the timetable, members area, and admin pages.
 ## Other programs used 
 - [CSV to JSON](https://www.convertcsv.com/csv-to-json.htm) was used to convert the timetable data from Excel into JSON format for loading into the database.
-- [coolors.co](https://coolors.co/) was used to create the colour pallete image.
+- [coolors. co](https://coolors.co/) was used to create the color palette image.
 - [balsamiq](https://balsamiq.com/wireframes) was used to create the wireframe images.
 # Deployment
 ### Deploying the Site to Heroku
@@ -168,8 +168,8 @@ Testing is detailed fully in [TESTING.MD](https://github.com/AlexSmall96/Rural-F
 5. Navigate to the 'Settings' tab, and click "Reveal Config Vars".
 6. Add a config var with key DATABASE_URL and value equal to the database URL you copied from elephantSQL
 7. Create an account on [Cloudinary](https://cloudinary.com/users/login) and upload all files in the static folder of this repository
-8. Copy Cloudinary URL.
-9. Add another config var with key CLOUDINARY_URL and value of the Cloudinary URL you copied.
+8. Copy the Cloudinary URL.
+9. Add another config var with the key CLOUDINARY_URL and the value of the Cloudinary URL you copied.
 10. Add a final config var with key SECRET_KEY and set it to a chosen value.
 11. Navigate to the 'Deployment' tab. For 'Deployment method', select Github.
 12. Under 'Search for a repository to connect to, enter the appropriate GitHub username and repository name
@@ -209,4 +209,4 @@ https://www.w3schools.com/howto/howto_css_image_text_blocks.asp
 ## Acknowledgements 
 This application was created as a portfolio 4 project for the Diploma in Full Stack Software Development from [Code Institute](https://codeinstitute.net/full-stack-software-development-diploma/?utm_term=code%20institute&utm_campaign=CI+-+UK+-+Search+-+Brand&utm_source=adwords&utm_medium=ppc&hsa_acc=8983321581&hsa_cam=1578649861&hsa_grp=62188641240&hsa_ad=635720257674&hsa_src=g&hsa_tgt=kwd-319867646331&hsa_kw=code%20institute&hsa_mt=e&hsa_net=adwords&hsa_ver=3&gclid=CjwKCAiA5Y6eBhAbEiwA_2ZWIUE0LRewvfAYnQS69Lujb5s2FrQjmX0Idzqj-Olbamn1DbS2D-R7gBoC-1AQAvD_BwE
 )
-I would like to thank my mentor Harry Dhillon for his encouraging support and detailed feedback throughout this project.
+I would like to thank my mentor Harry Dhillon for his encouraging support and detailed feedback throughout this pro
