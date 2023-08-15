@@ -157,6 +157,8 @@ Testing is detailed fully in [TESTING.MD](https://github.com/AlexSmall96/Rural-F
     - The DateTime Python library was used to record the current date to load the correct data into the timetable, members area, and admin pages.
 ## Other programs used 
 - [CSV to JSON](https://www.convertcsv.com/csv-to-json.htm) was used to convert the timetable data from Excel into JSON format for loading into the database.
+- [coolors.co](https://coolors.co/) was used to create the colour pallete image.
+- [balsamiq](https://balsamiq.com/wireframes) was used to create the wireframe images.
 # Deployment
 ### Deploying the Site to Heroku
 1. Create an account on [Elephant SQL](https://www.elephantsql.com/) and log in.
