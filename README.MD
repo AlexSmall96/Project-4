@@ -65,6 +65,14 @@ To plan the site layout, the below wireframes were created for the Home, Timetab
 
 ![Members Area](documentation/planning/Admin.jpg)
 
+- Membership Options / Registration Page
+
+![Registration](documentation/planning/Registration.jpg)
+
+- Login
+
+![Registration](documentation/planning/Login.jpg)
+
 ## Colours
 The main colours used throughout the site are given below. These colours were chosen to create a subtle, clean, professional look, which reflects the gym's ethos.
 ![Colours](documentation/planning/RFColours.png)
