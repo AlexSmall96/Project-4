@@ -47,6 +47,23 @@ To plan the structure of the database, the below schema was created. The Activit
 
 ![Database Schema](documentation/planning/db_schema.png)
 
+## Wireframes
+To plan the site layout, the below wireframes were created for the Home, Timetable, Members Area and Admin pages. For each page, the desktop and mobile view was sketched out.
+- Home
+
+![Home](documentation/planning/Home.jpg)
+
+- Timetable
+
+![Timetable](documentation/planning/Timetable.jpg)
+
+- Members Area
+
+![Members Area](documentation/planning/MembersArea.jpg)
+
+- Admin Page
+
+![Members Area](documentation/planning/Admin.jpg)
 ## User Stories
 The project followed an agile methodology and implemented Issues on GitHub, which were aligned with the project's User stories. Details of the acceptance criteria of each user story can be found in [TESTING.MD](https://github.com/AlexSmall96/Rural-Fitness/blob/main/TESTING.MD).
 ### Gym / Club Member
