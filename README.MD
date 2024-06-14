@@ -3,7 +3,7 @@ Rural Fitness is a fictional, state-of-the-art gym and spa. Located in the count
 
 Note: The registration section requires a payment form to fill in, no functionality is set up to handle card details and no payments will be taken. This form is purely for visual effects. 
 ## Live Site 
-[https://classbooking.herokuapp.com/](https://classbooking.herokuapp.com/)
+[https://rural-fitness.onrender.com/](https://rural-fitness.onrender.com/)
 
 ![](documentation/amiresp.png)
 
